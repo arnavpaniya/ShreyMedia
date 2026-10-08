@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { CompleteSiteData, ServiceItem, IndustryItem, CaseStudyItem } from "@/types/content";
+import { CompleteSiteData, ServiceItem, IndustryItem, CaseStudyItem, TestimonialItem } from "@/types/content";
 import { initialSiteData } from "@/lib/data/initial-content";
 import { getSiteContent, updateSiteContent } from "@/lib/data/content-service";
 import { 
@@ -15,7 +15,6 @@ import {
   ArrowLeft, 
   Sparkles, 
   Database, 
-  Globe, 
   Building2, 
   Megaphone, 
   Terminal, 
@@ -25,8 +24,28 @@ import {
   Search,
   Plus,
   Trash2,
-  Lock
+  Lock,
+  UserCheck,
+  Film,
+  MessageSquare,
+  Flame,
+  Zap
 } from "lucide-react";
+
+type AdminTab = 
+  | "business" 
+  | "hero" 
+  | "about" 
+  | "production" 
+  | "marketing" 
+  | "tech" 
+  | "industries" 
+  | "testimonials" 
+  | "caseStudies" 
+  | "outro" 
+  | "offer" 
+  | "bots" 
+  | "seo";
 
 export default function AdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -34,9 +53,7 @@ export default function AdminPage() {
   const [pinError, setPinError] = useState("");
 
   const [siteData, setSiteData] = useState<CompleteSiteData>(initialSiteData);
-  const [activeTab, setActiveTab] = useState<
-    "business" | "hero" | "marketing" | "tech" | "industries" | "caseStudies" | "bots" | "seo"
-  >("business");
+  const [activeTab, setActiveTab] = useState<AdminTab>("business");
 
   const [saveStatus, setSaveStatus] = useState<"idle" | "saving" | "success" | "error">("idle");
   const [statusMessage, setStatusMessage] = useState("");
@@ -57,7 +74,6 @@ export default function AdminPage() {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    // Default master PIN for Shrey Media Admin (matches founder contact prefix / secure key)
     if (pinInput === "9001" || pinInput === "admin2026") {
       setIsAuthenticated(true);
       sessionStorage.setItem("shrey_admin_auth", "true");
@@ -81,7 +97,7 @@ export default function AdminPage() {
       if (res.success) {
         setSaveStatus("success");
         setStatusMessage("All changes successfully published live to Supabase!");
-        setTimeout(() => setSaveStatus("idle"), 3000);
+        setTimeout(() => setSaveStatus("idle"), 3500);
       } else {
         setSaveStatus("error");
         setStatusMessage(res.error || "Failed to save data to Supabase.");
@@ -113,7 +129,7 @@ export default function AdminPage() {
             SHREY ADMIN STUDIO
           </h1>
           <p className="text-xs font-mono-tech text-gray-400 mb-6">
-            Private Content &amp; Database Control Panel
+            Private Dynamic Content &amp; Database Control Panel
           </p>
 
           <form onSubmit={handleLogin} className="space-y-4">
@@ -180,7 +196,7 @@ export default function AdminPage() {
             <div>
               <h2 className="font-syne font-bold text-sm leading-tight text-white">Shrey Admin Studio</h2>
               <span className="text-[10px] font-mono-tech text-[#00F0FF] flex items-center gap-1">
-                <Database className="w-2.5 h-2.5" /> Supabase Connected
+                <Database className="w-2.5 h-2.5" /> Supabase Synchronized
               </span>
             </div>
           </div>
@@ -219,7 +235,10 @@ export default function AdminPage() {
         <div className={`px-6 py-2.5 text-xs font-mono-tech flex items-center justify-between ${
           saveStatus === "success" ? "bg-emerald-500/20 text-emerald-300 border-b border-emerald-500/30" : "bg-red-500/20 text-red-300 border-b border-red-500/30"
         }`}>
-          <span>{statusMessage}</span>
+          <div className="flex items-center gap-2">
+            {saveStatus === "success" ? <CheckCircle2 className="w-4 h-4 text-emerald-400" /> : <AlertCircle className="w-4 h-4 text-red-400" />}
+            <span>{statusMessage}</span>
+          </div>
           <button onClick={() => setStatusMessage("")} className="hover:opacity-75">✕</button>
         </div>
       )}
@@ -229,17 +248,22 @@ export default function AdminPage() {
         {/* Left Side Navigation Tabs */}
         <div className="lg:col-span-3 space-y-1.5">
           <span className="text-[10px] font-mono-tech text-gray-500 uppercase px-3 block mb-2 font-bold">
-            CONTENT MODULES
+            DYNAMIC MODULES
           </span>
 
           {[
             { id: "business", label: "🏢 Business Info & HQ", icon: Building2 },
-            { id: "hero", label: "⚡ Hero & Copywriting", icon: Sparkles },
+            { id: "hero", label: "⚡ Hero & Headlines", icon: Sparkles },
+            { id: "about", label: "👤 About & Founder", icon: UserCheck },
+            { id: "production", label: "🎬 In-House Production", icon: Film },
             { id: "marketing", label: "📈 Marketing Services (8)", icon: Megaphone },
             { id: "tech", label: "💻 Shrey Tech Stack (6)", icon: Terminal },
-            { id: "industries", label: "🎯 Industry Playbooks (10)", icon: Gem },
+            { id: "industries", label: "🎯 Industries & Niches", icon: Gem },
+            { id: "testimonials", label: "⭐ Client Testimonials", icon: MessageSquare },
             { id: "caseStudies", label: "📑 Client Journal & Logs", icon: FileText },
-            { id: "bots", label: "🤖 3D Bot & Prompts", icon: Bot },
+            { id: "outro", label: "⚡ Circuit Laser Outro", icon: Zap },
+            { id: "offer", label: "🔥 Instagram Pop-up Offer", icon: Flame },
+            { id: "bots", label: "🤖 Interactive 3D Bot", icon: Bot },
             { id: "seo", label: "🔍 Jaipur SEO & Meta", icon: Search },
           ].map((tab) => {
             const Icon = tab.icon;
@@ -248,8 +272,8 @@ export default function AdminPage() {
             return (
               <button
                 key={tab.id}
-                onClick={() => setActiveTab(tab.id as typeof activeTab)}
-                className={`w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-xs font-mono-tech font-bold transition-all text-left ${
+                onClick={() => setActiveTab(tab.id as AdminTab)}
+                className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-2xl text-xs font-mono-tech font-bold transition-all text-left ${
                   isActive
                     ? "bg-[#FF5E00] text-white shadow-lg"
                     : "bg-white/[0.03] text-gray-400 hover:text-white hover:bg-white/[0.08]"
@@ -359,12 +383,12 @@ export default function AdminPage() {
             </div>
           )}
 
-          {/* TAB 2: Hero & Copywriting */}
+          {/* TAB 2: Hero & Headlines */}
           {activeTab === "hero" && (
             <div className="space-y-6">
               <div>
                 <h3 className="font-syne font-bold text-xl text-white">Hero Section &amp; Headlines</h3>
-                <p className="text-xs text-gray-400 font-mono-tech">Control the main conversion message and dynamic rotating words.</p>
+                <p className="text-xs text-gray-400 font-mono-tech">Control the main conversion message, rotating keywords, and CTAs.</p>
               </div>
 
               <div className="text-xs space-y-4">
@@ -418,6 +442,22 @@ export default function AdminPage() {
                   />
                 </div>
 
+                <div>
+                  <label className="font-mono-tech text-gray-400 block mb-1.5 uppercase">Typewriter Rotating Keywords (Comma separated)</label>
+                  <input
+                    type="text"
+                    value={(siteData.hero.typewriterKeywords || []).join(", ")}
+                    onChange={(e) => setSiteData({
+                      ...siteData,
+                      hero: {
+                        ...siteData.hero,
+                        typewriterKeywords: e.target.value.split(",").map(s => s.trim()).filter(Boolean)
+                      }
+                    })}
+                    className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white font-mono-tech"
+                  />
+                </div>
+
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label className="font-mono-tech text-gray-400 block mb-1.5 uppercase">Primary CTA Text</label>
@@ -442,7 +482,243 @@ export default function AdminPage() {
             </div>
           )}
 
-          {/* TAB 3: Marketing Services */}
+          {/* TAB 3: About & Founder */}
+          {activeTab === "about" && (
+            <div className="space-y-6">
+              <div>
+                <h3 className="font-syne font-bold text-xl text-white">About The Agency &amp; Founder</h3>
+                <p className="text-xs text-gray-400 font-mono-tech">Edit founder narrative, experience stats, and industry tags.</p>
+              </div>
+
+              <div className="text-xs space-y-4">
+                <div>
+                  <label className="font-mono-tech text-gray-400 block mb-1.5 uppercase">Eyebrow Tagline</label>
+                  <input
+                    type="text"
+                    value={siteData.about.eyebrow}
+                    onChange={(e) => setSiteData({ ...siteData, about: { ...siteData.about, eyebrow: e.target.value } })}
+                    className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white"
+                  />
+                </div>
+
+                <div>
+                  <label className="font-mono-tech text-gray-400 block mb-1.5 uppercase">Headline</label>
+                  <input
+                    type="text"
+                    value={siteData.about.headline}
+                    onChange={(e) => setSiteData({ ...siteData, about: { ...siteData.about, headline: e.target.value } })}
+                    className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white"
+                  />
+                </div>
+
+                <div>
+                  <label className="font-mono-tech text-gray-400 block mb-1.5 uppercase">Bio Paragraph 1</label>
+                  <textarea
+                    rows={3}
+                    value={siteData.about.bioParagraph1}
+                    onChange={(e) => setSiteData({ ...siteData, about: { ...siteData.about, bioParagraph1: e.target.value } })}
+                    className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white text-xs"
+                  />
+                </div>
+
+                <div>
+                  <label className="font-mono-tech text-gray-400 block mb-1.5 uppercase">Bio Paragraph 2</label>
+                  <textarea
+                    rows={3}
+                    value={siteData.about.bioParagraph2}
+                    onChange={(e) => setSiteData({ ...siteData, about: { ...siteData.about, bioParagraph2: e.target.value } })}
+                    className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white text-xs"
+                  />
+                </div>
+
+                <div className="grid grid-cols-3 gap-3">
+                  <div>
+                    <label className="font-mono-tech text-gray-400 block mb-1.5 uppercase">Experience Stat</label>
+                    <input
+                      type="text"
+                      value={siteData.about.experienceYears}
+                      onChange={(e) => setSiteData({ ...siteData, about: { ...siteData.about, experienceYears: e.target.value } })}
+                      className="w-full bg-black/40 border border-white/10 rounded-xl p-2.5 text-white"
+                    />
+                  </div>
+                  <div>
+                    <label className="font-mono-tech text-gray-400 block mb-1.5 uppercase">Businesses Scaled</label>
+                    <input
+                      type="text"
+                      value={siteData.about.businessesScaled}
+                      onChange={(e) => setSiteData({ ...siteData, about: { ...siteData.about, businessesScaled: e.target.value } })}
+                      className="w-full bg-black/40 border border-white/10 rounded-xl p-2.5 text-white"
+                    />
+                  </div>
+                  <div>
+                    <label className="font-mono-tech text-gray-400 block mb-1.5 uppercase">Location Badge</label>
+                    <input
+                      type="text"
+                      value={siteData.about.locationBadge}
+                      onChange={(e) => setSiteData({ ...siteData, about: { ...siteData.about, locationBadge: e.target.value } })}
+                      className="w-full bg-black/40 border border-white/10 rounded-xl p-2.5 text-white"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="font-mono-tech text-gray-400 block mb-1.5 uppercase">Industries List (Comma-separated pills)</label>
+                  <textarea
+                    rows={3}
+                    value={siteData.about.industriesList.join(", ")}
+                    onChange={(e) => setSiteData({
+                      ...siteData,
+                      about: {
+                        ...siteData.about,
+                        industriesList: e.target.value.split(",").map(s => s.trim()).filter(Boolean)
+                      }
+                    })}
+                    className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white text-xs font-mono-tech"
+                  />
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* TAB 4: In-House Creative Production */}
+          {activeTab === "production" && (
+            <div className="space-y-6">
+              <div>
+                <h3 className="font-syne font-bold text-xl text-white">In-House Creative Studio &amp; Reels</h3>
+                <p className="text-xs text-gray-400 font-mono-tech">Edit studio copywriting and manage carousel reels.</p>
+              </div>
+
+              <div className="text-xs space-y-4">
+                <div className="grid grid-cols-3 gap-3">
+                  <div>
+                    <label className="font-mono-tech text-gray-400 block mb-1.5 uppercase">Eyebrow</label>
+                    <input
+                      type="text"
+                      value={siteData.production.eyebrow}
+                      onChange={(e) => setSiteData({ ...siteData, production: { ...siteData.production, eyebrow: e.target.value } })}
+                      className="w-full bg-black/40 border border-white/10 rounded-xl p-2.5 text-white"
+                    />
+                  </div>
+                  <div>
+                    <label className="font-mono-tech text-gray-400 block mb-1.5 uppercase">Headline Main</label>
+                    <input
+                      type="text"
+                      value={siteData.production.headlineMain}
+                      onChange={(e) => setSiteData({ ...siteData, production: { ...siteData.production, headlineMain: e.target.value } })}
+                      className="w-full bg-black/40 border border-white/10 rounded-xl p-2.5 text-white"
+                    />
+                  </div>
+                  <div>
+                    <label className="font-mono-tech text-[#FF5E00] block mb-1.5 uppercase font-bold">Accent</label>
+                    <input
+                      type="text"
+                      value={siteData.production.headlineAccent}
+                      onChange={(e) => setSiteData({ ...siteData, production: { ...siteData.production, headlineAccent: e.target.value } })}
+                      className="w-full bg-black/40 border border-[#FF5E00]/40 rounded-xl p-2.5 text-white"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="font-mono-tech text-gray-400 block mb-1.5 uppercase">Handwritten Note</label>
+                  <input
+                    type="text"
+                    value={siteData.production.handwrittenNote}
+                    onChange={(e) => setSiteData({ ...siteData, production: { ...siteData.production, handwrittenNote: e.target.value } })}
+                    className="w-full bg-black/40 border border-white/10 rounded-xl p-2.5 text-white font-hand text-base"
+                  />
+                </div>
+
+                <div className="pt-4 border-t border-white/10 space-y-3">
+                  <div className="flex items-center justify-between">
+                    <h4 className="font-mono-tech text-xs text-white font-bold uppercase">Creative Reels ({siteData.production.creativeReels.length})</h4>
+                    <button
+                      onClick={() => {
+                        const newId = Date.now();
+                        setSiteData({
+                          ...siteData,
+                          production: {
+                            ...siteData.production,
+                            creativeReels: [
+                              ...siteData.production.creativeReels,
+                              {
+                                id: newId,
+                                title: "New Campaign Reel Showcase",
+                                niche: "Fashion & Retail",
+                                duration: "0:20",
+                                image: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&auto=format&fit=crop&q=80",
+                                stats: "100K Views • 5x ROAS"
+                              }
+                            ]
+                          }
+                        });
+                      }}
+                      className="clay-btn px-3 py-1.5 rounded-lg bg-[#FF5E00] text-white text-xs flex items-center gap-1"
+                    >
+                      <Plus className="w-3.5 h-3.5" /> Add Reel
+                    </button>
+                  </div>
+
+                  <div className="space-y-3">
+                    {siteData.production.creativeReels.map((reel, idx) => (
+                      <div key={reel.id} className="p-4 rounded-2xl bg-black/40 border border-white/10 space-y-2">
+                        <div className="flex items-center justify-between">
+                          <span className="font-mono-tech text-[10px] text-[#FFAE33] font-bold">Reel #{idx + 1}</span>
+                          <button
+                            onClick={() => {
+                              const updated = siteData.production.creativeReels.filter((_, i) => i !== idx);
+                              setSiteData({ ...siteData, production: { ...siteData.production, creativeReels: updated } });
+                            }}
+                            className="text-red-400 hover:text-red-300 p-1"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
+
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                          <input
+                            type="text"
+                            value={reel.title}
+                            placeholder="Reel Title"
+                            onChange={(e) => {
+                              const updated = [...siteData.production.creativeReels];
+                              updated[idx].title = e.target.value;
+                              setSiteData({ ...siteData, production: { ...siteData.production, creativeReels: updated } });
+                            }}
+                            className="bg-black/60 border border-white/10 rounded p-2 text-xs text-white col-span-2"
+                          />
+                          <input
+                            type="text"
+                            value={reel.niche}
+                            placeholder="Niche Tag"
+                            onChange={(e) => {
+                              const updated = [...siteData.production.creativeReels];
+                              updated[idx].niche = e.target.value;
+                              setSiteData({ ...siteData, production: { ...siteData.production, creativeReels: updated } });
+                            }}
+                            className="bg-black/60 border border-white/10 rounded p-2 text-xs text-white"
+                          />
+                          <input
+                            type="text"
+                            value={reel.stats}
+                            placeholder="Stats (e.g. 500K Views)"
+                            onChange={(e) => {
+                              const updated = [...siteData.production.creativeReels];
+                              updated[idx].stats = e.target.value;
+                              setSiteData({ ...siteData, production: { ...siteData.production, creativeReels: updated } });
+                            }}
+                            className="bg-black/60 border border-white/10 rounded p-2 text-xs text-white"
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* TAB 5: Marketing Services */}
           {activeTab === "marketing" && (
             <div className="space-y-6">
               <div>
@@ -454,7 +730,7 @@ export default function AdminPage() {
                 {siteData.marketingServices.map((svc, idx) => (
                   <div key={svc.id} className="p-4 rounded-2xl bg-black/40 border border-white/10 space-y-3">
                     <div className="flex items-center justify-between">
-                      <span className="font-mono-tech text-[10px] text-[#FF5E00] font-bold">Service #{idx + 1}</span>
+                      <span className="font-mono-tech text-[10px] text-[#FF5E00] font-bold">Marketing Service #{idx + 1}</span>
                       <input
                         type="text"
                         value={svc.badge || ""}
@@ -493,7 +769,7 @@ export default function AdminPage() {
             </div>
           )}
 
-          {/* TAB 4: Shrey Tech Services */}
+          {/* TAB 6: Shrey Tech Services */}
           {activeTab === "tech" && (
             <div className="space-y-6">
               <div>
@@ -544,7 +820,7 @@ export default function AdminPage() {
             </div>
           )}
 
-          {/* TAB 5: Industries */}
+          {/* TAB 7: Industries */}
           {activeTab === "industries" && (
             <div className="space-y-6">
               <div>
@@ -592,7 +868,110 @@ export default function AdminPage() {
             </div>
           )}
 
-          {/* TAB 6: Case Studies */}
+          {/* TAB 8: Testimonials */}
+          {activeTab === "testimonials" && (
+            <div className="space-y-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="font-syne font-bold text-xl text-white">Client Reviews &amp; Testimonials</h3>
+                  <p className="text-xs text-gray-400 font-mono-tech">Manage verified reviews from Jaipur founders.</p>
+                </div>
+                <button
+                  onClick={() => {
+                    const newId = `test-${Date.now()}`;
+                    setSiteData({
+                      ...siteData,
+                      testimonials: [
+                        ...siteData.testimonials,
+                        {
+                          id: newId,
+                          name: "New Client",
+                          role: "Founder",
+                          business: "Jaipur Brand",
+                          location: "Jaipur, Rajasthan",
+                          quote: "Shrey Media transformed our digital marketing and lead generation results.",
+                          rating: 5,
+                          verified: true
+                        }
+                      ]
+                    });
+                  }}
+                  className="clay-btn px-3 py-1.5 rounded-lg bg-[#FF5E00] text-white text-xs flex items-center gap-1"
+                >
+                  <Plus className="w-3.5 h-3.5" /> Add Review
+                </button>
+              </div>
+
+              <div className="space-y-4">
+                {siteData.testimonials.map((t, idx) => (
+                  <div key={t.id} className="p-4 rounded-2xl bg-black/40 border border-white/10 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="font-mono-tech text-[10px] text-[#D4FF00] font-bold">Review #{idx + 1}</span>
+                      <button
+                        onClick={() => {
+                          const updated = siteData.testimonials.filter((_, i) => i !== idx);
+                          setSiteData({ ...siteData, testimonials: updated });
+                        }}
+                        className="text-red-400 hover:text-red-300 p-1"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                      <input
+                        type="text"
+                        value={t.name}
+                        placeholder="Client Name"
+                        onChange={(e) => {
+                          const updated = [...siteData.testimonials];
+                          updated[idx].name = e.target.value;
+                          setSiteData({ ...siteData, testimonials: updated });
+                        }}
+                        className="bg-black/60 border border-white/10 rounded p-2 text-xs text-white"
+                      />
+                      <input
+                        type="text"
+                        value={t.business}
+                        placeholder="Business Name"
+                        onChange={(e) => {
+                          const updated = [...siteData.testimonials];
+                          updated[idx].business = e.target.value;
+                          setSiteData({ ...siteData, testimonials: updated });
+                        }}
+                        className="bg-black/60 border border-white/10 rounded p-2 text-xs text-white"
+                      />
+                      <input
+                        type="text"
+                        value={t.role}
+                        placeholder="Role"
+                        onChange={(e) => {
+                          const updated = [...siteData.testimonials];
+                          updated[idx].role = e.target.value;
+                          setSiteData({ ...siteData, testimonials: updated });
+                        }}
+                        className="bg-black/60 border border-white/10 rounded p-2 text-xs text-white"
+                      />
+                    </div>
+
+                    <textarea
+                      rows={2}
+                      value={t.quote}
+                      placeholder="Quote review..."
+                      onChange={(e) => {
+                        const updated = [...siteData.testimonials];
+                        updated[idx].quote = e.target.value;
+                        setSiteData({ ...siteData, testimonials: updated });
+                      }}
+                      className="w-full bg-black/60 border border-white/10 rounded p-2 text-xs text-gray-300"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* TAB 9: Case Studies */}
           {activeTab === "caseStudies" && (
             <div className="space-y-6">
               <div>
@@ -651,11 +1030,157 @@ export default function AdminPage() {
             </div>
           )}
 
-          {/* TAB 7: 3D Bots */}
+          {/* TAB 10: Circuit Outro */}
+          {activeTab === "outro" && (
+            <div className="space-y-6">
+              <div>
+                <h3 className="font-syne font-bold text-xl text-white">Circuit Logo Outro Section</h3>
+                <p className="text-xs text-gray-400 font-mono-tech">Edit bottom laser nodes and marketing pipeline keywords.</p>
+              </div>
+
+              <div className="space-y-4 text-xs">
+                <div>
+                  <label className="font-mono-tech text-gray-400 block mb-1.5 uppercase">Top Tagline</label>
+                  <input
+                    type="text"
+                    value={siteData.outro.topTagline}
+                    onChange={(e) => setSiteData({ ...siteData, outro: { ...siteData.outro, topTagline: e.target.value } })}
+                    className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white"
+                  />
+                </div>
+
+                <div>
+                  <label className="font-mono-tech text-gray-400 block mb-1.5 uppercase">Pipeline Keywords (Comma separated)</label>
+                  <input
+                    type="text"
+                    value={siteData.outro.pipelineKeywords.join(", ")}
+                    onChange={(e) => setSiteData({
+                      ...siteData,
+                      outro: {
+                        ...siteData.outro,
+                        pipelineKeywords: e.target.value.split(",").map(s => s.trim()).filter(Boolean)
+                      }
+                    })}
+                    className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white font-mono-tech"
+                  />
+                </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="font-mono-tech text-gray-400 block mb-1.5 uppercase">Left Annotation</label>
+                    <textarea
+                      rows={2}
+                      value={siteData.outro.leftAnnotation}
+                      onChange={(e) => setSiteData({ ...siteData, outro: { ...siteData.outro, leftAnnotation: e.target.value } })}
+                      className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white text-xs"
+                    />
+                  </div>
+                  <div>
+                    <label className="font-mono-tech text-gray-400 block mb-1.5 uppercase">Right Annotation</label>
+                    <textarea
+                      rows={2}
+                      value={siteData.outro.rightAnnotation}
+                      onChange={(e) => setSiteData({ ...siteData, outro: { ...siteData.outro, rightAnnotation: e.target.value } })}
+                      className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white text-xs"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="font-mono-tech text-gray-400 block mb-1.5 uppercase">CTA Button Text</label>
+                    <input
+                      type="text"
+                      value={siteData.outro.primaryCtaText}
+                      onChange={(e) => setSiteData({ ...siteData, outro: { ...siteData.outro, primaryCtaText: e.target.value } })}
+                      className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white"
+                    />
+                  </div>
+                  <div>
+                    <label className="font-mono-tech text-gray-400 block mb-1.5 uppercase">Instagram Handle Button</label>
+                    <input
+                      type="text"
+                      value={siteData.outro.instagramHandleText}
+                      onChange={(e) => setSiteData({ ...siteData, outro: { ...siteData.outro, instagramHandleText: e.target.value } })}
+                      className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* TAB 11: Instagram Pop-up Offer */}
+          {activeTab === "offer" && (
+            <div className="space-y-6">
+              <div>
+                <h3 className="font-syne font-bold text-xl text-white">Instagram Post Pop-up Modal</h3>
+                <p className="text-xs text-gray-400 font-mono-tech">Control the light-theme Instagram promotion modal.</p>
+              </div>
+
+              <div className="space-y-4 text-xs">
+                <div className="flex items-center gap-3 p-3 rounded-xl bg-black/40 border border-white/10">
+                  <input
+                    type="checkbox"
+                    id="offerEnabled"
+                    checked={siteData.offer.enabled}
+                    onChange={(e) => setSiteData({ ...siteData, offer: { ...siteData.offer, enabled: e.target.checked } })}
+                    className="w-4 h-4 accent-[#FF5E00]"
+                  />
+                  <label htmlFor="offerEnabled" className="font-mono-tech text-white cursor-pointer">
+                    Enable Instagram Offer Pop-up on Website
+                  </label>
+                </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="font-mono-tech text-gray-400 block mb-1.5 uppercase">Account Handle</label>
+                    <input
+                      type="text"
+                      value={siteData.offer.accountHandle}
+                      onChange={(e) => setSiteData({ ...siteData, offer: { ...siteData.offer, accountHandle: e.target.value } })}
+                      className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white font-mono-tech"
+                    />
+                  </div>
+                  <div>
+                    <label className="font-mono-tech text-gray-400 block mb-1.5 uppercase">Location Tag</label>
+                    <input
+                      type="text"
+                      value={siteData.offer.locationTag}
+                      onChange={(e) => setSiteData({ ...siteData, offer: { ...siteData.offer, locationTag: e.target.value } })}
+                      className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white font-mono-tech"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="font-mono-tech text-gray-400 block mb-1.5 uppercase">Poster Image URL</label>
+                  <input
+                    type="text"
+                    value={siteData.offer.imageUrl}
+                    onChange={(e) => setSiteData({ ...siteData, offer: { ...siteData.offer, imageUrl: e.target.value } })}
+                    className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white font-mono-tech"
+                  />
+                </div>
+
+                <div>
+                  <label className="font-mono-tech text-gray-400 block mb-1.5 uppercase">WhatsApp Direct Message Text</label>
+                  <textarea
+                    rows={3}
+                    value={siteData.offer.whatsappDmMessage}
+                    onChange={(e) => setSiteData({ ...siteData, offer: { ...siteData.offer, whatsappDmMessage: e.target.value } })}
+                    className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white text-xs"
+                  />
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* TAB 12: 3D Bots */}
           {activeTab === "bots" && (
             <div className="space-y-6">
               <div>
-                <h3 className="font-syne font-bold text-xl text-white">Interactive 3D Assistant Prompts</h3>
+                <h3 className="font-syne font-bold text-xl text-white">Interactive Assistant Prompts</h3>
                 <p className="text-xs text-gray-400 font-mono-tech">Configure speech bubble prompts for the interactive bots.</p>
               </div>
 
@@ -693,7 +1218,7 @@ export default function AdminPage() {
             </div>
           )}
 
-          {/* TAB 8: SEO */}
+          {/* TAB 13: SEO */}
           {activeTab === "seo" && (
             <div className="space-y-6">
               <div>

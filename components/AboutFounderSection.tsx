@@ -2,7 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-import { SiteConfig } from "@/types/content";
+import { SiteConfig, AboutSectionData } from "@/types/content";
 import { 
   Sparkles, 
   MapPin, 
@@ -17,21 +17,37 @@ import { InstagramIcon } from "@/components/icons/InstagramIcon";
 
 interface AboutFounderSectionProps {
   config: SiteConfig;
+  about?: AboutSectionData;
 }
 
-export const AboutFounderSection: React.FC<AboutFounderSectionProps> = ({ config }) => {
-  const industriesList = [
-    "💎 Jewellery Brands",
-    "👗 Clothing & Fashion",
-    "✨ Cosmetics & Beauty",
-    "🏋️ Gyms & Fitness",
-    "🦷 Dentists & Dental Clinics",
-    "🩺 Dermatologists & Skin Clinics",
-    "🧠 Psychologists",
-    "🥗 Dieticians & Nutritionists",
-    "🏬 Local Jaipur Businesses",
-    "🛍️ D2C & E-Commerce",
-  ];
+export const AboutFounderSection: React.FC<AboutFounderSectionProps> = ({ config, about }) => {
+  const industriesList = about?.industriesList && about.industriesList.length > 0
+    ? about.industriesList
+    : [
+        "💎 Jewellery Brands",
+        "👗 Clothing & Fashion",
+        "✨ Cosmetics & Beauty",
+        "🏋️ Gyms & Fitness",
+        "🦷 Dentists & Dental Clinics",
+        "🩺 Dermatologists & Skin Clinics",
+        "🧠 Psychologists",
+        "🥗 Dieticians & Nutritionists",
+        "🏬 Local Jaipur Businesses",
+        "🛍️ D2C & E-Commerce",
+      ];
+
+  const eyebrowText = about?.eyebrow || "About The Agency & Founder";
+  const headlineText = about?.headline || "Scaling Jaipur Brands Through Performance & Technology";
+  const bio1 = about?.bioParagraph1 || `Founded by ${config.founderName} in Jaipur, Shrey Media was established with a singular vision: to bridge the gap between creative storytelling, high-ROAS performance marketing, and software engineering.`;
+  const bio2 = about?.bioParagraph2 || `Over the past ${config.experienceYears || "3+ years"}, we have partnered with ${config.clientsCount || "100+ businesses"} to build custom customer acquisition funnels, studio creative content, and automated CRM systems under one unified ecosystem.`;
+  const expYears = about?.experienceYears || config.experienceYears || "3+ Years";
+  const expLabel = about?.experienceLabel || "Proven Experience";
+  const busScaled = about?.businessesScaled || config.clientsCount || "100+";
+  const busLabel = about?.businessesLabel || "Businesses Scaled";
+  const locBadge = about?.locationBadge || "Jaipur HQ";
+  const locLabel = about?.locationLabel || "Film Colony Studio";
+  const indHeader = about?.industriesHeader || "Industries & Niches We Specialize In";
+  const ctaBtnText = about?.ctaText || `Talk With ${config.founderName.split(" ")[0] || "Shreyansh"}`;
 
   return (
     <section id="about" className="py-20 sm:py-28 relative bg-[#09090D] overflow-hidden border-t border-white/10">
@@ -46,7 +62,7 @@ export const AboutFounderSection: React.FC<AboutFounderSectionProps> = ({ config
             <div className="relative w-full max-w-md aspect-[4/5] rounded-3xl overflow-hidden clay-card border border-white/20 shadow-[0_25px_60px_-15px_rgba(255,94,0,0.3)] group">
               <Image
                 src="/images/founder-card.jpg"
-                alt="Shreyansh Malpani - Founder of Shrey Media"
+                alt={`${config.founderName} - Founder of Shrey Media`}
                 fill
                 quality={100}
                 unoptimized={true}
@@ -93,43 +109,39 @@ export const AboutFounderSection: React.FC<AboutFounderSectionProps> = ({ config
             <div className="inline-flex items-center gap-2 bg-[#FF5E00]/10 border border-[#FF5E00]/30 px-3.5 py-1.5 rounded-full">
               <Sparkles className="w-3.5 h-3.5 text-[#FF5E00]" />
               <span className="text-xs font-mono-tech uppercase text-[#FFAE33] font-semibold">
-                About The Agency &amp; Founder
+                {eyebrowText}
               </span>
             </div>
 
             <h2 className="font-syne text-3xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight">
-              Scaling Jaipur Brands Through Performance &amp; Technology
+              {headlineText}
             </h2>
 
             <div className="space-y-4 text-xs sm:text-sm text-gray-300 leading-relaxed font-sans">
-              <p>
-                Founded by <strong>{config.founderName}</strong> in Jaipur, <strong>Shrey Media</strong> was established with a singular vision: to bridge the gap between creative storytelling, high-ROAS performance marketing, and software engineering.
-              </p>
-              <p>
-                Over the past <strong>3+ years</strong>, we have partnered with <strong>100+ businesses</strong> to build custom customer acquisition funnels, studio creative content, and automated CRM systems under one unified ecosystem.
-              </p>
+              <p>{bio1}</p>
+              <p>{bio2}</p>
             </div>
 
             {/* Credibility Key Highlights */}
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 py-2">
               <div className="p-3.5 rounded-2xl bg-white/[0.04] border border-white/10">
-                <span className="font-syne font-black text-xl text-[#FF5E00] block">3+ Years</span>
-                <span className="text-[11px] font-mono-tech text-gray-400">Proven Experience</span>
+                <span className="font-syne font-black text-xl text-[#FF5E00] block">{expYears}</span>
+                <span className="text-[11px] font-mono-tech text-gray-400">{expLabel}</span>
               </div>
               <div className="p-3.5 rounded-2xl bg-white/[0.04] border border-white/10">
-                <span className="font-syne font-black text-xl text-[#D4FF00] block">100+</span>
-                <span className="text-[11px] font-mono-tech text-gray-400">Businesses Scaled</span>
+                <span className="font-syne font-black text-xl text-[#D4FF00] block">{busScaled}</span>
+                <span className="text-[11px] font-mono-tech text-gray-400">{busLabel}</span>
               </div>
               <div className="p-3.5 rounded-2xl bg-white/[0.04] border border-white/10 col-span-2 sm:col-span-1">
-                <span className="font-syne font-black text-xl text-[#00F0FF] block">Jaipur HQ</span>
-                <span className="text-[11px] font-mono-tech text-gray-400">Film Colony Studio</span>
+                <span className="font-syne font-black text-xl text-[#00F0FF] block">{locBadge}</span>
+                <span className="text-[11px] font-mono-tech text-gray-400">{locLabel}</span>
               </div>
             </div>
 
             {/* Industries Served Tag Cloud */}
             <div className="pt-3 border-t border-white/10">
               <h4 className="font-syne font-bold text-sm text-white uppercase tracking-wider mb-3">
-                Industries &amp; Niches We Specialize In
+                {indHeader}
               </h4>
               <div className="flex flex-wrap gap-2">
                 {industriesList.map((ind) => (
@@ -152,7 +164,7 @@ export const AboutFounderSection: React.FC<AboutFounderSectionProps> = ({ config
                 className="clay-btn inline-flex items-center gap-2 bg-gradient-to-r from-[#FF5E00] to-[#FFAE33] text-white font-bold text-xs sm:text-sm px-6 py-3 rounded-full shadow-lg"
               >
                 <PhoneCall className="w-4 h-4 fill-white" />
-                <span>Talk With Shreyansh (+91 {config.phone})</span>
+                <span>{ctaBtnText} (+91 {config.phone})</span>
                 <ArrowUpRight className="w-4 h-4" />
               </a>
 

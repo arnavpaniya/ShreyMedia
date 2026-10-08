@@ -36,6 +36,7 @@ export interface HeroSectionData {
   headlineAccent: string;
   headlineSuffix: string;
   subheadline: string;
+  typewriterKeywords: string[];
   primaryCtaText: string;
   primaryCtaLink: string;
   secondaryCtaText: string;
@@ -53,6 +54,60 @@ export interface HeroSectionData {
     trend: string;
     position: string;
   }>;
+}
+
+export interface AboutSectionData {
+  eyebrow: string;
+  headline: string;
+  bioParagraph1: string;
+  bioParagraph2: string;
+  experienceYears: string;
+  experienceLabel: string;
+  businessesScaled: string;
+  businessesLabel: string;
+  locationBadge: string;
+  locationLabel: string;
+  industriesHeader: string;
+  industriesList: string[];
+  ctaText: string;
+}
+
+export interface ProductionSectionData {
+  eyebrow: string;
+  headlineMain: string;
+  headlineAccent: string;
+  badgePills: string[];
+  handwrittenNote: string;
+  creativeReels: Array<{
+    id: number;
+    title: string;
+    niche: string;
+    duration: string;
+    image: string;
+    stats: string;
+  }>;
+}
+
+export interface OutroSectionData {
+  topTagline: string;
+  pipelineKeywords: string[];
+  leftAnnotation: string;
+  rightAnnotation: string;
+  subLogoText: string;
+  nodes: Array<{
+    label: string;
+    status: string;
+  }>;
+  primaryCtaText: string;
+  instagramHandleText: string;
+}
+
+export interface InstagramOfferData {
+  enabled: boolean;
+  accountHandle: string;
+  locationTag: string;
+  imageUrl: string;
+  whatsappDmMessage: string;
 }
 
 export interface ServiceItem {
@@ -127,11 +182,15 @@ export interface Interactive3DBotConfig {
 export interface CompleteSiteData {
   config: SiteConfig;
   hero: HeroSectionData;
+  about: AboutSectionData;
+  production: ProductionSectionData;
   marketingServices: ServiceItem[];
   techServices: ServiceItem[];
   industries: IndustryItem[];
   caseStudies: CaseStudyItem[];
   testimonials: TestimonialItem[];
+  outro: OutroSectionData;
+  offer: InstagramOfferData;
   faqs: FaqItem[];
   bots: Interactive3DBotConfig;
 }

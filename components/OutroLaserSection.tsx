@@ -4,13 +4,14 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { ArrowRight, PhoneCall } from "lucide-react";
 import { InstagramIcon } from "@/components/icons/InstagramIcon";
-import { SiteConfig } from "@/types/content";
+import { SiteConfig, OutroSectionData } from "@/types/content";
 
 interface OutroLaserSectionProps {
   config: SiteConfig;
+  outro?: OutroSectionData;
 }
 
-export const OutroLaserSection: React.FC<OutroLaserSectionProps> = ({ config }) => {
+export const OutroLaserSection: React.FC<OutroLaserSectionProps> = ({ config, outro }) => {
   const [mouseOffset, setMouseOffset] = useState({ x: 0, y: 0 });
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -20,6 +21,25 @@ export const OutroLaserSection: React.FC<OutroLaserSectionProps> = ({ config }) 
     const y = (clientY - top) / height - 0.5;
     setMouseOffset({ x, y });
   };
+
+  const topTagline = outro?.topTagline || "JAIPUR'S PREMIER DIGITAL MARKETING & GROWTH NETWORK";
+  const pipelineKeywords = outro?.pipelineKeywords && outro.pipelineKeywords.length > 0
+    ? outro.pipelineKeywords
+    : ["STRATEGY", "CONTENT", "ADS", "AUTOMATION", "SCALE"];
+  const leftAnnotation = outro?.leftAnnotation || "Marketing brings the audience.\nSharper ideas.";
+  const rightAnnotation = outro?.rightAnnotation || "Strategy, Ads & Content\nthat scale your brand into revenue.";
+  const subLogoText = outro?.subLogoText || "MEDIA & TECH SOLUTIONS";
+  const nodes = outro?.nodes && outro.nodes.length > 0
+    ? outro.nodes
+    : [
+        { label: "Jaipur HQ", status: "Film Colony" },
+        { label: "100+ Brands", status: "Scaled" },
+        { label: "Meta & Google", status: "High ROAS" },
+        { label: "WhatsApp Funnels", status: "Automated" },
+        { label: "GEO AI Search", status: "Next-Gen" },
+      ];
+  const ctaBtnText = outro?.primaryCtaText || "Start Your Marketing Project";
+  const igHandleText = outro?.instagramHandleText || "Follow @shrey_media_2025";
 
   return (
     <section
@@ -33,36 +53,35 @@ export const OutroLaserSection: React.FC<OutroLaserSectionProps> = ({ config }) 
         {/* Top Header Tagline */}
         <div className="inline-flex items-center gap-2 text-xs font-mono-tech uppercase tracking-widest text-gray-400 mb-3">
           <span className="w-2 h-2 rounded-full bg-[#FF5E00]" />
-          <span>JAIPUR&apos;S PREMIER DIGITAL MARKETING &amp; GROWTH NETWORK</span>
+          <span>{topTagline}</span>
         </div>
 
         {/* Marketing Growth Pipeline */}
         <div className="font-syne font-extrabold text-xs sm:text-base tracking-widest text-white uppercase mb-8 flex items-center justify-center gap-2 sm:gap-5 flex-wrap">
-          <span>STRATEGY</span>
-          <span className="text-[#FF5E00]">×</span>
-          <span>CONTENT</span>
-          <span className="text-[#D4FF00]">×</span>
-          <span>ADS</span>
-          <span className="text-[#FF1493]">×</span>
-          <span>AUTOMATION</span>
-          <span className="text-[#00F0FF]">×</span>
-          <span>SCALE</span>
+          {pipelineKeywords.map((kw, idx) => (
+            <React.Fragment key={idx}>
+              <span>{kw}</span>
+              {idx < pipelineKeywords.length - 1 && (
+                <span className={idx % 2 === 0 ? "text-[#FF5E00]" : "text-[#D4FF00]"}>×</span>
+              )}
+            </React.Fragment>
+          ))}
         </div>
 
         {/* Floating Handwritten Red/Orange Callout Annotations */}
         <div className="relative max-w-5xl mx-auto">
           {/* Left annotation */}
           <div className="absolute -top-10 left-0 hidden md:block text-left select-none pointer-events-none">
-            <p className="font-hand text-xl text-[#FF5E00] leading-none -rotate-6">
-              Marketing brings the audience.<br />Sharper ideas.
+            <p className="font-hand text-xl text-[#FF5E00] leading-none -rotate-6 whitespace-pre-line">
+              {leftAnnotation}
             </p>
             <span className="text-[#FF5E00] text-2xl ml-12">⤵</span>
           </div>
 
           {/* Right annotation */}
           <div className="absolute -top-10 right-0 hidden md:block text-right select-none pointer-events-none">
-            <p className="font-hand text-xl text-[#D4FF00] leading-none rotate-6">
-              Strategy, Ads &amp; Content<br />that scale your brand into revenue.
+            <p className="font-hand text-xl text-[#D4FF00] leading-none rotate-6 whitespace-pre-line">
+              {rightAnnotation}
             </p>
             <span className="text-[#D4FF00] text-2xl mr-12">⤵</span>
           </div>
@@ -84,7 +103,7 @@ export const OutroLaserSection: React.FC<OutroLaserSectionProps> = ({ config }) 
               />
             </div>
             <span className="font-mono-tech text-sm sm:text-xl text-[#FFAE33] tracking-widest uppercase font-bold block mt-4">
-              MEDIA &amp; TECH SOLUTIONS
+              {subLogoText}
             </span>
           </div>
         </div>
@@ -96,13 +115,7 @@ export const OutroLaserSection: React.FC<OutroLaserSectionProps> = ({ config }) 
 
           {/* Marketing & Growth Nodes Grid */}
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 relative z-10">
-            {[
-              { label: "Jaipur HQ", status: "Film Colony" },
-              { label: "100+ Brands", status: "Scaled" },
-              { label: "Meta & Google", status: "High ROAS" },
-              { label: "WhatsApp Funnels", status: "Automated" },
-              { label: "GEO AI Search", status: "Next-Gen" },
-            ].map((node, idx) => (
+            {nodes.map((node, idx) => (
               <div key={idx} className="flex flex-col items-center text-center p-2 rounded-xl bg-white/[0.02]">
                 <div className="w-3.5 h-3.5 rounded bg-[#1A1A24] border border-[#FF5E00] flex items-center justify-center shadow-[0_0_10px_#FF5E00] mb-2">
                   <div className="w-1.5 h-1.5 rounded-full bg-[#D4FF00] animate-ping" />
@@ -127,7 +140,7 @@ export const OutroLaserSection: React.FC<OutroLaserSectionProps> = ({ config }) 
             className="clay-btn inline-flex items-center gap-2 bg-gradient-to-r from-[#FF5E00] via-[#FF8800] to-[#FFAE33] text-white font-bold text-sm sm:text-base px-8 py-4 rounded-full shadow-[0_10px_35px_rgba(255,94,0,0.5)]"
           >
             <PhoneCall className="w-4 h-4 fill-white" />
-            <span>Start Your Marketing Project</span>
+            <span>{ctaBtnText}</span>
             <ArrowRight className="w-4 h-4" />
           </a>
 
@@ -138,7 +151,7 @@ export const OutroLaserSection: React.FC<OutroLaserSectionProps> = ({ config }) 
             className="inline-flex items-center gap-2 bg-white/5 hover:bg-white/10 border border-white/15 text-white font-medium text-sm sm:text-base px-6 py-4 rounded-full transition-colors"
           >
             <InstagramIcon className="w-4 h-4 text-[#FF1493]" />
-            <span>Follow @shrey_media_2025</span>
+            <span>{igHandleText}</span>
           </a>
         </div>
       </div>

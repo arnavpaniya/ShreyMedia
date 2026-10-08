@@ -2,53 +2,73 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { Camera, Film, Video, Scissors, Sparkles, Play, ArrowUpRight } from "lucide-react";
+import { ProductionSectionData } from "@/types/content";
+import { Film, Play } from "lucide-react";
 
-export const ProductionShowcase: React.FC = () => {
+interface ProductionShowcaseProps {
+  production?: ProductionSectionData;
+}
+
+export const ProductionShowcase: React.FC<ProductionShowcaseProps> = ({ production }) => {
   const [activeReelIndex, setActiveReelIndex] = useState<number | null>(null);
 
-  const creativeReels = [
-    {
-      id: 1,
-      title: "Handcrafted Bridal Jewellery Macro Showcase",
-      niche: "Luxury Jewellery",
-      duration: "0:24",
-      image: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600&auto=format&fit=crop&q=80",
-      stats: "320K Views • 14x Roas",
-    },
-    {
-      id: 2,
-      title: "Autumn Streetwear & Ethnic Fusion Collection",
-      niche: "Fashion & Apparel",
-      duration: "0:18",
-      image: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&auto=format&fit=crop&q=80",
-      stats: "540K Reach • Viral Reel",
-    },
-    {
-      id: 3,
-      title: "Aesthetic Dental Smile Makeover Procedure",
-      niche: "Healthcare & Clinic",
-      duration: "0:30",
-      image: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=600&auto=format&fit=crop&q=80",
-      stats: "85 Consultations Booked",
-    },
-    {
-      id: 4,
-      title: "Botanical Skincare & Glow Serum Product Reel",
-      niche: "Cosmetics & Beauty",
-      duration: "0:15",
-      image: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=600&auto=format&fit=crop&q=80",
-      stats: "1,200+ Units Sold",
-    },
-    {
-      id: 5,
-      title: "High-Energy Fitness Transformation & Facility Tour",
-      niche: "Gym & Fitness",
-      duration: "0:22",
-      image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&auto=format&fit=crop&q=80",
-      stats: "140 Free Trials Claimed",
-    },
-  ];
+  const creativeReels = production?.creativeReels && production.creativeReels.length > 0
+    ? production.creativeReels
+    : [
+        {
+          id: 1,
+          title: "Handcrafted Bridal Jewellery Macro Showcase",
+          niche: "Luxury Jewellery",
+          duration: "0:24",
+          image: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600&auto=format&fit=crop&q=80",
+          stats: "320K Views • 14x Roas",
+        },
+        {
+          id: 2,
+          title: "Autumn Streetwear & Ethnic Fusion Collection",
+          niche: "Fashion & Apparel",
+          duration: "0:18",
+          image: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&auto=format&fit=crop&q=80",
+          stats: "540K Reach • Viral Reel",
+        },
+        {
+          id: 3,
+          title: "Aesthetic Dental Smile Makeover Procedure",
+          niche: "Healthcare & Clinic",
+          duration: "0:30",
+          image: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=600&auto=format&fit=crop&q=80",
+          stats: "85 Consultations Booked",
+        },
+        {
+          id: 4,
+          title: "Botanical Skincare & Glow Serum Product Reel",
+          niche: "Cosmetics & Beauty",
+          duration: "0:15",
+          image: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=600&auto=format&fit=crop&q=80",
+          stats: "1,200+ Units Sold",
+        },
+        {
+          id: 5,
+          title: "High-Energy Fitness Transformation & Facility Tour",
+          niche: "Gym & Fitness",
+          duration: "0:22",
+          image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&auto=format&fit=crop&q=80",
+          stats: "140 Free Trials Claimed",
+        },
+      ];
+
+  const eyebrow = production?.eyebrow || "In-House Creative Studio";
+  const headlineMain = production?.headlineMain || "Shoot. Edit.";
+  const headlineAccent = production?.headlineAccent || "Deliver. Repeat.";
+  const note = production?.handwrittenNote || "Ready to make your brand unforgettable in Jaipur? Let's roll! 🎥";
+  const badgePills = production?.badgePills && production.badgePills.length > 0
+    ? production.badgePills
+    : [
+        "🎬 Studio & On-Location Shoots",
+        "⚡ Reel & Short-Form Content",
+        "✂️ High-End Post-Production",
+        "📸 Brand & Product Photography",
+      ];
 
   return (
     <section id="production" className="py-20 relative bg-[#07070A] overflow-hidden">
@@ -57,42 +77,35 @@ export const ProductionShowcase: React.FC = () => {
       <div className="ocarina-watercolor-bloom absolute bottom-10 right-10 w-[450px] h-[450px] bg-[#FF1493]/15 -z-10" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Centered Graphic Header inspired by "Shoot. Edit. Deliver. Repeat." */}
+        {/* Centered Graphic Header */}
         <div className="relative text-center max-w-3xl mx-auto mb-16">
           <div className="inline-flex items-center gap-2 bg-[#FF1493]/10 border border-[#FF1493]/30 px-4 py-1.5 rounded-full mb-4">
             <Film className="w-3.5 h-3.5 text-[#FF1493]" />
             <span className="text-xs font-mono-tech uppercase tracking-wider text-[#FF1493] font-semibold">
-              In-House Creative Studio
+              {eyebrow}
             </span>
           </div>
 
           <div className="relative">
             <h2 className="font-syne text-5xl sm:text-7xl font-extrabold text-white tracking-tight leading-none mb-2">
-              Shoot. Edit.<br />
+              {headlineMain}<br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF5E00] via-[#FFAE33] to-[#D4FF00]">
-                Deliver. Repeat.
+                {headlineAccent}
               </span>
             </h2>
 
-            {/* Floating 3D context badges */}
+            {/* Dynamic Context Badges */}
             <div className="hidden md:flex flex-wrap items-center justify-center gap-3 mt-6">
-              <span className="clay-badge px-4 py-1.5 rounded-full text-xs font-mono-tech text-gray-300">
-                🎬 Studio & On-Location Shoots
-              </span>
-              <span className="clay-badge px-4 py-1.5 rounded-full text-xs font-mono-tech text-[#D4FF00]">
-                ⚡ Reel & Short-Form Content
-              </span>
-              <span className="clay-badge px-4 py-1.5 rounded-full text-xs font-mono-tech text-gray-300">
-                ✂️ High-End Post-Production
-              </span>
-              <span className="clay-badge px-4 py-1.5 rounded-full text-xs font-mono-tech text-[#00F0FF]">
-                📸 Brand & Product Photography
-              </span>
+              {badgePills.map((badge, idx) => (
+                <span key={idx} className="clay-badge px-4 py-1.5 rounded-full text-xs font-mono-tech text-gray-200">
+                  {badge}
+                </span>
+              ))}
             </div>
           </div>
 
           <p className="mt-6 text-sm sm:text-base text-gray-400 font-hand text-xl text-[#FFAE33]">
-            Ready to make your brand unforgettable in Jaipur? Let&apos;s roll! 🎥
+            {note}
           </p>
         </div>
       </div>

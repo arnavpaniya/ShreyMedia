@@ -35,14 +35,16 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ hero, config }) => {
   const imageY = useTransform(scrollYProgress, [0, 1], ["0%", "22%"]);
   const imageScale = useTransform(scrollYProgress, [0, 1], [1.02, 1.14]);
 
-  const typewriterKeywords = [
-    "High-ROAS Meta & Google Ads",
-    "Automated WhatsApp CRM Funnels",
-    "Jaipur Local SEO & Google Maps #1",
-    "Studio Photoshoots & Viral Reels",
-    "Generative AI Search Optimization (GEO)",
-    "Custom Next.js Websites & Apps",
-  ];
+  const typewriterKeywords = hero.typewriterKeywords && hero.typewriterKeywords.length > 0 
+    ? hero.typewriterKeywords 
+    : [
+        "High-ROAS Meta & Google Ads",
+        "Automated WhatsApp CRM Funnels",
+        "Jaipur Local SEO & Google Maps #1",
+        "Studio Photoshoots & Viral Reels",
+        "Generative AI Search Optimization (GEO)",
+        "Custom Next.js Websites & Apps",
+      ];
 
   const getIcon = (iconName: string) => {
     switch (iconName) {

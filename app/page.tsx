@@ -53,10 +53,10 @@ export default function HomePage() {
       />
 
       {/* 5. In-House Production & Creative Reels */}
-      <ProductionShowcase />
+      <ProductionShowcase production={siteData.production} />
 
       {/* 6. About Founder & Industries Served */}
-      <AboutFounderSection config={siteData.config} />
+      <AboutFounderSection config={siteData.config} about={siteData.about} />
 
       {/* 7. Client Testimonials & Social Proof */}
       <TestimonialsSection testimonials={siteData.testimonials} />
@@ -68,13 +68,13 @@ export default function HomePage() {
       <Footer config={siteData.config} />
 
       {/* 10. Stylized Circuit Outro (Positioned after footer) */}
-      <OutroLaserSection config={siteData.config} />
+      <OutroLaserSection config={siteData.config} outro={siteData.outro} />
 
       {/* 11. Clean Floating WhatsApp Trigger (No speech bubble text) */}
       <Interactive3DBot config={siteData.config} botConfig={siteData.bots} />
 
       {/* 12. Light-Theme Instagram Offer Pop-up Modal */}
-      <InstagramOfferModal config={siteData.config} />
+      <InstagramOfferModal config={siteData.config} offer={siteData.offer} />
     </main>
   );
 }

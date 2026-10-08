@@ -2,29 +2,35 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { SiteConfig } from "@/types/content";
+import { SiteConfig, InstagramOfferData } from "@/types/content";
 import { 
   Heart, 
   MessageCircle, 
   Send, 
   Bookmark, 
   X, 
-  CheckCircle2, 
-  Sparkles,
-  Flame
+  CheckCircle2
 } from "lucide-react";
 
 interface InstagramOfferModalProps {
   config: SiteConfig;
+  offer?: InstagramOfferData;
 }
 
-export const InstagramOfferModal: React.FC<InstagramOfferModalProps> = ({ config }) => {
+export const InstagramOfferModal: React.FC<InstagramOfferModalProps> = ({ config, offer }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [liked, setLiked] = useState(false);
   const [bookmarked, setBookmarked] = useState(false);
   const [showHeartAnim, setShowHeartAnim] = useState(false);
 
+  const isEnabled = offer?.enabled !== false;
+  const accountHandle = offer?.accountHandle || "shrey_media_2025";
+  const locationTag = offer?.locationTag || "Jaipur, Rajasthan";
+  const posterImage = offer?.imageUrl || "/images/diwali-offer.png";
+  const rawDmText = offer?.whatsappDmMessage || "Hi Shreyansh! I saw your Diwali Special Offer Instagram post and want to claim 1 of the 5 slots for my business.";
+
   useEffect(() => {
+    if (!isEnabled) return;
     // Show pop-up after a gentle delay on page visit
     const timer = setTimeout(() => {
       const hasDismissed = sessionStorage.getItem("diwali_modal_dismissed");
@@ -33,7 +39,7 @@ export const InstagramOfferModal: React.FC<InstagramOfferModalProps> = ({ config
       }
     }, 2800);
     return () => clearTimeout(timer);
-  }, []);
+  }, [isEnabled]);
 
   const handleClose = () => {
     setIsOpen(false);
@@ -46,9 +52,9 @@ export const InstagramOfferModal: React.FC<InstagramOfferModalProps> = ({ config
     setTimeout(() => setShowHeartAnim(false), 900);
   };
 
-  const dmText = encodeURIComponent(
-    "Hi Shreyansh! I saw your Diwali Special Offer Instagram post and want to claim 1 of the 5 slots for my business."
-  );
+  const dmText = encodeURIComponent(rawDmText);
+
+  if (!isEnabled) return null;
 
   return (
     <>
@@ -64,7 +70,7 @@ export const InstagramOfferModal: React.FC<InstagramOfferModalProps> = ({ config
                   <div className="relative w-8 h-8 rounded-full overflow-hidden bg-white">
                     <Image
                       src="/brand/logo.png"
-                      alt="Shrey Media Profile"
+                      alt={`${accountHandle} Profile`}
                       fill
                       className="object-cover"
                     />
@@ -74,12 +80,12 @@ export const InstagramOfferModal: React.FC<InstagramOfferModalProps> = ({ config
                 <div className="text-left">
                   <div className="flex items-center gap-1">
                     <span className="font-sans font-bold text-xs text-gray-900">
-                      shrey_media_2025
+                      {accountHandle}
                     </span>
                     <CheckCircle2 className="w-3.5 h-3.5 text-blue-500 fill-blue-500/10" />
                   </div>
                   <span className="text-[10px] font-sans text-gray-500 block leading-tight">
-                    Jaipur, Rajasthan
+                    {locationTag}
                   </span>
                 </div>
               </div>
@@ -108,8 +114,8 @@ export const InstagramOfferModal: React.FC<InstagramOfferModalProps> = ({ config
               className="relative w-full aspect-[4/5] bg-black select-none cursor-pointer overflow-hidden group"
             >
               <Image
-                src="/images/diwali-offer.png"
-                alt="Shrey Media Diwali Offer"
+                src={posterImage}
+                alt={`${accountHandle} Offer`}
                 fill
                 quality={100}
                 unoptimized={true}
