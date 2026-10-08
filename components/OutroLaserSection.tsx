@@ -90,31 +90,32 @@ export const OutroLaserSection: React.FC<OutroLaserSectionProps> = ({ config }) 
         </div>
 
         {/* Glowing Laser Grid Nodes Floor Simulation */}
-        <div className="relative max-w-4xl mx-auto h-28 mt-6 overflow-hidden rounded-2xl border border-white/10 bg-[#0A0A0E] flex items-center justify-around px-6">
+        <div className="relative max-w-4xl mx-auto mt-8 overflow-hidden rounded-2xl border border-white/10 bg-[#0A0A0E]/90 py-5 px-4 sm:px-6">
           {/* Pulsing red/amber laser beams */}
-          <div className="absolute inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-[#FF5E00] to-transparent animate-laser top-1/2 -translate-y-1/2" />
-          <div className="absolute inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-[#D4FF00] to-transparent animate-laser top-1/3" />
+          <div className="absolute inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-[#FF5E00] to-transparent animate-laser top-1/2 -translate-y-1/2 pointer-events-none opacity-60" />
 
-          {/* Marketing & Growth Nodes */}
-          {[
-            { label: "Jaipur HQ", status: "Film Colony" },
-            { label: "100+ Brands", status: "Scaled" },
-            { label: "Meta & Google", status: "High ROAS" },
-            { label: "WhatsApp Funnels", status: "Automated" },
-            { label: "GEO AI Search", status: "Next-Gen" },
-          ].map((node, idx) => (
-            <div key={idx} className="relative z-10 flex flex-col items-center">
-              <div className="w-4 h-4 rounded bg-[#1A1A24] border border-[#FF5E00] flex items-center justify-center shadow-[0_0_12px_#FF5E00]">
-                <div className="w-1.5 h-1.5 rounded-full bg-[#D4FF00] animate-ping" />
+          {/* Marketing & Growth Nodes Grid */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 relative z-10">
+            {[
+              { label: "Jaipur HQ", status: "Film Colony" },
+              { label: "100+ Brands", status: "Scaled" },
+              { label: "Meta & Google", status: "High ROAS" },
+              { label: "WhatsApp Funnels", status: "Automated" },
+              { label: "GEO AI Search", status: "Next-Gen" },
+            ].map((node, idx) => (
+              <div key={idx} className="flex flex-col items-center text-center p-2 rounded-xl bg-white/[0.02]">
+                <div className="w-3.5 h-3.5 rounded bg-[#1A1A24] border border-[#FF5E00] flex items-center justify-center shadow-[0_0_10px_#FF5E00] mb-2">
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#D4FF00] animate-ping" />
+                </div>
+                <span className="font-mono-tech text-[11px] text-gray-200 font-medium leading-tight">
+                  {node.label}
+                </span>
+                <span className="font-mono-tech text-[10px] text-[#FFAE33] font-semibold mt-0.5">
+                  {node.status}
+                </span>
               </div>
-              <span className="font-mono-tech text-[10px] text-gray-300 mt-2">
-                {node.label}
-              </span>
-              <span className="font-mono-tech text-[9px] text-[#FFAE33]">
-                {node.status}
-              </span>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
 
         {/* Final CTA Buttons */}

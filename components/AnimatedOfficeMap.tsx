@@ -6,14 +6,10 @@ import { SiteConfig } from "@/types/content";
 import { 
   MapPin, 
   Navigation, 
-  Compass, 
   ExternalLink, 
   PhoneCall, 
-  MessageSquare, 
   Clock, 
-  ShieldCheck, 
-  Sparkles,
-  Layers
+  ShieldCheck
 } from "lucide-react";
 
 interface AnimatedOfficeMapProps {
@@ -21,7 +17,6 @@ interface AnimatedOfficeMapProps {
 }
 
 export const AnimatedOfficeMap: React.FC<AnimatedOfficeMapProps> = ({ config }) => {
-  const [activeView, setActiveView] = useState<"interactive" | "satellite">("interactive");
   const [jaipurTime, setJaipurTime] = useState<string>("");
 
   useEffect(() => {
@@ -58,12 +53,6 @@ export const AnimatedOfficeMap: React.FC<AnimatedOfficeMapProps> = ({ config }) 
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
           <div>
-            <div className="inline-flex items-center gap-2 bg-[#FF5E00]/10 border border-[#FF5E00]/30 px-3.5 py-1.5 rounded-full mb-3">
-              <Compass className="w-3.5 h-3.5 text-[#FF5E00] animate-spin" style={{ animationDuration: "12s" }} />
-              <span className="text-xs font-mono-tech uppercase text-[#FFAE33] font-semibold">
-                Headquarters &amp; Production Studio
-              </span>
-            </div>
             <h2 className="font-syne text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
               Visit Our Jaipur Office
             </h2>
@@ -94,50 +83,21 @@ export const AnimatedOfficeMap: React.FC<AnimatedOfficeMapProps> = ({ config }) 
 
         {/* The Animated Map Container */}
         <div className="clay-card rounded-3xl p-3 sm:p-4 border border-white/15 bg-[#0D0D14] shadow-2xl relative overflow-hidden">
-          {/* Top Control Bar with Coordinates HUD */}
-          <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-3 bg-[#12121B] rounded-2xl border border-white/10 mb-3">
+          {/* Top Address Indicator Bar */}
+          <div className="flex items-center justify-between px-4 py-3 bg-[#12121B] rounded-2xl border border-white/10 mb-3">
             <div className="flex items-center gap-3">
-              <span className="w-3 h-3 rounded-full bg-[#10B981] animate-ping" />
+              <span className="w-2.5 h-2.5 rounded-full bg-[#10B981] animate-ping" />
               <span className="font-mono-tech text-xs text-gray-200">
-                ● 11, Film Colony, Malpani Chamber • Near Golcha Cinema, Jaipur
+                11, Film Colony, Malpani Chamber • Near Golcha Cinema, Jaipur, Rajasthan
               </span>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <span className="font-mono-tech text-[11px] text-[#FFAE33] hidden sm:inline-block">
-                LAT: 26.9188° N • LNG: 75.8176° E
-              </span>
-              <div className="flex bg-black/40 p-1 rounded-xl border border-white/10 text-xs font-mono-tech">
-                <button
-                  onClick={() => setActiveView("interactive")}
-                  className={`px-3 py-1 rounded-lg transition-colors ${
-                    activeView === "interactive"
-                      ? "bg-[#FF5E00] text-white font-bold"
-                      : "text-gray-400 hover:text-white"
-                  }`}
-                >
-                  Live Map
-                </button>
-                <button
-                  onClick={() => setActiveView("satellite")}
-                  className={`px-3 py-1 rounded-lg transition-colors ${
-                    activeView === "satellite"
-                      ? "bg-[#00F0FF] text-black font-bold"
-                      : "text-gray-400 hover:text-white"
-                  }`}
-                >
-                  Radar Pulse
-                </button>
-              </div>
             </div>
           </div>
 
           {/* Map View Frame */}
           <div className="relative w-full h-[400px] sm:h-[480px] rounded-2xl overflow-hidden bg-[#0A0A0F] border border-white/10">
-            {activeView === "interactive" ? (
-              /* Embedded Interactive Google Map with Dark Mode Styling */
-              <div className="relative w-full h-full">
-                <iframe
+            {/* Embedded Interactive Google Map with Dark Mode Styling */}
+            <div className="relative w-full h-full">
+              <iframe
                   title="Shrey Media Office Location"
                   src={embedUrl}
                   width="100%"
@@ -174,58 +134,6 @@ export const AnimatedOfficeMap: React.FC<AnimatedOfficeMapProps> = ({ config }) 
                   <div className="w-1 h-6 bg-gradient-to-b from-[#FF5E00] to-transparent mt-1" />
                 </div>
               </div>
-            ) : (
-              /* Cyber Radar Blueprint Mode */
-              <div className="relative w-full h-full blueprint-grid flex items-center justify-center bg-[#07070B] overflow-hidden">
-                {/* Concentric circular radar lines */}
-                <div className="absolute w-[600px] h-[600px] rounded-full border border-white/5 animate-ping duration-[4000ms]" />
-                <div className="absolute w-[450px] h-[450px] rounded-full border border-[#FF5E00]/20" />
-                <div className="absolute w-[300px] h-[300px] rounded-full border border-[#00F0FF]/25 animate-pulse" />
-                <div className="absolute w-[150px] h-[150px] rounded-full border border-[#D4FF00]/30" />
-
-                {/* Radar sweeping beam */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div
-                    className="w-full h-full bg-gradient-to-r from-transparent via-[#FF5E00]/10 to-transparent animate-spin"
-                    style={{ animationDuration: "8s" }}
-                  />
-                </div>
-
-                {/* Center Pin Information Card */}
-                <div className="relative z-10 clay-card p-6 rounded-3xl border border-[#FF5E00]/40 max-w-md mx-4 text-center bg-[#0E0E16]/95 backdrop-blur-xl shadow-2xl">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-[#FF5E00] to-[#FFAE33] flex items-center justify-center mx-auto mb-3 shadow-lg">
-                    <MapPin className="w-6 h-6 text-white" />
-                  </div>
-                  <h3 className="font-syne font-extrabold text-xl text-white mb-1">
-                    Malpani Chamber HQ
-                  </h3>
-                  <p className="text-xs text-gray-300 leading-relaxed mb-4">
-                    11, Film Colony, Near Golcha Cinema, Jaipur, Rajasthan, India
-                  </p>
-
-                  <div className="grid grid-cols-2 gap-2 text-xs">
-                    <a
-                      href={googleMapsUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="clay-btn py-2 px-3 rounded-xl bg-[#FF5E00] text-white font-bold flex items-center justify-center gap-1.5"
-                    >
-                      <Navigation className="w-3.5 h-3.5" />
-                      <span>Open Maps</span>
-                    </a>
-                    <a
-                      href={`https://wa.me/91${config.phone}?text=Hi%20Shreyansh,%20I%20want%20to%20visit%20the%20Film%20Colony%20office.`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="clay-btn py-2 px-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold flex items-center justify-center gap-1.5 border border-white/15"
-                    >
-                      <MessageSquare className="w-3.5 h-3.5 text-[#25D366]" />
-                      <span>Book Visit</span>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            )}
           </div>
 
           {/* Bottom Quick Contact Bar */}

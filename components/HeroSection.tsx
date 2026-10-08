@@ -2,6 +2,7 @@
 
 import React, { useState, useRef } from "react";
 import Image from "next/image";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { HeroSectionData, SiteConfig } from "@/types/content";
 import { Typewriter } from "./Typewriter";
 import { 
@@ -24,7 +25,15 @@ interface HeroSectionProps {
 
 export const HeroSection: React.FC<HeroSectionProps> = ({ hero, config }) => {
   const [videoModalOpen, setVideoModalOpen] = useState(false);
-  const heroRef = useRef<HTMLDivElement>(null);
+  const heroRef = useRef<HTMLElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  });
+
+  const imageY = useTransform(scrollYProgress, [0, 1], ["0%", "22%"]);
+  const imageScale = useTransform(scrollYProgress, [0, 1], [1.02, 1.14]);
 
   const typewriterKeywords = [
     "High-ROAS Meta & Google Ads",
@@ -52,19 +61,24 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ hero, config }) => {
 
   return (
     <section id="hero" ref={heroRef} className="relative w-full bg-[#07070A] overflow-hidden">
-      {/* 1. Full Canvas Edge-to-Edge Hero Stage (100vw Full Bleed) */}
+      {/* 1. Full Canvas Edge-to-Edge Hero Stage (100vw Full Bleed) with Parallax */}
       <div className="relative w-full h-[75vh] sm:h-[88vh] lg:h-[95vh] min-h-[550px] overflow-hidden">
-        {/* Full Canvas Background Image - Full HD Uncompressed */}
-        <Image
-          src="/images/hero-bg.jpg"
-          alt="Shrey Media - Digital Marketing & Technology Agency in Jaipur"
-          fill
-          priority
-          quality={100}
-          unoptimized={true}
-          sizes="100vw"
-          className="object-cover object-top sm:object-center"
-        />
+        {/* Full Canvas Background Image - Full HD Uncompressed with Parallax Motion */}
+        <motion.div
+          style={{ y: imageY, scale: imageScale }}
+          className="absolute inset-0 w-full h-[120%] -top-[10%]"
+        >
+          <Image
+            src="/images/hero-bg.jpg"
+            alt="Shrey Media - Digital Marketing & Technology Agency in Jaipur"
+            fill
+            priority
+            quality={100}
+            unoptimized={true}
+            sizes="100vw"
+            className="object-cover object-top sm:object-center"
+          />
+        </motion.div>
 
         {/* Top Navbar Shadow Fade */}
         <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#07070A]/90 via-[#07070A]/40 to-transparent pointer-events-none" />
@@ -89,9 +103,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ hero, config }) => {
           </div>
 
           {/* High-Impact Main Display Headline */}
-          <h1 className="font-syne text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight text-white leading-[1.06] drop-shadow-2xl">
+          <h1 className="font-syne text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight text-white leading-[1.12] sm:leading-[1.1] drop-shadow-2xl overflow-visible">
             {hero.headlineMain}{" "}
-            <span className="font-serif-luxury italic text-transparent bg-clip-text bg-gradient-to-r from-[#FF5E00] via-[#FFAE33] to-[#FF7300] pr-2">
+            <span className="font-serif-luxury italic text-transparent bg-clip-text bg-gradient-to-r from-[#FF5E00] via-[#FFAE33] to-[#FF7300] inline-block py-2 px-2 overflow-visible leading-none">
               {hero.headlineAccent}
             </span>{" "}
             {hero.headlineSuffix}
