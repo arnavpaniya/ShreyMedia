@@ -26,10 +26,9 @@ export const Navbar: React.FC<NavbarProps> = ({ config, onOpenAdmin }) => {
   const navLinks = [
     { label: "Home", href: "#hero" },
     { label: "Services", href: "#services" },
-    { label: "Shrey Tech", href: "#shrey-tech" },
     { label: "Production", href: "#production" },
-    { label: "Industries", href: "#industries" },
-    { label: "Journal", href: "#journal" },
+    { label: "About Me", href: "#about" },
+    { label: "Testimonials", href: "#testimonials" },
     { label: "Contact", href: "#contact" },
   ];
 

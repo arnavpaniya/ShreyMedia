@@ -50,7 +50,7 @@ export const AboutFounderSection: React.FC<AboutFounderSectionProps> = ({ config
   const ctaBtnText = about?.ctaText || `Talk With ${config.founderName.split(" ")[0] || "Shreyansh"}`;
 
   return (
-    <section id="about" className="py-20 sm:py-28 relative bg-[#09090D] overflow-hidden border-t border-white/10">
+    <section id="about" className="py-20 sm:py-28 relative bg-transparent overflow-hidden">
       {/* Ambient glowing washes */}
       <div className="ocarina-watercolor-bloom absolute top-1/3 left-10 w-[500px] h-[500px] bg-[#FF5E00]/15 -z-10" />
       <div className="ocarina-watercolor-bloom absolute bottom-10 right-10 w-[450px] h-[450px] bg-[#00F0FF]/15 -z-10" />

@@ -13,7 +13,7 @@ interface FooterProps {
 
 export const Footer: React.FC<FooterProps> = ({ config }) => {
   return (
-    <footer id="contact" className="bg-[#050507] border-t border-white/10 pt-16 pb-12 text-gray-400">
+    <footer id="contact" className="bg-[#07070A]/75 backdrop-blur-md border-t border-white/10 pt-16 pb-12 text-gray-400 relative z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 pb-12 border-b border-white/10">
           {/* Col 1: Brand & Office Location (5 cols) */}

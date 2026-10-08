@@ -130,10 +130,37 @@ export const metadata: Metadata = {
     images: ["/images/hero-founder.jpg"],
   },
   icons: {
-    icon: "/brand/logo.png",
-    apple: "/brand/logo.png",
+    icon: [
+      { url: "/brand/logo.png", type: "image/png" },
+    ],
+    shortcut: "/brand/logo.png",
+    apple: [
+      { url: "/brand/logo.png", type: "image/png" },
+    ],
+  },
+  alternates: {
+    canonical: "https://shreymedia.in",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  other: {
+    "geo.region": "IN-RJ",
+    "geo.placename": "Jaipur",
+    "geo.position": "26.9188;75.8176",
+    "ICBM": "26.9188, 75.8176",
   },
 };
+
+import { StructuredData } from "@/components/StructuredData";
 
 export default function RootLayout({
   children,
@@ -157,6 +184,9 @@ export default function RootLayout({
 
   return (
     <html lang="en" className={`dark ${fontVariables} scroll-smooth`}>
+      <head>
+        <StructuredData config={initialSiteData.config} />
+      </head>
       <body className="bg-[#0A0A0E] text-[#F3F4F6] font-sans antialiased selection:bg-[#FF5E00] selection:text-white min-h-screen flex flex-col overflow-x-hidden">
         {children}
       </body>

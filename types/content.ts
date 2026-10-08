@@ -72,20 +72,25 @@ export interface AboutSectionData {
   ctaText: string;
 }
 
+export interface ShowcaseReelItem {
+  id: number | string;
+  type?: 'video' | 'image' | 'website';
+  title: string;
+  niche: string;
+  duration?: string;
+  image: string;
+  videoUrl?: string;
+  websiteUrl?: string;
+  stats: string;
+}
+
 export interface ProductionSectionData {
   eyebrow: string;
   headlineMain: string;
   headlineAccent: string;
   badgePills: string[];
   handwrittenNote: string;
-  creativeReels: Array<{
-    id: number;
-    title: string;
-    niche: string;
-    duration: string;
-    image: string;
-    stats: string;
-  }>;
+  creativeReels: ShowcaseReelItem[];
 }
 
 export interface OutroSectionData {

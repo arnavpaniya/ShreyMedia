@@ -44,7 +44,7 @@ export const AnimatedOfficeMap: React.FC<AnimatedOfficeMapProps> = ({ config }) 
   const embedUrl = `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3557.564757530491!2d75.81765037599026!3d26.91884497664406!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396db6b26dc00001%3A0x7d6f5f9227181f21!2sGolcha%20Cinema!5e0!3m2!1sen!2sin!4v1712500000000!5m2!1sen!2sin`;
 
   return (
-    <section className="py-20 relative bg-[#07070A] overflow-hidden border-t border-white/10">
+    <section className="py-20 relative bg-transparent overflow-hidden">
       {/* Background glow effects */}
       <div className="ocarina-watercolor-bloom absolute top-1/2 right-10 w-[500px] h-[500px] bg-[#FF5E00]/15 -z-10" />
       <div className="ocarina-watercolor-bloom absolute bottom-0 left-10 w-[400px] h-[400px] bg-[#00F0FF]/15 -z-10" />

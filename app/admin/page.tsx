@@ -631,7 +631,7 @@ export default function AdminPage() {
 
                 <div className="pt-4 border-t border-white/10 space-y-3">
                   <div className="flex items-center justify-between">
-                    <h4 className="font-mono-tech text-xs text-white font-bold uppercase">Creative Reels ({siteData.production.creativeReels.length})</h4>
+                    <h4 className="font-mono-tech text-xs text-white font-bold uppercase">Showcase Items ({siteData.production.creativeReels.length})</h4>
                     <button
                       onClick={() => {
                         const newId = Date.now();
@@ -643,10 +643,13 @@ export default function AdminPage() {
                               ...siteData.production.creativeReels,
                               {
                                 id: newId,
-                                title: "New Campaign Reel Showcase",
-                                niche: "Fashion & Retail",
+                                type: "video",
+                                title: "New Campaign Showcase",
+                                niche: "Luxury Jewellery",
                                 duration: "0:20",
                                 image: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&auto=format&fit=crop&q=80",
+                                videoUrl: "",
+                                websiteUrl: "",
                                 stats: "100K Views • 5x ROAS"
                               }
                             ]
@@ -655,15 +658,30 @@ export default function AdminPage() {
                       }}
                       className="clay-btn px-3 py-1.5 rounded-lg bg-[#FF5E00] text-white text-xs flex items-center gap-1"
                     >
-                      <Plus className="w-3.5 h-3.5" /> Add Reel
+                      <Plus className="w-3.5 h-3.5" /> Add Showcase Item
                     </button>
                   </div>
 
                   <div className="space-y-3">
                     {siteData.production.creativeReels.map((reel, idx) => (
-                      <div key={reel.id} className="p-4 rounded-2xl bg-black/40 border border-white/10 space-y-2">
+                      <div key={reel.id} className="p-4 rounded-2xl bg-black/40 border border-white/10 space-y-3">
                         <div className="flex items-center justify-between">
-                          <span className="font-mono-tech text-[10px] text-[#FFAE33] font-bold">Reel #{idx + 1}</span>
+                          <div className="flex items-center gap-2">
+                            <span className="font-mono-tech text-[10px] text-[#FFAE33] font-bold">Item #{idx + 1}</span>
+                            <select
+                              value={reel.type || "video"}
+                              onChange={(e) => {
+                                const updated = [...siteData.production.creativeReels];
+                                updated[idx].type = e.target.value as "video" | "image" | "website";
+                                setSiteData({ ...siteData, production: { ...siteData.production, creativeReels: updated } });
+                              }}
+                              className="bg-black/80 border border-white/20 rounded px-2 py-0.5 text-[11px] text-white font-mono-tech"
+                            >
+                              <option value="video">🎥 Video / Reel Clip</option>
+                              <option value="image">📸 Image / Photoshoot</option>
+                              <option value="website">💻 Live Website / App</option>
+                            </select>
+                          </div>
                           <button
                             onClick={() => {
                               const updated = siteData.production.creativeReels.filter((_, i) => i !== idx);
@@ -675,22 +693,22 @@ export default function AdminPage() {
                           </button>
                         </div>
 
-                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                           <input
                             type="text"
                             value={reel.title}
-                            placeholder="Reel Title"
+                            placeholder="Title (e.g. Royal Polki Shoot / D2C Store)"
                             onChange={(e) => {
                               const updated = [...siteData.production.creativeReels];
                               updated[idx].title = e.target.value;
                               setSiteData({ ...siteData, production: { ...siteData.production, creativeReels: updated } });
                             }}
-                            className="bg-black/60 border border-white/10 rounded p-2 text-xs text-white col-span-2"
+                            className="bg-black/60 border border-white/10 rounded p-2 text-xs text-white sm:col-span-2"
                           />
                           <input
                             type="text"
                             value={reel.niche}
-                            placeholder="Niche Tag"
+                            placeholder="Niche (e.g. Jewellery / Fashion)"
                             onChange={(e) => {
                               const updated = [...siteData.production.creativeReels];
                               updated[idx].niche = e.target.value;
@@ -698,16 +716,81 @@ export default function AdminPage() {
                             }}
                             className="bg-black/60 border border-white/10 rounded p-2 text-xs text-white"
                           />
+                        </div>
+
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                          <div>
+                            <label className="text-[10px] font-mono-tech text-gray-400 block mb-1">Image / Thumbnail URL</label>
+                            <input
+                              type="text"
+                              value={reel.image}
+                              placeholder="https://... image thumbnail"
+                              onChange={(e) => {
+                                const updated = [...siteData.production.creativeReels];
+                                updated[idx].image = e.target.value;
+                                setSiteData({ ...siteData, production: { ...siteData.production, creativeReels: updated } });
+                              }}
+                              className="w-full bg-black/60 border border-white/10 rounded p-2 text-xs text-white"
+                            />
+                          </div>
+
+                          {(reel.type === "video" || !reel.type) && (
+                            <div>
+                              <label className="text-[10px] font-mono-tech text-[#FF1493] block mb-1">Video MP4 / Reel URL</label>
+                              <input
+                                type="text"
+                                value={reel.videoUrl || ""}
+                                placeholder="https://... mp4 or video link"
+                                onChange={(e) => {
+                                  const updated = [...siteData.production.creativeReels];
+                                  updated[idx].videoUrl = e.target.value;
+                                  setSiteData({ ...siteData, production: { ...siteData.production, creativeReels: updated } });
+                                }}
+                                className="w-full bg-black/60 border border-white/10 rounded p-2 text-xs text-white"
+                              />
+                            </div>
+                          )}
+
+                          {reel.type === "website" && (
+                            <div>
+                              <label className="text-[10px] font-mono-tech text-[#00F0FF] block mb-1">Live Website URL</label>
+                              <input
+                                type="text"
+                                value={reel.websiteUrl || ""}
+                                placeholder="https://example.com"
+                                onChange={(e) => {
+                                  const updated = [...siteData.production.creativeReels];
+                                  updated[idx].websiteUrl = e.target.value;
+                                  setSiteData({ ...siteData, production: { ...siteData.production, creativeReels: updated } });
+                                }}
+                                className="w-full bg-black/60 border border-white/10 rounded p-2 text-xs text-white"
+                              />
+                            </div>
+                          )}
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-2">
                           <input
                             type="text"
                             value={reel.stats}
-                            placeholder="Stats (e.g. 500K Views)"
+                            placeholder="Stats / Results (e.g. 500K Views • 14x ROAS)"
                             onChange={(e) => {
                               const updated = [...siteData.production.creativeReels];
                               updated[idx].stats = e.target.value;
                               setSiteData({ ...siteData, production: { ...siteData.production, creativeReels: updated } });
                             }}
-                            className="bg-black/60 border border-white/10 rounded p-2 text-xs text-white"
+                            className="bg-black/60 border border-white/10 rounded p-2 text-xs text-[#D4FF00]"
+                          />
+                          <input
+                            type="text"
+                            value={reel.duration || ""}
+                            placeholder="Duration or Label (e.g. 0:24 / Live Web App)"
+                            onChange={(e) => {
+                              const updated = [...siteData.production.creativeReels];
+                              updated[idx].duration = e.target.value;
+                              setSiteData({ ...siteData, production: { ...siteData.production, creativeReels: updated } });
+                            }}
+                            className="bg-black/60 border border-white/10 rounded p-2 text-xs text-gray-300"
                           />
                         </div>
                       </div>
@@ -918,7 +1001,7 @@ export default function AdminPage() {
                       </button>
                     </div>
 
-                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                       <input
                         type="text"
                         value={t.name}
@@ -933,7 +1016,7 @@ export default function AdminPage() {
                       <input
                         type="text"
                         value={t.business}
-                        placeholder="Business Name"
+                        placeholder="Business / Company"
                         onChange={(e) => {
                           const updated = [...siteData.testimonials];
                           updated[idx].business = e.target.value;
@@ -944,7 +1027,7 @@ export default function AdminPage() {
                       <input
                         type="text"
                         value={t.role}
-                        placeholder="Role"
+                        placeholder="Role / Title"
                         onChange={(e) => {
                           const updated = [...siteData.testimonials];
                           updated[idx].role = e.target.value;
@@ -952,6 +1035,64 @@ export default function AdminPage() {
                         }}
                         className="bg-black/60 border border-white/10 rounded p-2 text-xs text-white"
                       />
+                      <input
+                        type="text"
+                        value={t.location}
+                        placeholder="Location (e.g. Jaipur)"
+                        onChange={(e) => {
+                          const updated = [...siteData.testimonials];
+                          updated[idx].location = e.target.value;
+                          setSiteData({ ...siteData, testimonials: updated });
+                        }}
+                        className="bg-black/60 border border-white/10 rounded p-2 text-xs text-white"
+                      />
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 items-center">
+                      <div className="sm:col-span-2">
+                        <input
+                          type="text"
+                          value={t.avatar || ""}
+                          placeholder="Avatar / Photo URL (https://...)"
+                          onChange={(e) => {
+                            const updated = [...siteData.testimonials];
+                            updated[idx].avatar = e.target.value;
+                            setSiteData({ ...siteData, testimonials: updated });
+                          }}
+                          className="w-full bg-black/60 border border-white/10 rounded p-2 text-xs text-white"
+                        />
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-1.5">
+                          <label className="text-[11px] font-mono-tech text-gray-400">Stars:</label>
+                          <select
+                            value={t.rating}
+                            onChange={(e) => {
+                              const updated = [...siteData.testimonials];
+                              updated[idx].rating = parseInt(e.target.value, 10);
+                              setSiteData({ ...siteData, testimonials: updated });
+                            }}
+                            className="bg-black/80 border border-white/20 rounded px-2 py-1 text-xs text-[#FFAE33]"
+                          >
+                            <option value={5}>★★★★★ (5 Stars)</option>
+                            <option value={4}>★★★★☆ (4 Stars)</option>
+                            <option value={3}>★★★☆☆ (3 Stars)</option>
+                          </select>
+                        </div>
+                        <label className="flex items-center gap-1.5 text-xs text-gray-300 cursor-pointer">
+                          <input
+                            type="checkbox"
+                            checked={t.verified}
+                            onChange={(e) => {
+                              const updated = [...siteData.testimonials];
+                              updated[idx].verified = e.target.checked;
+                              setSiteData({ ...siteData, testimonials: updated });
+                            }}
+                            className="rounded accent-[#00F0FF]"
+                          />
+                          <span className="text-[10px] font-mono-tech">Verified</span>
+                        </label>
+                      </div>
                     </div>
 
                     <textarea

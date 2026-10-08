@@ -64,11 +64,11 @@ export default function HomePage() {
       {/* 8. Animated Office Location & Radar Google Map */}
       <AnimatedOfficeMap config={siteData.config} />
 
-      {/* 9. Footer & Local SEO Hub */}
-      <Footer config={siteData.config} />
-
-      {/* 10. Stylized Circuit Outro (Positioned after footer) */}
+      {/* 9. Stylized Circuit Outro with SHREY Display Typography */}
       <OutroLaserSection config={siteData.config} outro={siteData.outro} />
+
+      {/* 10. Footer & Local SEO Hub */}
+      <Footer config={siteData.config} />
 
       {/* 11. Clean Floating WhatsApp Trigger (No speech bubble text) */}
       <Interactive3DBot config={siteData.config} botConfig={siteData.bots} />

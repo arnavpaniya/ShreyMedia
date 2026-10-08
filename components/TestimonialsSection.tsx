@@ -11,7 +11,7 @@ interface TestimonialsSectionProps {
 
 export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({ testimonials }) => {
   return (
-    <section className="py-20 relative bg-[#09090D] overflow-hidden border-t border-white/10">
+    <section id="testimonials" className="py-20 relative bg-transparent overflow-hidden">
       {/* Background ambient lighting */}
       <div className="ocarina-watercolor-bloom absolute top-1/2 right-1/4 w-96 h-96 bg-[#FF5E00]/15 -z-10" />
 
