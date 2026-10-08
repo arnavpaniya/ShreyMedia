@@ -1,26 +1,271 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg-dark: #0A0A0E;
+  --bg-card: #121218;
+  --bg-card-hover: #1A1A24;
+  --brand-orange: #FF5E00;
+  --brand-amber: #FFAE33;
+  --brand-lime: #D4FF00;
+  --brand-pink: #FF1493;
+  --brand-cyan: #00F0FF;
+  --brand-purple: #7928CA;
+  --paper-cream: #FFF5E4;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* Typography Utility Mappings */
+.font-syne {
+  font-family: var(--font-syne), sans-serif;
+}
+.font-bricolage {
+  font-family: var(--font-bricolage), sans-serif;
+}
+.font-serif-luxury {
+  font-family: var(--font-instrument-serif), Georgia, serif;
+}
+.font-space {
+  font-family: var(--font-space-grotesk), sans-serif;
+}
+.font-mono-tech {
+  font-family: var(--font-space-mono), monospace;
+}
+.font-dm {
+  font-family: var(--font-dm-mono), monospace;
+}
+.font-hand {
+  font-family: var(--font-caveat), cursive;
+}
+.font-sans {
+  font-family: var(--font-plus-jakarta-sans), sans-serif;
+}
+.font-bebas {
+  font-family: var(--font-bebas-neue), sans-serif;
+}
+.font-anton {
+  font-family: var(--font-anton), sans-serif;
+}
+.font-russo {
+  font-family: var(--font-russo-one), sans-serif;
+}
+.font-unbounded {
+  font-family: var(--font-unbounded), sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Claymorphism Styling Tokens */
+.clay-card {
+  background: linear-gradient(135deg, rgba(26, 26, 36, 0.85) 0%, rgba(14, 14, 20, 0.95) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 
+    inset 1px 1px 2px rgba(255, 255, 255, 0.15),
+    inset -2px -2px 6px rgba(0, 0, 0, 0.6),
+    0 16px 36px -8px rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(16px);
+  border-radius: 1.5rem;
+}
+
+.clay-card-orange {
+  background: linear-gradient(135deg, rgba(35, 20, 15, 0.85) 0%, rgba(18, 12, 12, 0.95) 100%);
+  border: 1px solid rgba(255, 94, 0, 0.25);
+  box-shadow: 
+    inset 1px 1px 2px rgba(255, 174, 51, 0.3),
+    inset -2px -2px 6px rgba(0, 0, 0, 0.6),
+    0 16px 36px -8px rgba(255, 94, 0, 0.2);
+  backdrop-filter: blur(16px);
+  border-radius: 1.5rem;
+}
+
+.clay-card-cyan {
+  background: linear-gradient(135deg, rgba(10, 28, 36, 0.85) 0%, rgba(10, 14, 20, 0.95) 100%);
+  border: 1px solid rgba(0, 240, 255, 0.25);
+  box-shadow: 
+    inset 1px 1px 2px rgba(0, 240, 255, 0.3),
+    inset -2px -2px 6px rgba(0, 0, 0, 0.6),
+    0 16px 36px -8px rgba(0, 240, 255, 0.15);
+  backdrop-filter: blur(16px);
+  border-radius: 1.5rem;
+}
+
+.clay-btn {
+  box-shadow: 
+    inset 1px 1px 2px rgba(255, 255, 255, 0.3),
+    inset -2px -2px 4px rgba(0, 0, 0, 0.4),
+    0 10px 25px -5px rgba(255, 94, 0, 0.4);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.clay-btn:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 
+    inset 1px 1px 2px rgba(255, 255, 255, 0.4),
+    inset -2px -2px 4px rgba(0, 0, 0, 0.3),
+    0 16px 32px -4px rgba(255, 94, 0, 0.55);
+}
+
+.clay-btn:active {
+  transform: translateY(1px) scale(0.99);
+}
+
+.clay-badge {
+  background: linear-gradient(135deg, rgba(30, 30, 42, 0.9) 0%, rgba(18, 18, 26, 0.95) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    inset 1px 1px 1px rgba(255, 255, 255, 0.2),
+    inset -1px -1px 3px rgba(0, 0, 0, 0.5),
+    0 8px 16px -4px rgba(0, 0, 0, 0.5);
+}
+
+/* Ocarina Watercolor Washes & Mesh Gradients */
+.ocarina-mesh {
+  background-image: 
+    radial-gradient(at 10% 20%, rgba(255, 94, 0, 0.18) 0px, transparent 50%),
+    radial-gradient(at 90% 10%, rgba(255, 20, 147, 0.14) 0px, transparent 50%),
+    radial-gradient(at 50% 50%, rgba(121, 40, 202, 0.12) 0px, transparent 60%),
+    radial-gradient(at 20% 80%, rgba(0, 240, 255, 0.12) 0px, transparent 50%),
+    radial-gradient(at 85% 85%, rgba(212, 255, 0, 0.10) 0px, transparent 50%);
+}
+
+.ocarina-watercolor-bloom {
+  filter: blur(80px);
+  mix-blend-mode: screen;
+  opacity: 0.65;
+  pointer-events: none;
+}
+
+/* Technical Blueprint Grid */
+.blueprint-grid {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+}
+
+.blueprint-grid-dense {
+  background-size: 20px 20px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 94, 0, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 94, 0, 0.05) 1px, transparent 1px);
+}
+
+/* HUD Tech Brackets & Streak Accents (inspired by nodebmsit.live) */
+.hud-corner-tl {
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  width: 8px;
+  height: 8px;
+  border-top: 2px solid var(--brand-orange);
+  border-left: 2px solid var(--brand-orange);
+}
+
+.hud-corner-tr {
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  width: 8px;
+  height: 8px;
+  border-top: 2px solid var(--brand-orange);
+  border-right: 2px solid var(--brand-orange);
+}
+
+.hud-corner-bl {
+  position: absolute;
+  bottom: -1px;
+  left: -1px;
+  width: 8px;
+  height: 8px;
+  border-bottom: 2px solid var(--brand-orange);
+  border-left: 2px solid var(--brand-orange);
+}
+
+.hud-corner-br {
+  position: absolute;
+  bottom: -1px;
+  right: -1px;
+  width: 8px;
+  height: 8px;
+  border-bottom: 2px solid var(--brand-orange);
+  border-right: 2px solid var(--brand-orange);
+}
+
+/* Scrapbook Paper Texture & Tape */
+.paper-tape {
+  background: rgba(255, 245, 228, 0.85);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(2px);
+  position: relative;
+}
+
+.paper-tape::before, .paper-tape::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 6px;
+  background-size: 6px 6px;
+}
+
+.paper-tape::before {
+  left: -3px;
+  background: radial-gradient(circle, transparent 2px, rgba(255, 245, 228, 0.85) 3px);
+}
+
+/* 3D Floor Outro Laser Animation */
+@keyframes laser-pulse {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.05);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.animate-laser {
+  animation: laser-pulse 3s infinite ease-in-out;
+}
+
+/* Infinite Horizontal Scroller Keyframes */
+@keyframes scroll-x {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: scroll-x 30s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Twinkling star animation */
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+.animate-twinkle {
+  animation: twinkle 2.5s infinite ease-in-out;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0A0A0E;
+}
+::-webkit-scrollbar-thumb {
+  background: #262630;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #FF5E00;
 }
