@@ -1254,64 +1254,212 @@ export default function AdminPage() {
           {/* TAB 11: Instagram Pop-up Offer */}
           {activeTab === "offer" && (
             <div className="space-y-6">
-              <div>
-                <h3 className="font-syne font-bold text-xl text-white">Instagram Post Pop-up Modal</h3>
-                <p className="text-xs text-gray-400 font-mono-tech">Control the light-theme Instagram promotion modal.</p>
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div>
+                  <h3 className="font-syne font-bold text-xl text-white">Instagram Promotion Pop-up Modal</h3>
+                  <p className="text-xs text-gray-400 font-mono-tech">Easily add, customize, or completely remove the promotional pop-up on the main website.</p>
+                </div>
+
+                {/* Main Toggle Button */}
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => setSiteData({ ...siteData, offer: { ...siteData.offer, enabled: !siteData.offer.enabled } })}
+                    className={`px-4 py-2 rounded-xl text-xs font-bold font-mono-tech flex items-center gap-2 transition-all ${
+                      siteData.offer.enabled
+                        ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 hover:bg-emerald-500/30"
+                        : "bg-red-500/20 text-red-300 border border-red-500/40 hover:bg-red-500/30"
+                    }`}
+                  >
+                    <span className={`w-2 h-2 rounded-full ${siteData.offer.enabled ? "bg-emerald-400 animate-pulse" : "bg-red-400"}`} />
+                    <span>{siteData.offer.enabled ? "ACTIVE (Showing on Website)" : "DISABLED (Hidden from Website)"}</span>
+                  </button>
+                </div>
               </div>
 
-              <div className="space-y-4 text-xs">
-                <div className="flex items-center gap-3 p-3 rounded-xl bg-black/40 border border-white/10">
-                  <input
-                    type="checkbox"
-                    id="offerEnabled"
-                    checked={siteData.offer.enabled}
-                    onChange={(e) => setSiteData({ ...siteData, offer: { ...siteData.offer, enabled: e.target.checked } })}
-                    className="w-4 h-4 accent-[#FF5E00]"
-                  />
-                  <label htmlFor="offerEnabled" className="font-mono-tech text-white cursor-pointer">
-                    Enable Instagram Offer Pop-up on Website
-                  </label>
-                </div>
-
-                <div className="grid grid-cols-2 gap-3">
+              {/* Status Alert & Quick Action Bar */}
+              <div className={`p-4 rounded-2xl border flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs ${
+                siteData.offer.enabled ? "bg-emerald-950/30 border-emerald-500/30 text-emerald-200" : "bg-red-950/20 border-red-500/30 text-red-200"
+              }`}>
+                <div className="flex items-center gap-2.5">
+                  <span className="text-base">{siteData.offer.enabled ? "🟢" : "🔴"}</span>
                   <div>
-                    <label className="font-mono-tech text-gray-400 block mb-1.5 uppercase">Account Handle</label>
-                    <input
-                      type="text"
-                      value={siteData.offer.accountHandle}
-                      onChange={(e) => setSiteData({ ...siteData, offer: { ...siteData.offer, accountHandle: e.target.value } })}
-                      className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white font-mono-tech"
-                    />
-                  </div>
-                  <div>
-                    <label className="font-mono-tech text-gray-400 block mb-1.5 uppercase">Location Tag</label>
-                    <input
-                      type="text"
-                      value={siteData.offer.locationTag}
-                      onChange={(e) => setSiteData({ ...siteData, offer: { ...siteData.offer, locationTag: e.target.value } })}
-                      className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white font-mono-tech"
-                    />
+                    <strong className="block font-syne">{siteData.offer.enabled ? "Pop-up Offer is Currently Live" : "Pop-up Offer is Currently Disabled"}</strong>
+                    <span className="text-[11px] opacity-80">{siteData.offer.enabled ? "Visitors will see this promotion after 2.8 seconds on the site." : "No pop-up will appear for visitors on the website."}</span>
                   </div>
                 </div>
 
-                <div>
-                  <label className="font-mono-tech text-gray-400 block mb-1.5 uppercase">Poster Image URL</label>
-                  <input
-                    type="text"
-                    value={siteData.offer.imageUrl}
-                    onChange={(e) => setSiteData({ ...siteData, offer: { ...siteData.offer, imageUrl: e.target.value } })}
-                    className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white font-mono-tech"
-                  />
+                <div className="flex items-center gap-2">
+                  {siteData.offer.enabled ? (
+                    <button
+                      onClick={() => {
+                        setSiteData({ ...siteData, offer: { ...siteData.offer, enabled: false } });
+                      }}
+                      className="px-3 py-1.5 rounded-lg bg-red-500/30 hover:bg-red-500/50 text-red-100 font-mono-tech text-[11px] font-bold transition-colors border border-red-500/40"
+                    >
+                      ✕ Remove Offer from Site
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => {
+                        setSiteData({ ...siteData, offer: { ...siteData.offer, enabled: true } });
+                      }}
+                      className="px-3 py-1.5 rounded-lg bg-emerald-500/30 hover:bg-emerald-500/50 text-emerald-100 font-mono-tech text-[11px] font-bold transition-colors border border-emerald-500/40"
+                    >
+                      ✓ Activate Offer
+                    </button>
+                  )}
+                </div>
+              </div>
+
+              {/* Quick Presets */}
+              <div className="p-4 rounded-2xl bg-black/40 border border-white/10 space-y-2">
+                <span className="text-[10px] font-mono-tech uppercase text-gray-400 font-bold block">Quick Presets</span>
+                <div className="flex flex-wrap gap-2">
+                  <button
+                    onClick={() => {
+                      setSiteData({
+                        ...siteData,
+                        offer: {
+                          enabled: true,
+                          accountHandle: "shrey_media_2025",
+                          locationTag: "Jaipur, Rajasthan",
+                          imageUrl: "/images/diwali-offer.png",
+                          whatsappDmMessage: "Hi Shreyansh! I saw your Diwali Special Offer Instagram post and want to claim 1 of the 5 slots for my business."
+                        }
+                      });
+                    }}
+                    className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/15 text-xs text-white border border-white/10 flex items-center gap-1.5 transition-colors"
+                  >
+                    <span>🪔</span>
+                    <span>Load Diwali Festival Offer Preset</span>
+                  </button>
+
+                  <button
+                    onClick={() => {
+                      setSiteData({
+                        ...siteData,
+                        offer: {
+                          enabled: true,
+                          accountHandle: "shrey_media_2025",
+                          locationTag: "Jaipur HQ • Film Colony",
+                          imageUrl: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&auto=format&fit=crop&q=80",
+                          whatsappDmMessage: "Hi Shreyansh, I want to book a Free 30-Min Marketing Strategy Audit for my brand in Jaipur."
+                        }
+                      });
+                    }}
+                    className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/15 text-xs text-white border border-white/10 flex items-center gap-1.5 transition-colors"
+                  >
+                    <span>🎯</span>
+                    <span>Load Free Strategy Audit Preset</span>
+                  </button>
+
+                  <button
+                    onClick={() => {
+                      setSiteData({
+                        ...siteData,
+                        offer: {
+                          enabled: false,
+                          accountHandle: "shrey_media_2025",
+                          locationTag: "Jaipur, Rajasthan",
+                          imageUrl: "",
+                          whatsappDmMessage: ""
+                        }
+                      });
+                    }}
+                    className="px-3 py-1.5 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-xs text-red-300 border border-red-500/20 flex items-center gap-1.5 transition-colors"
+                  >
+                    <Trash2 className="w-3.5 h-3.5" />
+                    <span>Clear All &amp; Disable</span>
+                  </button>
+                </div>
+              </div>
+
+              {/* Form & Live Visual Preview Side-by-Side */}
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                {/* Form Fields (7 cols) */}
+                <div className="lg:col-span-7 space-y-4 text-xs">
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <label className="font-mono-tech text-gray-400 block mb-1.5 uppercase">Instagram Profile Handle</label>
+                      <input
+                        type="text"
+                        value={siteData.offer.accountHandle}
+                        onChange={(e) => setSiteData({ ...siteData, offer: { ...siteData.offer, accountHandle: e.target.value } })}
+                        placeholder="shrey_media_2025"
+                        className="w-full bg-black/60 border border-white/10 rounded-xl p-3 text-white font-mono-tech"
+                      />
+                    </div>
+                    <div>
+                      <label className="font-mono-tech text-gray-400 block mb-1.5 uppercase">Location Tag</label>
+                      <input
+                        type="text"
+                        value={siteData.offer.locationTag}
+                        onChange={(e) => setSiteData({ ...siteData, offer: { ...siteData.offer, locationTag: e.target.value } })}
+                        placeholder="Jaipur, Rajasthan"
+                        className="w-full bg-black/60 border border-white/10 rounded-xl p-3 text-white font-mono-tech"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="font-mono-tech text-gray-400 block mb-1.5 uppercase">Offer Poster Image URL</label>
+                    <input
+                      type="text"
+                      value={siteData.offer.imageUrl}
+                      onChange={(e) => setSiteData({ ...siteData, offer: { ...siteData.offer, imageUrl: e.target.value } })}
+                      placeholder="/images/diwali-offer.png or https://..."
+                      className="w-full bg-black/60 border border-white/10 rounded-xl p-3 text-white font-mono-tech"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="font-mono-tech text-gray-400 block mb-1.5 uppercase">WhatsApp Direct Inquiry Message</label>
+                    <textarea
+                      rows={3}
+                      value={siteData.offer.whatsappDmMessage}
+                      onChange={(e) => setSiteData({ ...siteData, offer: { ...siteData.offer, whatsappDmMessage: e.target.value } })}
+                      placeholder="Hi Shreyansh, I saw your special offer..."
+                      className="w-full bg-black/60 border border-white/10 rounded-xl p-3 text-white text-xs"
+                    />
+                  </div>
                 </div>
 
-                <div>
-                  <label className="font-mono-tech text-gray-400 block mb-1.5 uppercase">WhatsApp Direct Message Text</label>
-                  <textarea
-                    rows={3}
-                    value={siteData.offer.whatsappDmMessage}
-                    onChange={(e) => setSiteData({ ...siteData, offer: { ...siteData.offer, whatsappDmMessage: e.target.value } })}
-                    className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white text-xs"
-                  />
+                {/* Live Preview (5 cols) */}
+                <div className="lg:col-span-5 flex flex-col items-center">
+                  <span className="text-[10px] font-mono-tech uppercase text-gray-400 mb-2 font-bold">Live Visual Preview</span>
+                  <div className="w-full max-w-[260px] rounded-2xl overflow-hidden bg-white text-black shadow-2xl border border-gray-300">
+                    <div className="p-2.5 bg-white flex items-center justify-between border-b border-gray-100">
+                      <div className="flex items-center gap-2">
+                        <div className="w-6 h-6 rounded-full overflow-hidden bg-amber-500 relative border">
+                          <Image src="/brand/logo.png" alt="Logo" fill className="object-cover" />
+                        </div>
+                        <div>
+                          <span className="text-[11px] font-bold block leading-none">{siteData.offer.accountHandle || "account"}</span>
+                          <span className="text-[9px] text-gray-500 leading-none">{siteData.offer.locationTag || "Jaipur"}</span>
+                        </div>
+                      </div>
+                      <span className="text-[10px] text-blue-600 font-bold">Follow</span>
+                    </div>
+
+                    <div className="relative w-full aspect-[4/5] bg-black flex items-center justify-center">
+                      {siteData.offer.imageUrl ? (
+                        <Image
+                          src={siteData.offer.imageUrl}
+                          alt="Preview"
+                          fill
+                          unoptimized={true}
+                          className="object-contain"
+                        />
+                      ) : (
+                        <span className="text-gray-500 text-xs font-mono">No Image Set</span>
+                      )}
+                    </div>
+
+                    <div className="p-2 bg-white flex items-center justify-between border-t border-gray-100 text-xs">
+                      <span>❤️ 💬 ↗</span>
+                      <span>🔖</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

@@ -23,11 +23,11 @@ export const InstagramOfferModal: React.FC<InstagramOfferModalProps> = ({ config
   const [bookmarked, setBookmarked] = useState(false);
   const [showHeartAnim, setShowHeartAnim] = useState(false);
 
-  const isEnabled = offer?.enabled !== false;
+  const isEnabled = offer ? Boolean(offer.enabled) : false;
   const accountHandle = offer?.accountHandle || "shrey_media_2025";
   const locationTag = offer?.locationTag || "Jaipur, Rajasthan";
   const posterImage = offer?.imageUrl || "/images/diwali-offer.png";
-  const rawDmText = offer?.whatsappDmMessage || "Hi Shreyansh! I saw your Diwali Special Offer Instagram post and want to claim 1 of the 5 slots for my business.";
+  const rawDmText = offer?.whatsappDmMessage || "Hi Shreyansh! I saw your Special Offer Instagram post and want to claim a slot for my business.";
 
   useEffect(() => {
     if (!isEnabled) return;
