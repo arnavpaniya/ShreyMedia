@@ -185,6 +185,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={`dark ${fontVariables} scroll-smooth`}>
       <head>
+        <link rel="icon" href="/brand/logo.png?v=3" type="image/png" sizes="32x32" />
+        <link rel="icon" href="/brand/logo.png?v=3" type="image/png" sizes="16x16" />
+        <link rel="shortcut icon" href="/brand/logo.png?v=3" />
+        <link rel="apple-touch-icon" href="/brand/logo.png?v=3" />
         <StructuredData config={initialSiteData.config} />
       </head>
       <body className="bg-[#0A0A0E] text-[#F3F4F6] font-sans antialiased selection:bg-[#FF5E00] selection:text-white min-h-screen flex flex-col overflow-x-hidden">
