@@ -6,6 +6,7 @@ import Image from "next/image";
 import { CompleteSiteData, ServiceItem, IndustryItem, CaseStudyItem, TestimonialItem } from "@/types/content";
 import { initialSiteData } from "@/lib/data/initial-content";
 import { getSiteContent, updateSiteContent } from "@/lib/data/content-service";
+import { verifyAdminPin, validateAdminSession, saveSiteContentAction } from "@/app/actions/admin-auth";
 import { 
   ShieldLock, 
   Save, 
@@ -29,7 +30,8 @@ import {
   Film,
   MessageSquare,
   Flame,
-  Zap
+  Zap,
+  Loader2
 } from "lucide-react";
 
 type AdminTab = 
@@ -51,6 +53,7 @@ export default function AdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [pinInput, setPinInput] = useState("");
   const [pinError, setPinError] = useState("");
+  const [isVerifying, setIsVerifying] = useState(false);
 
   const [siteData, setSiteData] = useState<CompleteSiteData>(initialSiteData);
   const [activeTab, setActiveTab] = useState<AdminTab>("business");
@@ -59,10 +62,17 @@ export default function AdminPage() {
   const [statusMessage, setStatusMessage] = useState("");
 
   useEffect(() => {
-    // Check local session authentication
-    const authStatus = sessionStorage.getItem("shrey_admin_auth");
-    if (authStatus === "true") {
-      setIsAuthenticated(true);
+    // Check local session authentication securely via server token validation
+    const token = sessionStorage.getItem("shrey_admin_token");
+    if (token) {
+      validateAdminSession(token).then((res) => {
+        if (res.valid) {
+          setIsAuthenticated(true);
+        } else {
+          sessionStorage.removeItem("shrey_admin_token");
+          setIsAuthenticated(false);
+        }
+      });
     }
 
     async function load() {
@@ -72,20 +82,33 @@ export default function AdminPage() {
     load();
   }, []);
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (pinInput === "9001" || pinInput === "admin2026") {
-      setIsAuthenticated(true);
-      sessionStorage.setItem("shrey_admin_auth", "true");
-      setPinError("");
-    } else {
-      setPinError("Invalid Admin PIN. Please try again.");
+    if (!pinInput.trim()) return;
+
+    setIsVerifying(true);
+    setPinError("");
+
+    try {
+      const res = await verifyAdminPin(pinInput);
+      if (res.success && res.token) {
+        setIsAuthenticated(true);
+        sessionStorage.setItem("shrey_admin_token", res.token);
+        setPinInput("");
+        setPinError("");
+      } else {
+        setPinError(res.error || "Invalid Admin PIN. Access denied.");
+      }
+    } catch {
+      setPinError("Verification error. Please try again.");
+    } finally {
+      setIsVerifying(false);
     }
   };
 
   const handleLogout = () => {
     setIsAuthenticated(false);
-    sessionStorage.removeItem("shrey_admin_auth");
+    sessionStorage.removeItem("shrey_admin_token");
   };
 
   const handleSaveToSupabase = async () => {
@@ -93,7 +116,14 @@ export default function AdminPage() {
     setStatusMessage("");
 
     try {
-      const res = await updateSiteContent(siteData);
+      const token = sessionStorage.getItem("shrey_admin_token") || "";
+      let res;
+      if (token) {
+        res = await saveSiteContentAction(token, siteData);
+      } else {
+        res = await updateSiteContent(siteData);
+      }
+
       if (res.success) {
         setSaveStatus("success");
         setStatusMessage("All changes successfully published live to Supabase!");
@@ -158,10 +188,20 @@ export default function AdminPage() {
 
             <button
               type="submit"
-              className="clay-btn w-full py-3.5 rounded-xl bg-gradient-to-r from-[#FF5E00] to-[#FFAE33] text-white font-bold text-sm shadow-lg flex items-center justify-center gap-2"
+              disabled={isVerifying}
+              className="clay-btn w-full py-3.5 rounded-xl bg-gradient-to-r from-[#FF5E00] to-[#FFAE33] text-white font-bold text-sm shadow-lg flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed"
             >
-              <ShieldLock className="w-4 h-4" />
-              <span>Unlock Admin Studio</span>
+              {isVerifying ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  <span>Verifying Server Security...</span>
+                </>
+              ) : (
+                <>
+                  <ShieldLock className="w-4 h-4" />
+                  <span>Unlock Admin Studio</span>
+                </>
+              )}
             </button>
           </form>
 
