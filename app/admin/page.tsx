@@ -31,7 +31,9 @@ import {
   MessageSquare,
   Flame,
   Zap,
-  Loader2
+  Loader2,
+  Download,
+  Upload
 } from "lucide-react";
 
 type AdminTab = 
@@ -144,6 +146,36 @@ export default function AdminPage() {
     }
   };
 
+  const handleExportBackup = () => {
+    const jsonStr = JSON.stringify(siteData, null, 2);
+    const blob = new Blob([jsonStr], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `shrey_media_backup_${new Date().toISOString().slice(0, 10)}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const handleImportBackup = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (evt) => {
+      try {
+        const parsed = JSON.parse(evt.target?.result as string);
+        if (parsed && typeof parsed === "object") {
+          setSiteData({ ...initialSiteData, ...parsed });
+          setStatusMessage("Backup data loaded into editor! Click 'Save Live' to publish to Supabase.");
+          setSaveStatus("idle");
+        }
+      } catch {
+        alert("Invalid JSON backup file.");
+      }
+    };
+    reader.readAsText(file);
+  };
+
   // PIN Access Screen
   if (!isAuthenticated) {
     return (
@@ -242,14 +274,37 @@ export default function AdminPage() {
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
+          <button
+            onClick={handleExportBackup}
+            className="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-mono-tech text-gray-300 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 transition-colors"
+            title="Download complete site JSON backup"
+          >
+            <Download className="w-3.5 h-3.5 text-[#00F0FF]" />
+            <span>Export Backup</span>
+          </button>
+
+          <label
+            className="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-mono-tech text-gray-300 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 transition-colors cursor-pointer"
+            title="Import site JSON backup"
+          >
+            <Upload className="w-3.5 h-3.5 text-[#FFAE33]" />
+            <span>Import</span>
+            <input
+              type="file"
+              accept=".json"
+              onChange={handleImportBackup}
+              className="hidden"
+            />
+          </label>
+
           <button
             onClick={handleResetDefaults}
             className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-mono-tech text-gray-400 hover:text-white bg-white/5 border border-white/10 transition-colors"
             title="Reset form to initial verified data"
           >
             <RefreshCw className="w-3.5 h-3.5" />
-            <span>Reset Defaults</span>
+            <span>Reset</span>
           </button>
 
           <button

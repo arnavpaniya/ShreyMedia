@@ -4,14 +4,15 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { SiteConfig } from "@/types/content";
-import { MessageSquare, Menu, X, ArrowUpRight, Sparkles } from "lucide-react";
+import { MessageSquare, Menu, X, ArrowUpRight, Sparkles, Zap } from "lucide-react";
 
 interface NavbarProps {
   config: SiteConfig;
   onOpenAdmin?: () => void;
+  onOpenProposal?: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ config, onOpenAdmin }) => {
+export const Navbar: React.FC<NavbarProps> = ({ config, onOpenAdmin, onOpenProposal }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -56,8 +57,9 @@ export const Navbar: React.FC<NavbarProps> = ({ config, onOpenAdmin }) => {
             <span className="font-syne font-black text-lg sm:text-xl tracking-tight text-white group-hover:text-[#FF5E00] transition-colors drop-shadow">
               SHREY MEDIA
             </span>
-            <span className="text-[10px] font-mono-tech uppercase tracking-widest text-[#D4FF00] font-semibold">
-              Marketing × Tech
+            <span className="text-[10px] font-mono-tech uppercase tracking-widest text-[#D4FF00] font-semibold flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              Jaipur HQ • Active
             </span>
           </div>
         </Link>
@@ -75,8 +77,18 @@ export const Navbar: React.FC<NavbarProps> = ({ config, onOpenAdmin }) => {
           ))}
         </nav>
 
-        {/* Right Action CTA */}
-        <div className="hidden sm:flex items-center gap-3">
+        {/* Right Action CTAs */}
+        <div className="hidden sm:flex items-center gap-2.5">
+          {onOpenProposal && (
+            <button
+              onClick={onOpenProposal}
+              className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-full text-xs font-mono-tech font-bold text-[#FFAE33] bg-[#FFAE33]/10 hover:bg-[#FFAE33]/20 border border-[#FFAE33]/30 transition-all hover:scale-102"
+            >
+              <Zap className="w-3.5 h-3.5" />
+              <span>Get Scope</span>
+            </button>
+          )}
+
           <a
             href={`https://wa.me/91${config.phone}?text=Hi%20Shrey%20Media,%20I'd%20like%20to%20grow%20my%20business.`}
             target="_blank"
@@ -114,11 +126,24 @@ export const Navbar: React.FC<NavbarProps> = ({ config, onOpenAdmin }) => {
               </Link>
             ))}
             <div className="pt-4 flex flex-col gap-3">
+              {onOpenProposal && (
+                <button
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    onOpenProposal();
+                  }}
+                  className="w-full flex items-center justify-center gap-2 bg-[#FFAE33]/15 border border-[#FFAE33]/40 text-[#FFAE33] font-bold py-3 rounded-full text-center text-sm"
+                >
+                  <Zap className="w-4 h-4" />
+                  <span>Interactive Proposal Builder</span>
+                </button>
+              )}
+
               <a
                 href={`https://wa.me/91${config.phone}?text=Hi%20Shrey%20Media,%20I'd%20like%20to%20grow%20my%20business.`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-[#FF5E00] to-[#FFAE33] text-white font-bold py-3.5 rounded-full text-center shadow-lg"
+                className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-[#FF5E00] to-[#FFAE33] text-white font-bold py-3.5 rounded-full text-center shadow-lg text-sm"
               >
                 <MessageSquare className="w-4 h-4 fill-white" />
                 <span>WhatsApp: +91 {config.phone}</span>

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import dynamic from "next/dynamic";
 import { CompleteSiteData } from "@/types/content";
 import { initialSiteData } from "@/lib/data/initial-content";
 import { getSiteContent } from "@/lib/data/content-service";
@@ -13,14 +14,29 @@ import { ProductionShowcase } from "@/components/ProductionShowcase";
 import { AboutFounderSection } from "@/components/AboutFounderSection";
 import { TestimonialsSection } from "@/components/TestimonialsSection";
 import { OutroLaserSection } from "@/components/OutroLaserSection";
-import { AnimatedOfficeMap } from "@/components/AnimatedOfficeMap";
 import { Footer } from "@/components/Footer";
 import { Interactive3DBot } from "@/components/Interactive3DBot";
-import { InstagramOfferModal } from "@/components/InstagramOfferModal";
+
+// Performance Optimization: Lazy-load below-the-fold interactive components
+const AnimatedOfficeMap = dynamic(
+  () => import("@/components/AnimatedOfficeMap").then((mod) => mod.AnimatedOfficeMap),
+  { ssr: false }
+);
+
+const InstagramOfferModal = dynamic(
+  () => import("@/components/InstagramOfferModal").then((mod) => mod.InstagramOfferModal),
+  { ssr: false }
+);
+
+const ProposalBuilderModal = dynamic(
+  () => import("@/components/ProposalBuilderModal").then((mod) => mod.ProposalBuilderModal),
+  { ssr: false }
+);
 
 export default function HomePage() {
   const [siteData, setSiteData] = useState<CompleteSiteData>(initialSiteData);
   const [activeDivision, setActiveDivision] = useState<"marketing" | "tech">("marketing");
+  const [isProposalOpen, setIsProposalOpen] = useState(false);
 
   useEffect(() => {
     async function loadData() {
@@ -32,11 +48,17 @@ export default function HomePage() {
 
   return (
     <main className="min-h-screen bg-[#07070A] text-white flex flex-col relative selection:bg-[#FF5E00] selection:text-white">
-      {/* 1. Header Navigation */}
-      <Navbar config={siteData.config} />
+      {/* 1. Header Navigation with Live Jaipur Status */}
+      <Navbar 
+        config={siteData.config} 
+        onOpenProposal={() => setIsProposalOpen(true)}
+      />
 
       {/* 2. Full-Canvas Hero Section */}
-      <HeroSection hero={siteData.hero} config={siteData.config} />
+      <HeroSection 
+        hero={siteData.hero} 
+        config={siteData.config} 
+      />
 
       {/* 3. The Growth & Tech Ecosystem Switcher */}
       <EcosystemSwitcher
@@ -61,7 +83,7 @@ export default function HomePage() {
       {/* 7. Client Testimonials & Social Proof */}
       <TestimonialsSection testimonials={siteData.testimonials} />
 
-      {/* 8. Animated Office Location & Radar Google Map */}
+      {/* 8. Animated Office Location & Radar Google Map (Lazy loaded) */}
       <AnimatedOfficeMap config={siteData.config} />
 
       {/* 9. Stylized Circuit Outro with SHREY Display Typography */}
@@ -70,11 +92,18 @@ export default function HomePage() {
       {/* 10. Footer & Local SEO Hub */}
       <Footer config={siteData.config} />
 
-      {/* 11. Clean Floating WhatsApp Trigger (No speech bubble text) */}
+      {/* 11. Clean Floating WhatsApp Trigger */}
       <Interactive3DBot config={siteData.config} botConfig={siteData.bots} />
 
-      {/* 12. Light-Theme Instagram Offer Pop-up Modal */}
+      {/* 12. Dynamic Instagram Offer Pop-up Modal (Lazy loaded) */}
       <InstagramOfferModal config={siteData.config} offer={siteData.offer} />
+
+      {/* 13. Interactive Multi-Step Proposal Builder Modal (Lazy loaded) */}
+      <ProposalBuilderModal
+        isOpen={isProposalOpen}
+        onClose={() => setIsProposalOpen(false)}
+        config={siteData.config}
+      />
     </main>
   );
 }
