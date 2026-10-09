@@ -4,7 +4,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { SiteConfig } from "@/types/content";
-import { MapPin, Phone, MessageSquare, Mail, ArrowUpRight, Heart } from "lucide-react";
+import { MapPin, Phone } from "lucide-react";
 import { InstagramIcon } from "@/components/icons/InstagramIcon";
 
 interface FooterProps {
@@ -60,16 +60,17 @@ export const Footer: React.FC<FooterProps> = ({ config }) => {
           {/* Col 2: Services Matrix (3 cols) */}
           <div className="lg:col-span-3 space-y-3">
             <h4 className="font-syne font-bold text-white text-sm uppercase tracking-wider">
-              Marketing &amp; Tech
+              Jaipur Services &amp; Tech
             </h4>
-            <ul className="space-y-2 text-xs">
-              <li><Link href="#services" className="hover:text-[#FFAE33] transition-colors">Google Search &amp; Display Ads</Link></li>
-              <li><Link href="#services" className="hover:text-[#FFAE33] transition-colors">Meta (Facebook &amp; IG) Ads</Link></li>
-              <li><Link href="#services" className="hover:text-[#FFAE33] transition-colors">Search Engine Optimization (SEO)</Link></li>
-              <li><Link href="#services" className="hover:text-[#FFAE33] transition-colors">Generative Engine Optimization (GEO)</Link></li>
-              <li><Link href="#production" className="hover:text-[#FFAE33] transition-colors">Studio Photoshoots &amp; Reels</Link></li>
-              <li><Link href="#services" className="hover:text-[#00F0FF] transition-colors">WhatsApp Automation &amp; CRM</Link></li>
-              <li><Link href="#services" className="hover:text-[#00F0FF] transition-colors">Custom Websites &amp; Apps</Link></li>
+            <ul className="space-y-1 text-xs">
+              <li><Link href="/services" className="hover:text-[#FFAE33] transition-colors py-1.5 block font-semibold text-white">→ All Services Directory</Link></li>
+              <li><Link href="/services/google-ads" className="hover:text-[#FFAE33] transition-colors py-1.5 block">Google Search &amp; Display Ads</Link></li>
+              <li><Link href="/services/meta-ads" className="hover:text-[#FFAE33] transition-colors py-1.5 block">Meta (Facebook &amp; IG) Ads</Link></li>
+              <li><Link href="/services/seo" className="hover:text-[#FFAE33] transition-colors py-1.5 block">Search Engine Optimization (SEO)</Link></li>
+              <li><Link href="/services/geo" className="hover:text-[#FFAE33] transition-colors py-1.5 block">Generative Engine Optimization (GEO)</Link></li>
+              <li><Link href="/services/studio-photoshoots" className="hover:text-[#FFAE33] transition-colors py-1.5 block">Studio Photoshoots &amp; Reels</Link></li>
+              <li><Link href="/services/whatsapp-marketing" className="hover:text-[#00F0FF] transition-colors py-1.5 block">WhatsApp Automation &amp; CRM</Link></li>
+              <li><Link href="/services/custom-website-development" className="hover:text-[#00F0FF] transition-colors py-1.5 block">Custom Websites &amp; Apps</Link></li>
             </ul>
           </div>
 
@@ -84,15 +85,15 @@ export const Footer: React.FC<FooterProps> = ({ config }) => {
                 href={config.socials.shreyMediaInstagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-between p-3 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 transition-colors group"
+                className="min-h-[44px] flex items-center justify-between p-3 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 transition-colors group active:scale-98"
               >
                 <div className="flex items-center gap-2.5">
-                  <InstagramIcon className="w-4 h-4 text-[#FF1493]" />
-                  <span className="text-xs text-gray-200 group-hover:text-white font-medium">
+                  <InstagramIcon className="w-4 h-4 text-[#FF1493] shrink-0" />
+                  <span className="text-xs text-gray-200 group-hover:text-white font-medium truncate">
                     Shrey Media Official
                   </span>
                 </div>
-                <span className="text-[10px] font-mono-tech text-gray-400 group-hover:text-[#FF1493]">
+                <span className="text-[10px] font-mono-tech text-gray-400 group-hover:text-[#FF1493] shrink-0">
                   @shrey_media_2025 ↗
                 </span>
               </a>
@@ -101,15 +102,15 @@ export const Footer: React.FC<FooterProps> = ({ config }) => {
                 href={config.socials.shreyTechInstagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-between p-3 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 transition-colors group"
+                className="min-h-[44px] flex items-center justify-between p-3 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 transition-colors group active:scale-98"
               >
                 <div className="flex items-center gap-2.5">
-                  <InstagramIcon className="w-4 h-4 text-[#00F0FF]" />
-                  <span className="text-xs text-gray-200 group-hover:text-white font-medium">
+                  <InstagramIcon className="w-4 h-4 text-[#00F0FF] shrink-0" />
+                  <span className="text-xs text-gray-200 group-hover:text-white font-medium truncate">
                     Shrey Tech Solutions
                   </span>
                 </div>
-                <span className="text-[10px] font-mono-tech text-gray-400 group-hover:text-[#00F0FF]">
+                <span className="text-[10px] font-mono-tech text-gray-400 group-hover:text-[#00F0FF] shrink-0">
                   @shreytechsolutions2k26 ↗
                 </span>
               </a>
@@ -118,15 +119,15 @@ export const Footer: React.FC<FooterProps> = ({ config }) => {
                 href={config.socials.founderInstagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-between p-3 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 transition-colors group"
+                className="min-h-[44px] flex items-center justify-between p-3 rounded-xl bg-white/[0.03] hover:bg-white/[0.08] border border-white/10 transition-colors group active:scale-98"
               >
                 <div className="flex items-center gap-2.5">
-                  <InstagramIcon className="w-4 h-4 text-[#FFAE33]" />
-                  <span className="text-xs text-gray-200 group-hover:text-white font-medium">
+                  <InstagramIcon className="w-4 h-4 text-[#FFAE33] shrink-0" />
+                  <span className="text-xs text-gray-200 group-hover:text-white font-medium truncate">
                     Shreyansh Malpani (Founder)
                   </span>
                 </div>
-                <span className="text-[10px] font-mono-tech text-gray-400 group-hover:text-[#FFAE33]">
+                <span className="text-[10px] font-mono-tech text-gray-400 group-hover:text-[#FFAE33] shrink-0">
                   @shrey_malpani_008i ↗
                 </span>
               </a>

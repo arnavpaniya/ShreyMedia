@@ -1607,7 +1607,7 @@ export default function AdminPage() {
             <div className="space-y-6">
               <div>
                 <h3 className="font-syne font-bold text-xl text-white">Jaipur Local SEO &amp; Meta Settings</h3>
-                <p className="text-xs text-gray-400 font-mono-tech">Configure page title, meta description, and keywords.</p>
+                <p className="text-xs text-gray-400 font-mono-tech">Configure homepage title, meta description, secondary keywords, and per-page indexable routes.</p>
               </div>
 
               <div className="space-y-4 text-xs">
@@ -1632,13 +1632,41 @@ export default function AdminPage() {
                 </div>
 
                 <div>
-                  <label className="font-mono-tech text-gray-400 block mb-1.5 uppercase">Meta Description</label>
+                  <label className="font-mono-tech text-gray-400 block mb-1.5 uppercase">Homepage Meta Description</label>
                   <textarea
                     rows={3}
                     value={siteData.config.seo.suggestedMetaDescription}
                     onChange={(e) => setSiteData({ ...siteData, config: { ...siteData.config, seo: { ...siteData.config.seo, suggestedMetaDescription: e.target.value } } })}
                     className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white text-xs"
                   />
+                </div>
+
+                <div>
+                  <label className="font-mono-tech text-gray-400 block mb-1.5 uppercase">Secondary Keywords (Comma-separated)</label>
+                  <textarea
+                    rows={3}
+                    value={(siteData.config.seo.secondaryKeywords || []).join(", ")}
+                    onChange={(e) => setSiteData({
+                      ...siteData,
+                      config: {
+                        ...siteData.config,
+                        seo: {
+                          ...siteData.config.seo,
+                          secondaryKeywords: e.target.value.split(",").map(s => s.trim()).filter(Boolean)
+                        }
+                      }
+                    })}
+                    className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-white text-xs font-mono-tech"
+                  />
+                </div>
+
+                <div className="pt-4 border-t border-white/10 space-y-2">
+                  <h4 className="font-mono-tech text-xs text-[#00F0FF] uppercase font-bold">
+                    Indexable Service Pages (Generated via Marketing &amp; Tech Tabs)
+                  </h4>
+                  <p className="text-[11px] text-gray-400">
+                    Each service defined in the Marketing and Tech tabs automatically generates a dedicated, canonical URL at <code className="text-[#FFAE33]">/services/[slug]</code> with its own JSON-LD schema, custom title, and meta description.
+                  </p>
                 </div>
               </div>
             </div>

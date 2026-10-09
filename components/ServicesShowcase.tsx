@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import Link from "next/link";
 import { ServiceItem, SiteConfig } from "@/types/content";
 import { 
   Search, 
@@ -17,31 +18,27 @@ import {
   Code, 
   Cpu, 
   Layers,
-  ArrowRight,
   Sparkles,
   Zap,
   Flame,
-  ChevronRight
+  ChevronRight,
+  ArrowRight
 } from "lucide-react";
 
 interface ServicesShowcaseProps {
   marketingServices: ServiceItem[];
   techServices: ServiceItem[];
   activeDivision: "marketing" | "tech";
-  config: SiteConfig;
+  config?: SiteConfig;
 }
 
 export const ServicesShowcase: React.FC<ServicesShowcaseProps> = ({
   marketingServices,
   techServices,
   activeDivision,
-  config,
 }) => {
-  const [selectedCategory, setSelectedCategory] = useState<"marketing" | "tech">(activeDivision);
-
-  useEffect(() => {
-    setSelectedCategory(activeDivision);
-  }, [activeDivision]);
+  const [userCategory, setUserCategory] = useState<"marketing" | "tech" | null>(null);
+  const selectedCategory = userCategory ?? activeDivision;
 
   const getServiceIcon = (iconName: string) => {
     switch (iconName) {
@@ -87,28 +84,28 @@ export const ServicesShowcase: React.FC<ServicesShowcaseProps> = ({
           </div>
 
           {/* Clean 2-Pill Segmented Switcher */}
-          <div className="inline-flex items-center p-1 rounded-xl bg-black/60 border border-white/15 backdrop-blur-xl shrink-0 self-start sm:self-auto">
+          <div className="inline-flex items-center p-1 rounded-xl bg-black/60 border border-white/15 backdrop-blur-xl shrink-0 w-full sm:w-auto justify-between sm:justify-start">
             <button
-              onClick={() => setSelectedCategory("marketing")}
-              className={`flex items-center gap-1.5 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-lg text-xs font-bold transition-all duration-300 ${
+              onClick={() => setUserCategory("marketing")}
+              className={`min-h-[40px] flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-3.5 sm:px-4 py-2 rounded-lg text-xs font-bold transition-all duration-300 active:scale-98 ${
                 isMarketing
                   ? "bg-gradient-to-r from-[#FF5E00] to-[#FFAE33] text-white shadow-[0_2px_12px_rgba(255,94,0,0.4)]"
                   : "text-gray-400 hover:text-white"
               }`}
             >
-              <Flame className="w-3.5 h-3.5" />
+              <Flame className="w-3.5 h-3.5 shrink-0" />
               <span>Marketing ({marketingServices.length})</span>
             </button>
 
             <button
-              onClick={() => setSelectedCategory("tech")}
-              className={`flex items-center gap-1.5 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-lg text-xs font-bold transition-all duration-300 ${
+              onClick={() => setUserCategory("tech")}
+              className={`min-h-[40px] flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-3.5 sm:px-4 py-2 rounded-lg text-xs font-bold transition-all duration-300 active:scale-98 ${
                 !isMarketing
                   ? "bg-gradient-to-r from-[#00F0FF] to-[#3B82F6] text-black font-extrabold shadow-[0_2px_12px_rgba(0,240,255,0.4)]"
                   : "text-gray-400 hover:text-white"
               }`}
             >
-              <Zap className="w-3.5 h-3.5" />
+              <Zap className="w-3.5 h-3.5 shrink-0" />
               <span>Shrey Tech ({techServices.length})</span>
             </button>
           </div>
@@ -123,17 +120,14 @@ export const ServicesShowcase: React.FC<ServicesShowcaseProps> = ({
         </div>
 
         {/* Responsive Grid: Horizontal Snap Carousel on Mobile, Clean Bento Grid on Desktop */}
-        <div className="flex sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-5 overflow-x-auto sm:overflow-visible snap-x snap-mandatory pb-4 sm:pb-0 no-scrollbar">
+        <div className="flex sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5 overflow-x-auto sm:overflow-visible snap-x snap-mandatory pb-4 sm:pb-0 no-scrollbar">
           {currentServices.map((service, index) => {
             const isMarketingService = service.division === "marketing";
-            const waText = encodeURIComponent(
-              `Hi Shreyansh, I'd like to inquire about your ${service.title} service for my business in Jaipur.`
-            );
 
             return (
               <div
                 key={service.id || index}
-                className="w-[82vw] max-w-[290px] sm:w-auto shrink-0 snap-center rounded-2xl p-4 sm:p-5 bg-[#0C0C12]/90 border border-white/10 hover:border-white/25 transition-all duration-300 flex flex-col justify-between shadow-lg group relative overflow-hidden backdrop-blur-md"
+                className="w-[80vw] min-w-[240px] max-w-[285px] sm:w-auto shrink-0 snap-center rounded-2xl p-4 sm:p-5 bg-[#0C0C12]/90 border border-white/10 hover:border-white/25 transition-all duration-300 flex flex-col justify-between shadow-lg group relative overflow-hidden backdrop-blur-md"
               >
                 {/* Subtle top edge accent */}
                 <div 
@@ -175,7 +169,7 @@ export const ServicesShowcase: React.FC<ServicesShowcaseProps> = ({
                   </p>
 
                   {/* Compact Feature Pills (Max 2 tags to prevent vertical bloat) */}
-                  <div className="flex flex-wrap gap-1.5">
+                  <div className="flex flex-wrap gap-1.5 mb-3.5">
                     {service.features.slice(0, 2).map((feat, idx) => (
                       <span
                         key={idx}
@@ -186,9 +180,29 @@ export const ServicesShowcase: React.FC<ServicesShowcaseProps> = ({
                     ))}
                   </div>
                 </div>
+
+                {/* Bottom Card Action Link */}
+                <Link
+                  href={`/services/${service.slug}`}
+                  className="pt-2 border-t border-white/5 flex items-center justify-between text-[11px] font-mono-tech text-gray-400 group-hover:text-white transition-colors"
+                >
+                  <span className="group-hover:text-[#FFAE33] transition-colors">View Jaipur Blueprint</span>
+                  <ArrowRight className="w-3 h-3 group-hover:translate-x-1 group-hover:text-[#FFAE33] transition-transform" />
+                </Link>
               </div>
             );
           })}
+        </div>
+
+        {/* Directory Hub Footer CTA */}
+        <div className="mt-8 text-center sm:text-right">
+          <Link
+            href="/services"
+            className="inline-flex items-center gap-2 text-xs font-mono-tech text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 px-4 py-2.5 rounded-xl transition-colors"
+          >
+            <span>Browse Complete Jaipur Services Directory</span>
+            <ArrowRight className="w-3.5 h-3.5 text-[#FFAE33]" />
+          </Link>
         </div>
       </div>
     </section>

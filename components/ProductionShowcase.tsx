@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { ProductionSectionData, ShowcaseReelItem } from "@/types/content";
-import { Film, Play, ExternalLink, Eye, X, Sparkles, Video, Image as ImageIcon, Globe, Zap, Flame } from "lucide-react";
+import { Film, Play, ExternalLink, Eye, X, Video, Image as ImageIcon, Globe } from "lucide-react";
 
 interface ProductionShowcaseProps {
   production?: ProductionSectionData;
@@ -124,7 +124,7 @@ export const ProductionShowcase: React.FC<ProductionShowcaseProps> = ({ producti
           </div>
 
           <div className="relative">
-            <h2 className="font-syne text-4xl sm:text-6xl lg:text-7xl font-extrabold text-white tracking-tight leading-none mb-2">
+            <h2 className="font-syne text-3xl min-[360px]:text-4xl sm:text-6xl lg:text-7xl font-extrabold text-white tracking-tight leading-none mb-2">
               {headlineMain}<br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF5E00] via-[#FFAE33] to-[#D4FF00]">
                 {headlineAccent}
@@ -141,16 +141,16 @@ export const ProductionShowcase: React.FC<ProductionShowcaseProps> = ({ producti
             </div>
           </div>
 
-          <p className="mt-4 text-xs sm:text-sm text-gray-400 font-hand text-lg sm:text-xl text-[#FFAE33]">
+          <p className="mt-3 sm:mt-4 text-xs sm:text-sm font-hand text-base sm:text-xl text-[#FFAE33]">
             {note}
           </p>
         </div>
 
         {/* Media Filter Tabs: All, Clips & Reels, Photoshoots, Websites */}
-        <div className="flex items-center justify-center gap-2 mb-8 flex-wrap">
+        <div className="flex items-center justify-center gap-1.5 sm:gap-2 mb-8 flex-wrap">
           <button
             onClick={() => setSelectedFilter("all")}
-            className={`px-4 py-1.5 rounded-xl text-xs font-bold transition-all duration-300 ${
+            className={`min-h-[40px] px-3.5 sm:px-4 py-2 rounded-xl text-xs font-bold transition-all duration-300 active:scale-98 ${
               selectedFilter === "all"
                 ? "bg-white text-black shadow-lg"
                 : "bg-white/5 text-gray-300 hover:text-white hover:bg-white/10"
@@ -160,7 +160,7 @@ export const ProductionShowcase: React.FC<ProductionShowcaseProps> = ({ producti
           </button>
           <button
             onClick={() => setSelectedFilter("video")}
-            className={`flex items-center gap-1.5 px-4 py-1.5 rounded-xl text-xs font-bold transition-all duration-300 ${
+            className={`min-h-[40px] flex items-center gap-1.5 px-3.5 sm:px-4 py-2 rounded-xl text-xs font-bold transition-all duration-300 active:scale-98 ${
               selectedFilter === "video"
                 ? "bg-[#FF1493] text-white shadow-lg"
                 : "bg-white/5 text-gray-300 hover:text-white hover:bg-white/10"
@@ -171,7 +171,7 @@ export const ProductionShowcase: React.FC<ProductionShowcaseProps> = ({ producti
           </button>
           <button
             onClick={() => setSelectedFilter("image")}
-            className={`flex items-center gap-1.5 px-4 py-1.5 rounded-xl text-xs font-bold transition-all duration-300 ${
+            className={`min-h-[40px] flex items-center gap-1.5 px-3.5 sm:px-4 py-2 rounded-xl text-xs font-bold transition-all duration-300 active:scale-98 ${
               selectedFilter === "image"
                 ? "bg-[#FF5E00] text-white shadow-lg"
                 : "bg-white/5 text-gray-300 hover:text-white hover:bg-white/10"
@@ -182,7 +182,7 @@ export const ProductionShowcase: React.FC<ProductionShowcaseProps> = ({ producti
           </button>
           <button
             onClick={() => setSelectedFilter("website")}
-            className={`flex items-center gap-1.5 px-4 py-1.5 rounded-xl text-xs font-bold transition-all duration-300 ${
+            className={`min-h-[40px] flex items-center gap-1.5 px-3.5 sm:px-4 py-2 rounded-xl text-xs font-bold transition-all duration-300 active:scale-98 ${
               selectedFilter === "website"
                 ? "bg-[#00F0FF] text-black font-extrabold shadow-lg"
                 : "bg-white/5 text-gray-300 hover:text-white hover:bg-white/10"
@@ -196,14 +196,14 @@ export const ProductionShowcase: React.FC<ProductionShowcaseProps> = ({ producti
 
       {/* Infinite Horizontal Image / Video Scroller & Responsive Showcase */}
       <div className="relative w-full overflow-hidden py-2">
-        <div className="flex gap-4 sm:gap-6 px-4 overflow-x-auto no-scrollbar snap-x snap-mandatory sm:justify-center flex-nowrap sm:flex-wrap">
+        <div className="flex gap-3.5 sm:gap-6 px-4 overflow-x-auto no-scrollbar snap-x snap-mandatory sm:justify-center flex-nowrap sm:flex-wrap">
           {filteredItems.map((item, idx) => {
             const itemType = item.type || "video";
 
             return (
               <div
                 key={`${item.id}-${idx}`}
-                className="relative w-64 sm:w-72 aspect-[9/13] rounded-3xl overflow-hidden clay-card border border-white/15 shrink-0 snap-center group cursor-pointer shadow-xl hover:scale-103 transition-transform duration-300"
+                className="relative w-[75vw] min-w-[230px] max-w-[280px] sm:w-72 aspect-[9/13] rounded-3xl overflow-hidden clay-card border border-white/15 shrink-0 snap-center group cursor-pointer shadow-xl hover:scale-103 transition-transform duration-300"
                 onClick={() => handleItemClick(item)}
               >
                 <Image
@@ -270,7 +270,7 @@ export const ProductionShowcase: React.FC<ProductionShowcaseProps> = ({ producti
               </div>
               <button
                 onClick={() => setActiveModalItem(null)}
-                className="p-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
+                className="min-w-[44px] min-h-[44px] p-2.5 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors flex items-center justify-center active:scale-95"
                 aria-label="Close modal"
               >
                 <X className="w-5 h-5" />

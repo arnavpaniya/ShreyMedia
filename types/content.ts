@@ -166,6 +166,9 @@ export interface TestimonialItem {
   quote: string;
   rating: number;
   avatar?: string;
+  proofImage?: string;
+  serviceTag?: string;
+  duration?: string;
   verified: boolean;
 }
 

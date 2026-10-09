@@ -5,13 +5,8 @@ import Image from "next/image";
 import { SiteConfig, AboutSectionData } from "@/types/content";
 import { 
   Sparkles, 
-  MapPin, 
-  TrendingUp, 
   PhoneCall, 
-  ArrowUpRight, 
-  CheckCircle2,
-  Building,
-  Award
+  ArrowUpRight
 } from "lucide-react";
 import { InstagramIcon } from "@/components/icons/InstagramIcon";
 
@@ -113,41 +108,41 @@ export const AboutFounderSection: React.FC<AboutFounderSectionProps> = ({ config
               </span>
             </div>
 
-            <h2 className="font-syne text-3xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight">
+            <h2 className="font-syne text-2xl min-[360px]:text-3xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight">
               {headlineText}
             </h2>
 
-            <div className="space-y-4 text-xs sm:text-sm text-gray-300 leading-relaxed font-sans">
+            <div className="space-y-3 sm:space-y-4 text-xs sm:text-sm text-gray-300 leading-relaxed font-sans">
               <p>{bio1}</p>
               <p>{bio2}</p>
             </div>
 
             {/* Credibility Key Highlights */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 py-2">
-              <div className="p-3.5 rounded-2xl bg-white/[0.04] border border-white/10">
-                <span className="font-syne font-black text-xl text-[#FF5E00] block">{expYears}</span>
-                <span className="text-[11px] font-mono-tech text-gray-400">{expLabel}</span>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 sm:gap-3 py-2">
+              <div className="p-3 sm:p-3.5 rounded-2xl bg-white/[0.04] border border-white/10">
+                <span className="font-syne font-black text-lg sm:text-xl text-[#FF5E00] block">{expYears}</span>
+                <span className="text-[10px] sm:text-[11px] font-mono-tech text-gray-400">{expLabel}</span>
               </div>
-              <div className="p-3.5 rounded-2xl bg-white/[0.04] border border-white/10">
-                <span className="font-syne font-black text-xl text-[#D4FF00] block">{busScaled}</span>
-                <span className="text-[11px] font-mono-tech text-gray-400">{busLabel}</span>
+              <div className="p-3 sm:p-3.5 rounded-2xl bg-white/[0.04] border border-white/10">
+                <span className="font-syne font-black text-lg sm:text-xl text-[#D4FF00] block">{busScaled}</span>
+                <span className="text-[10px] sm:text-[11px] font-mono-tech text-gray-400">{busLabel}</span>
               </div>
-              <div className="p-3.5 rounded-2xl bg-white/[0.04] border border-white/10 col-span-2 sm:col-span-1">
-                <span className="font-syne font-black text-xl text-[#00F0FF] block">{locBadge}</span>
-                <span className="text-[11px] font-mono-tech text-gray-400">{locLabel}</span>
+              <div className="p-3 sm:p-3.5 rounded-2xl bg-white/[0.04] border border-white/10 col-span-2 sm:col-span-1">
+                <span className="font-syne font-black text-lg sm:text-xl text-[#00F0FF] block">{locBadge}</span>
+                <span className="text-[10px] sm:text-[11px] font-mono-tech text-gray-400">{locLabel}</span>
               </div>
             </div>
 
             {/* Industries Served Tag Cloud */}
             <div className="pt-3 border-t border-white/10">
-              <h4 className="font-syne font-bold text-sm text-white uppercase tracking-wider mb-3">
+              <h4 className="font-syne font-bold text-xs sm:text-sm text-white uppercase tracking-wider mb-2.5 sm:mb-3">
                 {indHeader}
               </h4>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-1.5 sm:gap-2">
                 {industriesList.map((ind) => (
                   <span
                     key={ind}
-                    className="clay-badge px-3 py-1.5 rounded-full text-xs font-mono-tech text-gray-300 hover:text-white hover:border-[#FF5E00]/40 transition-colors"
+                    className="clay-badge px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full text-[11px] sm:text-xs font-mono-tech text-gray-300 hover:text-white hover:border-[#FF5E00]/40 transition-colors"
                   >
                     {ind}
                   </span>
@@ -156,25 +151,25 @@ export const AboutFounderSection: React.FC<AboutFounderSectionProps> = ({ config
             </div>
 
             {/* Direct Connect Buttons */}
-            <div className="pt-2 flex flex-wrap items-center gap-4">
+            <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
               <a
                 href={`https://wa.me/91${config.phone}?text=Hi%20Shreyansh,%20let's%20discuss%20growing%20my%20business.`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="clay-btn inline-flex items-center gap-2 bg-gradient-to-r from-[#FF5E00] to-[#FFAE33] text-white font-bold text-xs sm:text-sm px-6 py-3 rounded-full shadow-lg"
+                className="clay-btn min-h-[48px] inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#FF5E00] to-[#FFAE33] text-white font-bold text-xs sm:text-sm px-6 py-3.5 rounded-full shadow-lg active:scale-98 transition-transform"
               >
-                <PhoneCall className="w-4 h-4 fill-white" />
+                <PhoneCall className="w-4 h-4 fill-white shrink-0" />
                 <span>{ctaBtnText} (+91 {config.phone})</span>
-                <ArrowUpRight className="w-4 h-4" />
+                <ArrowUpRight className="w-4 h-4 shrink-0" />
               </a>
 
               <a
                 href={config.socials.founderInstagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-white/5 hover:bg-white/10 border border-white/15 text-white text-xs sm:text-sm font-medium px-5 py-3 rounded-full transition-colors"
+                className="min-h-[48px] inline-flex items-center justify-center gap-2 bg-white/5 hover:bg-white/10 border border-white/15 text-white text-xs sm:text-sm font-medium px-5 py-3.5 rounded-full transition-colors active:scale-98"
               >
-                <InstagramIcon className="w-4 h-4 text-[#FFAE33]" />
+                <InstagramIcon className="w-4 h-4 text-[#FFAE33] shrink-0" />
                 <span>@shrey_malpani_008i</span>
               </a>
             </div>

@@ -15,6 +15,7 @@ export const OutroLaserSection: React.FC<OutroLaserSectionProps> = ({ config, ou
   const [mouseOffset, setMouseOffset] = useState({ x: 0, y: 0 });
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (typeof window !== "undefined" && window.innerWidth < 768) return;
     const { clientX, clientY, currentTarget } = e;
     const { left, top, width, height } = currentTarget.getBoundingClientRect();
     const x = (clientX - left) / width - 0.5;
@@ -39,13 +40,13 @@ export const OutroLaserSection: React.FC<OutroLaserSectionProps> = ({ config, ou
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center relative z-10">
         {/* Top Header Tagline */}
-        <div className="inline-flex items-center gap-2 text-[11px] font-mono-tech uppercase tracking-widest text-gray-400 mb-2">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#FF5E00]" />
-          <span>{topTagline}</span>
+        <div className="inline-flex items-center gap-2 text-[10px] sm:text-[11px] font-mono-tech uppercase tracking-widest text-gray-400 mb-2 max-w-full flex-wrap justify-center">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#FF5E00] shrink-0" />
+          <span className="text-center">{topTagline}</span>
         </div>
 
         {/* Marketing Growth Pipeline */}
-        <div className="font-syne font-extrabold text-[11px] sm:text-sm tracking-widest text-white uppercase mb-4 flex items-center justify-center gap-2 sm:gap-4 flex-wrap">
+        <div className="font-syne font-extrabold text-[10px] sm:text-sm tracking-wider sm:tracking-widest text-white uppercase mb-4 flex items-center justify-center gap-1.5 sm:gap-4 flex-wrap">
           {pipelineKeywords.map((kw, idx) => (
             <React.Fragment key={idx}>
               <span className="hover:text-[#FFAE33] transition-colors">{kw}</span>
@@ -75,7 +76,7 @@ export const OutroLaserSection: React.FC<OutroLaserSectionProps> = ({ config, ou
           </div>
 
           {/* Glowing Radial Ambient Backlight */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] sm:w-[520px] h-[160px] bg-gradient-to-r from-[#FF5E00]/25 via-[#FFAE33]/20 to-[#00F0FF]/20 blur-3xl pointer-events-none -z-10" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[280px] sm:w-[520px] h-[140px] sm:h-[160px] bg-gradient-to-r from-[#FF5E00]/25 via-[#FFAE33]/20 to-[#00F0FF]/20 blur-3xl pointer-events-none -z-10" />
 
           {/* Original Stylized Circuit-Line Art SHREY Logo without any box */}
           <div
@@ -84,7 +85,7 @@ export const OutroLaserSection: React.FC<OutroLaserSectionProps> = ({ config, ou
               transform: `perspective(1000px) rotateX(${mouseOffset.y * -6}deg) rotateY(${mouseOffset.x * 6}deg)`,
             }}
           >
-            <div className="relative w-full max-w-xl sm:max-w-2xl md:max-w-3xl aspect-[22/9]">
+            <div className="relative w-full max-w-xs min-[360px]:max-w-sm sm:max-w-xl md:max-w-3xl aspect-[22/9]">
               <Image
                 src="/images/shrey-circuit-logo.png"
                 alt="SHREY Stylized Circuit Line Art"
@@ -93,32 +94,32 @@ export const OutroLaserSection: React.FC<OutroLaserSectionProps> = ({ config, ou
                 priority
               />
             </div>
-            <span className="font-mono-tech text-xs sm:text-sm text-[#FFAE33] tracking-[0.35em] uppercase font-bold mt-2 drop-shadow">
+            <span className="font-mono-tech text-[10px] min-[360px]:text-xs sm:text-sm text-[#FFAE33] tracking-[0.2em] sm:tracking-[0.35em] uppercase font-bold mt-2 drop-shadow">
               {subLogoText}
             </span>
           </div>
         </div>
 
         {/* Compact CTA Action Buttons */}
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+        <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 w-full sm:w-auto max-w-sm sm:max-w-none mx-auto">
           <a
             href={`https://wa.me/91${config.phone}?text=Hi%20Shreyansh,%20let's%20scale%20my%20business%20marketing.`}
             target="_blank"
             rel="noopener noreferrer"
-            className="clay-btn inline-flex items-center gap-2 bg-gradient-to-r from-[#FF5E00] via-[#FF8800] to-[#FFAE33] text-white font-bold text-xs sm:text-sm px-6 py-2.5 rounded-full shadow-[0_6px_25px_rgba(255,94,0,0.45)]"
+            className="clay-btn min-h-[44px] inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#FF5E00] via-[#FF8800] to-[#FFAE33] text-white font-bold text-xs sm:text-sm px-6 py-3 rounded-full shadow-[0_6px_25px_rgba(255,94,0,0.45)] active:scale-98"
           >
-            <PhoneCall className="w-3.5 h-3.5 fill-white" />
+            <PhoneCall className="w-3.5 h-3.5 fill-white shrink-0" />
             <span>{ctaBtnText}</span>
-            <ArrowRight className="w-3.5 h-3.5" />
+            <ArrowRight className="w-3.5 h-3.5 shrink-0" />
           </a>
 
           <a
             href={config.socials.shreyMediaInstagram}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-white/5 hover:bg-white/10 border border-white/15 text-white font-medium text-xs sm:text-sm px-5 py-2.5 rounded-full transition-colors"
+            className="min-h-[44px] inline-flex items-center justify-center gap-2 bg-white/5 hover:bg-white/10 border border-white/15 text-white font-medium text-xs sm:text-sm px-5 py-3 rounded-full transition-colors active:scale-98"
           >
-            <InstagramIcon className="w-3.5 h-3.5 text-[#FF1493]" />
+            <InstagramIcon className="w-3.5 h-3.5 text-[#FF1493] shrink-0" />
             <span>{igHandleText}</span>
           </a>
         </div>

@@ -125,15 +125,24 @@
 }
 
 .ocarina-watercolor-bloom {
-  filter: blur(80px);
+  filter: blur(40px);
   mix-blend-mode: screen;
-  opacity: 0.65;
+  opacity: 0.55;
   pointer-events: none;
 }
 
-/* Universal Squarish Grid Background matching user reference */
-.squarish-grid,
+@media (min-width: 768px) {
+  .ocarina-watercolor-bloom {
+    filter: blur(80px);
+    opacity: 0.65;
+  }
+}
+
+/* Universal Squarish Grid Background */
+html,
 body {
+  max-width: 100%;
+  overflow-x: hidden;
   background-color: #07070A;
   background-image: 
     linear-gradient(to right, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
@@ -244,24 +253,51 @@ body {
   }
 }
 
-.animate-marquee {
-  display: flex;
-  width: max-content;
-  animation: scroll-x 30s linear infinite;
+/* Mobile animation reduction & reduced-motion preferences */
+@media (max-width: 768px) {
+  .animate-laser {
+    animation-duration: 6s;
+  }
+  .animate-marquee {
+    animation-duration: 40s;
+  }
 }
 
-.animate-marquee:hover {
-  animation-play-state: paused;
+/* Accessible Keyboard Focus Ring Styles & High Contrast Navigation */
+:focus-visible {
+  outline: 2px solid #FF5E00 !important;
+  outline-offset: 3px !important;
 }
 
-/* Twinkling star animation */
-@keyframes twinkle {
-  0%, 100% { opacity: 0.2; transform: scale(0.8); }
-  50% { opacity: 1; transform: scale(1.2); }
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+[role="button"]:focus-visible,
+[tabindex="0"]:focus-visible {
+  outline: 2px solid #FF5E00 !important;
+  outline-offset: 3px !important;
+  box-shadow: 0 0 0 4px rgba(255, 94, 0, 0.4) !important;
 }
 
-.animate-twinkle {
-  animation: twinkle 2.5s infinite ease-in-out;
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .animate-laser,
+  .animate-marquee,
+  .animate-twinkle,
+  .animate-ping,
+  .animate-pulse,
+  .animate-bounce {
+    animation: none !important;
+  }
 }
 
 /* Custom Scrollbar */

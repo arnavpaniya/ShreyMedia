@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
-import { ArrowRight, Sparkles, Zap, Megaphone, Terminal, CheckCircle2 } from "lucide-react";
+import React from "react";
+import { ArrowRight, Sparkles, Megaphone, Terminal } from "lucide-react";
 
 interface EcosystemSwitcherProps {
   onSelectDivision: (division: "marketing" | "tech") => void;
@@ -33,49 +33,49 @@ export const EcosystemSwitcher: React.FC<EcosystemSwitcherProps> = ({
             </span>
           </div>
 
-          <h2 className="font-syne text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
+          <h2 className="font-syne text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
             Marketing Brings The Customer.
             <span className="block mt-1 font-serif-luxury italic text-[#00F0FF]">
-              Technology Converts & Retains Them.
+              Technology Converts &amp; Retains Them.
             </span>
           </h2>
 
-          <p className="mt-4 text-sm sm:text-base text-gray-400">
+          <p className="mt-3 sm:mt-4 text-xs sm:text-base text-gray-400">
             Most agencies only deliver traffic. We build both the customer acquisition engine and the software infrastructure to scale revenue.
           </p>
         </div>
 
-        {/* Dual Pillar Switcher Tabs */}
-        <div className="flex justify-center mb-10">
-          <div className="clay-card p-1.5 flex rounded-full border border-white/15 bg-black/40 backdrop-blur-xl">
+        {/* Dual Pillar Switcher Tabs - Responsive layout (stacked on small mobile, row on tablet/desktop) */}
+        <div className="flex justify-center mb-8 sm:mb-10 w-full">
+          <div className="clay-card p-1.5 flex flex-col sm:flex-row w-full sm:w-auto rounded-2xl sm:rounded-full border border-white/15 bg-black/40 backdrop-blur-xl gap-1.5 sm:gap-1">
             <button
               onClick={() => onSelectDivision("marketing")}
-              className={`flex items-center gap-2 px-6 sm:px-8 py-3 rounded-full text-xs sm:text-sm font-bold transition-all duration-300 ${
+              className={`min-h-[44px] flex items-center justify-center gap-2 px-4 sm:px-8 py-2.5 sm:py-3 rounded-xl sm:rounded-full text-xs sm:text-sm font-bold transition-all duration-300 active:scale-98 ${
                 activeDivision === "marketing"
-                  ? "bg-gradient-to-r from-[#FF5E00] to-[#FFAE33] text-white shadow-[0_4px_20px_rgba(255,94,0,0.4)] scale-102"
+                  ? "bg-gradient-to-r from-[#FF5E00] to-[#FFAE33] text-white shadow-[0_4px_20px_rgba(255,94,0,0.4)]"
                   : "text-gray-400 hover:text-white"
               }`}
             >
-              <Megaphone className="w-4 h-4" />
-              <span>SHREY MEDIA (Growth & Ads)</span>
+              <Megaphone className="w-4 h-4 shrink-0" />
+              <span>SHREY MEDIA (Growth &amp; Ads)</span>
             </button>
 
             <button
               onClick={() => onSelectDivision("tech")}
-              className={`flex items-center gap-2 px-6 sm:px-8 py-3 rounded-full text-xs sm:text-sm font-bold transition-all duration-300 ${
+              className={`min-h-[44px] flex items-center justify-center gap-2 px-4 sm:px-8 py-2.5 sm:py-3 rounded-xl sm:rounded-full text-xs sm:text-sm font-bold transition-all duration-300 active:scale-98 ${
                 activeDivision === "tech"
-                  ? "bg-gradient-to-r from-[#00F0FF] to-[#7928CA] text-white shadow-[0_4px_20px_rgba(0,240,255,0.4)] scale-102"
+                  ? "bg-gradient-to-r from-[#00F0FF] to-[#7928CA] text-white shadow-[0_4px_20px_rgba(0,240,255,0.4)]"
                   : "text-gray-400 hover:text-white"
               }`}
             >
-              <Terminal className="w-4 h-4" />
-              <span>SHREY TECH (Build & Automate)</span>
+              <Terminal className="w-4 h-4 shrink-0" />
+              <span>SHREY TECH (Build &amp; Automate)</span>
             </button>
           </div>
         </div>
 
         {/* The 6-Step Visual Ecosystem Highway */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4 relative">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2.5 sm:gap-4 relative">
           {steps.map((step, idx) => {
             const isMarketing = step.division === "marketing";
             const isActive = activeDivision === step.division;
@@ -83,7 +83,7 @@ export const EcosystemSwitcher: React.FC<EcosystemSwitcherProps> = ({
             return (
               <div
                 key={step.title}
-                className={`clay-card p-4 sm:p-5 rounded-2xl border transition-all duration-300 relative group ${
+                className={`clay-card p-3.5 sm:p-5 rounded-2xl border transition-all duration-300 relative group flex flex-col justify-between ${
                   isActive
                     ? isMarketing
                       ? "border-[#FF5E00]/40 shadow-[0_8px_24px_rgba(255,94,0,0.15)] bg-gradient-to-b from-[#1C1410] to-[#121218]"
@@ -92,25 +92,27 @@ export const EcosystemSwitcher: React.FC<EcosystemSwitcherProps> = ({
                 }`}
               >
                 {/* Step indicator */}
-                <div className="flex items-center justify-between mb-3">
-                  <span className="font-mono-tech text-[10px] font-bold px-2 py-0.5 rounded-full bg-white/10 text-gray-300">
-                    0{idx + 1}
-                  </span>
-                  {idx < steps.length - 1 && (
-                    <ArrowRight className="w-3.5 h-3.5 text-gray-500 group-hover:text-white hidden lg:block" />
-                  )}
-                </div>
+                <div>
+                  <div className="flex items-center justify-between mb-2 sm:mb-3">
+                    <span className="font-mono-tech text-[9px] sm:text-[10px] font-bold px-2 py-0.5 rounded-full bg-white/10 text-gray-300">
+                      0{idx + 1}
+                    </span>
+                    {idx < steps.length - 1 && (
+                      <ArrowRight className="w-3.5 h-3.5 text-gray-500 group-hover:text-white hidden lg:block" />
+                    )}
+                  </div>
 
-                <h3 className="font-syne font-bold text-base sm:text-lg text-white mb-1">
-                  {step.title}
-                </h3>
-                <p className="text-xs text-gray-400 leading-relaxed">
-                  {step.desc}
-                </p>
+                  <h3 className="font-syne font-bold text-sm sm:text-lg text-white mb-1 leading-snug">
+                    {step.title}
+                  </h3>
+                  <p className="text-[11px] sm:text-xs text-gray-400 leading-relaxed">
+                    {step.desc}
+                  </p>
+                </div>
 
                 {/* Bottom colored edge accent */}
                 <div
-                  className={`h-1 w-full rounded-full mt-4 ${
+                  className={`h-1 w-full rounded-full mt-3 sm:mt-4 ${
                     isMarketing ? "bg-[#FF5E00]" : "bg-[#00F0FF]"
                   }`}
                 />
