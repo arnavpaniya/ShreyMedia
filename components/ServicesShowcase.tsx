@@ -186,7 +186,7 @@ export const ServicesShowcase: React.FC<ServicesShowcaseProps> = ({
                   href={`/services/${service.slug}`}
                   className="pt-2 border-t border-white/5 flex items-center justify-between text-[11px] font-mono-tech text-gray-400 group-hover:text-white transition-colors"
                 >
-                  <span className="group-hover:text-[#FFAE33] transition-colors">View Jaipur Blueprint</span>
+                  <span className="group-hover:text-[#FFAE33] transition-colors">View Strategy Blueprint</span>
                   <ArrowRight className="w-3 h-3 group-hover:translate-x-1 group-hover:text-[#FFAE33] transition-transform" />
                 </Link>
               </div>
@@ -200,7 +200,7 @@ export const ServicesShowcase: React.FC<ServicesShowcaseProps> = ({
             href="/services"
             className="inline-flex items-center gap-2 text-xs font-mono-tech text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 px-4 py-2.5 rounded-xl transition-colors"
           >
-            <span>Browse Complete Jaipur Services Directory</span>
+            <span>Browse Complete Services Directory</span>
             <ArrowRight className="w-3.5 h-3.5 text-[#FFAE33]" />
           </Link>
         </div>

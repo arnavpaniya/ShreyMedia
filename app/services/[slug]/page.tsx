@@ -23,10 +23,30 @@ const allServices: ServiceItem[] = [
   ...initialSiteData.techServices,
 ];
 
+// Backward-compatible alias mapping for legacy slugs
+const slugAliases: Record<string, string> = {
+  "google-ads": "performance-marketing",
+  "meta-ads": "performance-marketing",
+  "seo": "gmb-local-seo",
+  "geo-ai-search": "ai-posts-and-reels",
+  "creative-photoshoots": "ai-posts-and-reels",
+  "digital-marketing-strategy": "performance-marketing",
+  "business-website-development": "website-development",
+  "crm-development": "whatsapp-marketing",
+  "custom-software": "website-development",
+  "business-automation": "whatsapp-marketing",
+  "digital-products": "website-development",
+  "mobile-app-development": "website-development",
+};
+
 export async function generateStaticParams() {
-  return allServices.map((service) => ({
+  const primarySlugs = allServices.map((service) => ({
     slug: service.slug,
   }));
+  const legacySlugs = Object.keys(slugAliases).map((slug) => ({
+    slug,
+  }));
+  return [...primarySlugs, ...legacySlugs];
 }
 
 interface PageProps {
@@ -37,30 +57,32 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const service = allServices.find((s) => s.slug === slug);
+  const resolvedSlug = slugAliases[slug] || slug;
+  const service = allServices.find((s) => s.slug === resolvedSlug);
 
   if (!service) {
     return {
-      title: "Service Not Found | Shrey Media Jaipur",
+      title: "Service Not Found | Shrey Media",
       description: "The requested digital marketing or technology service page could not be found.",
     };
   }
 
   const isMarketing = service.division === "marketing";
   const divisionName = isMarketing ? "Shrey Media" : "Shrey Tech Solutions";
-  const title = `${service.title} in Jaipur | ${divisionName}`;
-  const description = `${service.fullDesc} Partner with Jaipur's premier agency for proven ROI, expert execution, and measurable growth.`;
+  const title = `${service.title} in Delhi & Jaipur | ${divisionName}`;
+  const description = `${service.fullDesc} Partner with Delhi & Jaipur's premier agency for proven ROI, expert execution, and measurable growth.`;
   const canonicalUrl = `https://shreymedia.in/services/${service.slug}`;
 
   return {
     title,
     description,
     keywords: [
+      `${service.title} Delhi`,
       `${service.title} Jaipur`,
-      `${service.title} agency in Jaipur`,
-      `${service.title} company Jaipur`,
-      "Digital Marketing Agency Jaipur",
-      "Shrey Media Jaipur",
+      `${service.title} agency in Delhi & Jaipur`,
+      `${service.title} company Delhi NCR`,
+      "Digital Marketing Agency Delhi & Jaipur",
+      "Shrey Media",
       ...(service.features || []),
     ],
     alternates: {
@@ -76,7 +98,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
           url: "/images/hero-founder.jpg",
           width: 1200,
           height: 630,
-          alt: `${service.title} in Jaipur - Shrey Media`,
+          alt: `${service.title} in Delhi & Jaipur - Shrey Media`,
         },
       ],
       locale: "en_IN",
@@ -93,7 +115,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function ServiceDetailPage({ params }: PageProps) {
   const { slug } = await params;
-  const service = allServices.find((s) => s.slug === slug);
+  const resolvedSlug = slugAliases[slug] || slug;
+  const service = allServices.find((s) => s.slug === resolvedSlug);
 
   if (!service) {
     notFound();
@@ -104,7 +127,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
   const relatedServices = allServices.filter((s) => s.slug !== service.slug).slice(0, 3);
 
   const whatsappMessage = encodeURIComponent(
-    `Hi Shreyansh! I'm inquiring about your ${service.title} service for my business in Jaipur.`
+    `Hi Shreyansh! I'm inquiring about your ${service.title} service for my business in Delhi / Jaipur.`
   );
   const whatsappUrl = `https://wa.me/91${config.phone}?text=${whatsappMessage}`;
 
@@ -138,7 +161,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
       {
         "@type": "Service",
         "@id": `https://shreymedia.in/services/${service.slug}#service`,
-        "name": `${service.title} in Jaipur`,
+        "name": `${service.title} in Delhi & Jaipur`,
         "description": service.fullDesc,
         "serviceType": service.title,
         "provider": {
@@ -155,10 +178,20 @@ export default async function ServiceDetailPage({ params }: PageProps) {
             "addressCountry": "IN"
           }
         },
-        "areaServed": {
-          "@type": "City",
-          "name": "Jaipur"
-        },
+        "areaServed": [
+          {
+            "@type": "City",
+            "name": "Delhi"
+          },
+          {
+            "@type": "City",
+            "name": "Jaipur"
+          },
+          {
+            "@type": "Country",
+            "name": "India"
+          }
+        ],
         "hasOfferCatalog": {
           "@type": "OfferCatalog",
           "name": `${service.title} Offerings`,
@@ -177,10 +210,10 @@ export default async function ServiceDetailPage({ params }: PageProps) {
         "mainEntity": [
           {
             "@type": "Question",
-            "name": `How does ${service.title} help my business grow in Jaipur?`,
+            "name": `How does ${service.title} help my business grow in Delhi and Jaipur?`,
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": `${service.fullDesc} In Jaipur's competitive market, our custom tailored strategy captures high-intent customers and scales your return on investment.`
+              "text": `${service.fullDesc} Across Delhi NCR and Jaipur's competitive market, our custom tailored strategy captures high-intent customers and scales your return on investment.`
             }
           },
           {
@@ -238,7 +271,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
             </div>
 
             <h1 className="font-syne text-3xl min-[360px]:text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight">
-              {service.title} <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF5E00] via-[#FFAE33] to-[#00F0FF]">in Jaipur</span>
+              {service.title} <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF5E00] via-[#FFAE33] to-[#00F0FF]">in Delhi &amp; Jaipur</span>
             </h1>
 
             <p className="text-base sm:text-xl text-gray-300 max-w-3xl leading-relaxed font-sans">
@@ -262,7 +295,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                 href="/#contact"
                 className="min-h-[48px] inline-flex items-center justify-center gap-2 bg-white/5 hover:bg-white/10 border border-white/15 text-white text-sm font-medium px-6 py-3.5 rounded-full transition-colors active:scale-98"
               >
-                <span>Visit Jaipur Studio</span>
+                <span>Visit Studios</span>
                 <MapPin className="w-4 h-4 text-[#00F0FF] shrink-0" />
               </Link>
             </div>
@@ -278,15 +311,9 @@ export default async function ServiceDetailPage({ params }: PageProps) {
             </p>
 
             {/* Key Deliverables Matrix */}
-            <h3 className="font-syne font-bold text-base sm:text-lg text-white mb-4 uppercase tracking-wider text-xs font-mono-tech text-[#FFAE33]">
-              What We Deliver for Your Business:
-            </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-4 border-t border-white/10">
               {service.features.map((feature, idx) => (
-                <div
-                  key={idx}
-                  className="p-3.5 sm:p-4 rounded-2xl bg-white/[0.03] border border-white/10 flex items-start gap-3"
-                >
+                <div key={idx} className="flex items-start gap-2.5">
                   <CheckCircle2 className="w-4 h-4 text-[#D4FF00] shrink-0 mt-0.5" />
                   <span className="text-xs sm:text-sm text-gray-200 font-medium">
                     {feature}
@@ -296,10 +323,10 @@ export default async function ServiceDetailPage({ params }: PageProps) {
             </div>
           </section>
 
-          {/* 3. H2: Why Jaipur Businesses Choose Shrey Media */}
+          {/* 3. H2: Why Delhi & Jaipur Businesses Choose Shrey Media */}
           <section className="mb-12">
             <h2 className="font-syne font-bold text-2xl sm:text-3xl text-white tracking-tight mb-6">
-              Why Partner With Shrey Media in Jaipur?
+              Why Partner With Shrey Media in Delhi &amp; Jaipur?
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -317,9 +344,9 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                 <div className="w-10 h-10 rounded-xl bg-[#00F0FF]/10 border border-[#00F0FF]/30 flex items-center justify-center text-[#00F0FF] mb-3">
                   <Building2 className="w-5 h-5" />
                 </div>
-                <h3 className="font-syne font-bold text-base text-white">Film Colony Studio HQ</h3>
+                <h3 className="font-syne font-bold text-base text-white">Dual-City Studio Hub</h3>
                 <p className="text-xs text-gray-400 leading-relaxed">
-                  Local Jaipur presence at Film Colony, Malpani Chamber for face-to-face strategy and studio shoots.
+                  Active presence across Delhi NCR and Jaipur (Film Colony Studio HQ) for face-to-face strategy and shoots.
                 </p>
               </div>
 
@@ -350,10 +377,10 @@ export default async function ServiceDetailPage({ params }: PageProps) {
             <div className="space-y-4">
               <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 space-y-2">
                 <h3 className="font-syne font-bold text-sm sm:text-base text-white">
-                  How does {service.title} scale businesses in Jaipur?
+                  How does {service.title} scale businesses in Delhi &amp; Jaipur?
                 </h3>
                 <p className="text-xs sm:text-sm text-gray-300 leading-relaxed">
-                  By pairing localized market knowledge with proven conversion architectures, we position your brand directly in front of buyers actively searching in Jaipur and across India.
+                  By pairing localized market knowledge with proven conversion architectures, we position your brand directly in front of buyers actively searching across Delhi, Jaipur, and pan-India.
                 </p>
               </div>
 
@@ -371,7 +398,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
           {/* 5. Related Services Navigation */}
           <section className="pt-8 border-t border-white/10">
             <h2 className="font-syne font-bold text-lg sm:text-xl text-white mb-4">
-              Explore More Jaipur Growth Modules
+              Explore More Growth &amp; Tech Modules
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {relatedServices.map((rel) => (

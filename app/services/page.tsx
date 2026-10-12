@@ -15,24 +15,26 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Growth Marketing & Technology Services in Jaipur | Shrey Media",
-  description: "Explore performance marketing, Google Ads, Meta Ads, SEO, custom web development, and WhatsApp CRM automation engineered for Jaipur businesses by Shrey Media.",
+  title: "Growth Marketing & Technology Services in Delhi & Jaipur | Shrey Media",
+  description: "Explore performance marketing, GMB local SEO, website development, Pinterest, Etsy, social media, AI reels, and WhatsApp CRM automation in Delhi and Jaipur by Shrey Media.",
   keywords: [
-    "Digital Marketing Services Jaipur",
-    "Web Development Services Jaipur",
-    "Google Ads Agency Jaipur",
-    "Meta Ads Agency Jaipur",
-    "SEO Services Jaipur",
-    "Custom CRM Software Jaipur",
-    "WhatsApp Marketing Jaipur",
+    "Digital Marketing Services Delhi Jaipur",
+    "GMB Local SEO Agency",
+    "Website Development Services Delhi Jaipur",
+    "Performance Marketing Agency",
+    "Pinterest Marketing Agency",
+    "Etsy Store Management",
+    "Social Media Management Delhi Jaipur",
+    "AI Base Posts and Reels",
+    "WhatsApp Marketing Delhi Jaipur",
     "Shrey Media Services",
   ],
   alternates: {
     canonical: "https://shreymedia.in/services",
   },
   openGraph: {
-    title: "Growth Marketing & Technology Services in Jaipur | Shrey Media",
-    description: "Explore performance marketing, Google Ads, Meta Ads, SEO, custom web development, and WhatsApp CRM automation engineered for Jaipur businesses.",
+    title: "Growth Marketing & Technology Services in Delhi & Jaipur | Shrey Media",
+    description: "Explore performance marketing, GMB local SEO, website development, Pinterest, Etsy, social media, AI reels, and WhatsApp CRM automation in Delhi and Jaipur.",
     url: "https://shreymedia.in/services",
     siteName: "Shrey Media",
     images: [
@@ -40,7 +42,7 @@ export const metadata: Metadata = {
         url: "/images/hero-founder.jpg",
         width: 1200,
         height: 630,
-        alt: "Shrey Media Services Directory - Jaipur HQ",
+        alt: "Shrey Media Services Directory - Delhi & Jaipur",
       },
     ],
     locale: "en_IN",
@@ -48,8 +50,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Growth Marketing & Technology Services in Jaipur | Shrey Media",
-    description: "Explore performance marketing, Google Ads, Meta Ads, SEO, custom web development, and WhatsApp CRM automation engineered for Jaipur businesses.",
+    title: "Growth Marketing & Technology Services in Delhi & Jaipur | Shrey Media",
+    description: "Explore performance marketing, GMB local SEO, website development, Pinterest, Etsy, social media, AI reels, and WhatsApp CRM automation in Delhi and Jaipur.",
     images: ["/images/hero-founder.jpg"],
   },
 };
@@ -60,7 +62,7 @@ export default function ServicesIndexPage() {
   const techServices = initialSiteData.techServices;
 
   const whatsappMessage = encodeURIComponent(
-    "Hi Shreyansh! I'm reviewing your full services directory and would like to discuss a custom growth roadmap for my business in Jaipur."
+    "Hi Shreyansh! I'm reviewing your full services directory and would like to discuss a custom growth roadmap for my business in Delhi / Jaipur."
   );
   const whatsappUrl = `https://wa.me/91${config.phone}?text=${whatsappMessage}`;
 
@@ -87,7 +89,7 @@ export default function ServicesIndexPage() {
       {
         "@type": "ItemList",
         "name": "Shrey Media & Tech Services Directory",
-        "description": "Full directory of digital marketing, media production, and software development services in Jaipur",
+        "description": "Full directory of digital marketing, performance ads, media production, and software development services in Delhi & Jaipur",
         "itemListElement": [
           ...marketingServices.map((s, idx) => ({
             "@type": "ListItem",
@@ -142,7 +144,7 @@ export default function ServicesIndexPage() {
             </div>
 
             <h1 className="font-syne text-3xl min-[360px]:text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight">
-              Growth Marketing &amp; Technology Services <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF5E00] via-[#FFAE33] to-[#00F0FF]">in Jaipur</span>
+              Growth Marketing &amp; Technology Services <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF5E00] via-[#FFAE33] to-[#00F0FF]">in Delhi &amp; Jaipur</span>
             </h1>
 
             <p className="text-base sm:text-xl text-gray-300 max-w-3xl leading-relaxed font-sans">
@@ -165,7 +167,7 @@ export default function ServicesIndexPage() {
                 className="min-h-[48px] inline-flex items-center justify-center gap-2 bg-white/5 hover:bg-white/10 border border-white/15 text-white text-sm font-medium px-6 py-3.5 rounded-full transition-colors active:scale-98"
               >
                 <MapPin className="w-4 h-4 text-[#00F0FF] shrink-0" />
-                <span>Visit Jaipur Studio HQ</span>
+                <span>Visit Delhi &amp; Jaipur Studios</span>
               </Link>
             </div>
           </div>
@@ -197,7 +199,7 @@ export default function ServicesIndexPage() {
                       <span className="text-[11px] font-mono-tech uppercase text-[#FF5E00] tracking-wider font-semibold">
                         Growth Module
                       </span>
-                      <span className="text-xs font-mono-tech text-gray-400">Jaipur HQ</span>
+                      <span className="text-xs font-mono-tech text-gray-400">Delhi &amp; Jaipur</span>
                     </div>
 
                     <h3 className="font-syne font-bold text-lg text-white group-hover:text-[#FFAE33] transition-colors mb-2">
@@ -257,7 +259,7 @@ export default function ServicesIndexPage() {
                       <span className="text-[11px] font-mono-tech uppercase text-[#00F0FF] tracking-wider font-semibold">
                         Tech Solution
                       </span>
-                      <span className="text-xs font-mono-tech text-gray-400">Jaipur HQ</span>
+                      <span className="text-xs font-mono-tech text-gray-400">Delhi &amp; Jaipur</span>
                     </div>
 
                     <h3 className="font-syne font-bold text-lg text-white group-hover:text-[#00F0FF] transition-colors mb-2">
@@ -293,7 +295,7 @@ export default function ServicesIndexPage() {
           {/* 4. Contact & Consultation Banner */}
           <section className="clay-card p-8 sm:p-12 rounded-3xl border border-white/15 bg-gradient-to-br from-[#0E0E16] via-[#141420] to-[#0A0A0E] text-center space-y-6">
             <h2 className="font-syne font-black text-2xl sm:text-4xl text-white">
-              Ready to Accelerate Your Brand in Jaipur?
+              Ready to Accelerate Your Brand in Delhi &amp; Jaipur?
             </h2>
             <p className="text-sm sm:text-base text-gray-300 max-w-2xl mx-auto leading-relaxed">
               Whether you need high-impact ad campaigns, cinematic video reels, or custom software solutions, we build systems that generate measurable revenue.

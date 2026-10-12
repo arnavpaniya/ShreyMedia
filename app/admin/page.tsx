@@ -359,7 +359,7 @@ export default function AdminPage() {
             { id: "outro", label: "⚡ Circuit Laser Outro", icon: Zap },
             { id: "offer", label: "🔥 Instagram Pop-up Offer", icon: Flame },
             { id: "bots", label: "🤖 Interactive 3D Bot", icon: Bot },
-            { id: "seo", label: "🔍 Jaipur SEO & Meta", icon: Search },
+            { id: "seo", label: "🔍 Delhi & Jaipur SEO & Meta", icon: Search },
           ].map((tab) => {
             const Icon = tab.icon;
             const isActive = activeTab === tab.id;
@@ -1052,7 +1052,7 @@ export default function AdminPage() {
               <div className="flex items-center justify-between">
                 <div>
                   <h3 className="font-syne font-bold text-xl text-white">Client Reviews &amp; Testimonials</h3>
-                  <p className="text-xs text-gray-400 font-mono-tech">Manage verified reviews from Jaipur founders.</p>
+                  <p className="text-xs text-gray-400 font-mono-tech">Manage verified reviews from Delhi &amp; Jaipur founders.</p>
                 </div>
                 <button
                   onClick={() => {
@@ -1065,8 +1065,8 @@ export default function AdminPage() {
                           id: newId,
                           name: "New Client",
                           role: "Founder",
-                          business: "Jaipur Brand",
-                          location: "Jaipur, Rajasthan",
+                          business: "Delhi / Jaipur Brand",
+                          location: "Delhi & Jaipur",
                           quote: "Shrey Media transformed our digital marketing and lead generation results.",
                           rating: 5,
                           verified: true
@@ -1436,9 +1436,9 @@ export default function AdminPage() {
                         offer: {
                           enabled: true,
                           accountHandle: "shrey_media_2025",
-                          locationTag: "Jaipur HQ • Film Colony",
+                          locationTag: "Delhi & Jaipur Hub",
                           imageUrl: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&auto=format&fit=crop&q=80",
-                          whatsappDmMessage: "Hi Shreyansh, I want to book a Free 30-Min Marketing Strategy Audit for my brand in Jaipur."
+                          whatsappDmMessage: "Hi Shreyansh, I want to book a Free 30-Min Marketing Strategy Audit for my brand in Delhi / Jaipur."
                         }
                       });
                     }}
@@ -1606,7 +1606,7 @@ export default function AdminPage() {
           {activeTab === "seo" && (
             <div className="space-y-6">
               <div>
-                <h3 className="font-syne font-bold text-xl text-white">Jaipur Local SEO &amp; Meta Settings</h3>
+                <h3 className="font-syne font-bold text-xl text-white">Delhi &amp; Jaipur SEO &amp; Meta Settings</h3>
                 <p className="text-xs text-gray-400 font-mono-tech">Configure homepage title, meta description, secondary keywords, and per-page indexable routes.</p>
               </div>
 

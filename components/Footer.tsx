@@ -33,7 +33,7 @@ export const Footer: React.FC<FooterProps> = ({ config }) => {
             </div>
 
             <p className="text-xs sm:text-sm text-gray-300 leading-relaxed max-w-sm">
-              Digital marketing agency in Jaipur helping businesses grow through performance marketing, SEO, social media, automation and technology.
+              Digital marketing agency in Delhi &amp; Jaipur helping businesses grow through performance marketing, GMB, SEO, social media, automation and technology.
             </p>
 
             {/* Verified Address */}
@@ -41,9 +41,9 @@ export const Footer: React.FC<FooterProps> = ({ config }) => {
               <div className="flex items-start gap-2.5 text-gray-200">
                 <MapPin className="w-4 h-4 text-[#FF5E00] shrink-0 mt-0.5" />
                 <div>
-                  <strong className="text-white block font-syne">Headquarters &amp; Creative Studio:</strong>
+                  <strong className="text-white block font-syne">Studio HQ &amp; Operations:</strong>
                   <p className="text-gray-300 leading-relaxed mt-0.5">
-                    {config.officeAddress.line1}, {config.officeAddress.line2}, {config.officeAddress.city}, {config.officeAddress.state}, {config.officeAddress.country}
+                    11, Film Colony, Malpani Chamber, Near Golcha Cinema, Jaipur (Studio HQ) • Active Delhi NCR Operations
                   </p>
                 </div>
               </div>
@@ -60,17 +60,18 @@ export const Footer: React.FC<FooterProps> = ({ config }) => {
           {/* Col 2: Services Matrix (3 cols) */}
           <div className="lg:col-span-3 space-y-3">
             <h4 className="font-syne font-bold text-white text-sm uppercase tracking-wider">
-              Jaipur Services &amp; Tech
+              Core Growth Services
             </h4>
             <ul className="space-y-1 text-xs">
               <li><Link href="/services" className="hover:text-[#FFAE33] transition-colors py-1.5 block font-semibold text-white">→ All Services Directory</Link></li>
-              <li><Link href="/services/google-ads" className="hover:text-[#FFAE33] transition-colors py-1.5 block">Google Search &amp; Display Ads</Link></li>
-              <li><Link href="/services/meta-ads" className="hover:text-[#FFAE33] transition-colors py-1.5 block">Meta (Facebook &amp; IG) Ads</Link></li>
-              <li><Link href="/services/seo" className="hover:text-[#FFAE33] transition-colors py-1.5 block">Search Engine Optimization (SEO)</Link></li>
-              <li><Link href="/services/geo" className="hover:text-[#FFAE33] transition-colors py-1.5 block">Generative Engine Optimization (GEO)</Link></li>
-              <li><Link href="/services/studio-photoshoots" className="hover:text-[#FFAE33] transition-colors py-1.5 block">Studio Photoshoots &amp; Reels</Link></li>
-              <li><Link href="/services/whatsapp-marketing" className="hover:text-[#00F0FF] transition-colors py-1.5 block">WhatsApp Automation &amp; CRM</Link></li>
-              <li><Link href="/services/custom-website-development" className="hover:text-[#00F0FF] transition-colors py-1.5 block">Custom Websites &amp; Apps</Link></li>
+              <li><Link href="/services/gmb-local-seo" className="hover:text-[#FFAE33] transition-colors py-1.5 block">Google My Business (GMB) &amp; Local SEO</Link></li>
+              <li><Link href="/services/website-development" className="hover:text-[#00F0FF] transition-colors py-1.5 block">Website Development</Link></li>
+              <li><Link href="/services/performance-marketing" className="hover:text-[#FFAE33] transition-colors py-1.5 block">Performance Marketing (Meta &amp; Google)</Link></li>
+              <li><Link href="/services/pinterest-marketing" className="hover:text-[#FFAE33] transition-colors py-1.5 block">Pinterest Marketing</Link></li>
+              <li><Link href="/services/etsy-management" className="hover:text-[#FFAE33] transition-colors py-1.5 block">Etsy Store Management</Link></li>
+              <li><Link href="/services/social-media-management" className="hover:text-[#FFAE33] transition-colors py-1.5 block">Social Media Management</Link></li>
+              <li><Link href="/services/ai-posts-and-reels" className="hover:text-[#FFAE33] transition-colors py-1.5 block">AI-Based Posts &amp; Reels</Link></li>
+              <li><Link href="/services/whatsapp-marketing" className="hover:text-[#00F0FF] transition-colors py-1.5 block">WhatsApp Marketing &amp; CRM</Link></li>
             </ul>
           </div>
 
@@ -137,7 +138,7 @@ export const Footer: React.FC<FooterProps> = ({ config }) => {
 
         {/* Local SEO Keywords Strip */}
         <div className="py-6 border-b border-white/5 flex flex-wrap gap-2 text-[10px] font-mono-tech text-gray-400">
-          <span className="text-gray-300 font-bold">Jaipur Local SEO:</span>
+          <span className="text-gray-300 font-bold">Delhi &amp; Jaipur SEO:</span>
           {config.seo.secondaryKeywords.map((kw, idx) => (
             <span key={idx} className="bg-white/5 px-2 py-0.5 rounded">
               {kw}

@@ -23,10 +23,10 @@ export const OutroLaserSection: React.FC<OutroLaserSectionProps> = ({ config, ou
     setMouseOffset({ x, y });
   };
 
-  const topTagline = outro?.topTagline || "JAIPUR'S PREMIER DIGITAL MARKETING & GROWTH NETWORK";
+  const topTagline = outro?.topTagline || "DELHI & JAIPUR'S PREMIER DIGITAL MARKETING & GROWTH NETWORK";
   const pipelineKeywords = outro?.pipelineKeywords && outro.pipelineKeywords.length > 0
     ? outro.pipelineKeywords
-    : ["STRATEGY", "CONTENT", "ADS", "AUTOMATION", "SCALE"];
+    : ["STRATEGY", "GMB", "PERFORMANCE", "AI REELS", "TECH", "SCALE"];
   const leftAnnotation = outro?.leftAnnotation || "Marketing brings the audience.\nSharper ideas.";
   const rightAnnotation = outro?.rightAnnotation || "Strategy, Ads & Content\nthat scale your brand into revenue.";
   const subLogoText = outro?.subLogoText || "MEDIA & TECH SOLUTIONS";

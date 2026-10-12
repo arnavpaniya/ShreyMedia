@@ -55,7 +55,7 @@ export const IndustriesGrid: React.FC<IndustriesGridProps> = ({ industries, conf
             Tailored Growth For Your Industry
           </h2>
           <p className="mt-3 text-sm sm:text-base text-gray-400">
-            Every market operates differently. Here is how we craft custom acquisition strategies across Jaipur&apos;s leading business sectors.
+            Every market operates differently. Here is how we craft custom acquisition strategies across Delhi and Jaipur&apos;s leading business sectors.
           </p>
         </div>
 
@@ -64,7 +64,7 @@ export const IndustriesGrid: React.FC<IndustriesGridProps> = ({ industries, conf
           {industries.map((ind) => {
             const isHovered = selectedIndustry === ind.id;
             const waText = encodeURIComponent(
-              `Hi Shrey Media, I run a ${ind.name} business in Jaipur and want to scale with your team.`
+              `Hi Shrey Media, I run a ${ind.name} business in Delhi / Jaipur and want to scale with your team.`
             );
 
             return (

@@ -14,7 +14,7 @@ export const StructuredData: React.FC<StructuredDataProps> = ({ config }) => {
         "@id": "https://shreymedia.in/#localbusiness",
         "name": "Shrey Media",
         "legalName": "Shrey Media & Technology Solutions",
-        "alternateName": ["Shrey Tech Solutions", "Shrey Media Jaipur"],
+        "alternateName": ["Shrey Tech Solutions", "Shrey Media Delhi", "Shrey Media Jaipur"],
         "url": "https://shreymedia.in",
         "logo": "https://shreymedia.in/brand/logo.png",
         "image": "https://shreymedia.in/images/hero-founder.jpg",
@@ -44,7 +44,15 @@ export const StructuredData: React.FC<StructuredDataProps> = ({ config }) => {
         "areaServed": [
           {
             "@type": "City",
+            "name": "Delhi"
+          },
+          {
+            "@type": "City",
             "name": "Jaipur"
+          },
+          {
+            "@type": "State",
+            "name": "Delhi NCR"
           },
           {
             "@type": "State",

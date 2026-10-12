@@ -41,11 +41,13 @@ const INDUSTRIES = [
 ];
 
 const SERVICE_OPTIONS = [
-  { id: "reels", label: "4K Cine Production & Viral Reels", icon: Video },
-  { id: "ads", label: "Meta & Google High-ROAS Ads", icon: Megaphone },
-  { id: "tech", label: "Custom Website & CRM Development", icon: Code2 },
-  { id: "automation", label: "WhatsApp & Lead Flow Automation", icon: Bot },
-  { id: "seo", label: "Jaipur Local SEO & Google Maps Dominance", icon: Search },
+  { id: "performance", label: "Performance Marketing (Meta & Google Ads)", icon: Megaphone },
+  { id: "gmb", label: "GMB (Google My Business) & Local SEO", icon: Search },
+  { id: "website", label: "Custom Website Development", icon: Code2 },
+  { id: "ai_reels", label: "AI-Based Posts & Viral Reels", icon: Video },
+  { id: "smm", label: "Social Media Management", icon: Sparkles },
+  { id: "pinterest_etsy", label: "Pinterest Marketing & Etsy Store Growth", icon: Zap },
+  { id: "whatsapp", label: "WhatsApp Marketing & CRM Automation", icon: Bot },
 ];
 
 const BUDGET_TIERS = [
@@ -62,7 +64,7 @@ export const ProposalBuilderModal: React.FC<ProposalBuilderModalProps> = ({
 }) => {
   const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
   const [selectedIndustry, setSelectedIndustry] = useState<string>("jewellery");
-  const [selectedServices, setSelectedServices] = useState<string[]>(["reels", "ads"]);
+  const [selectedServices, setSelectedServices] = useState<string[]>(["performance", "gmb"]);
   const [selectedBudget, setSelectedBudget] = useState<string>("growth");
   const [brandName, setBrandName] = useState<string>("");
   const [contactPerson, setContactPerson] = useState<string>("");
@@ -173,7 +175,7 @@ export const ProposalBuilderModal: React.FC<ProposalBuilderModalProps> = ({
       `🎯 *Industry:* ${industryObj?.label || "General"}\n` +
       `💰 *Estimated Budget:* ${budgetObj?.label || "Flexible"}\n\n` +
       `🛠️ *Requested Services:*\n• ${servicesNames}\n\n` +
-      `📍 *Location:* Jaipur / Remote\n\n` +
+      `📍 *Location:* Delhi / Jaipur / Remote\n\n` +
       `Hi Shreyansh! I built this project scope on your website and would like to discuss next steps & campaign execution.`
     );
 
@@ -323,7 +325,7 @@ export const ProposalBuilderModal: React.FC<ProposalBuilderModalProps> = ({
                     id="proposal-brand"
                     type="text"
                     required
-                    placeholder="e.g. Royal Jewels Jaipur"
+                    placeholder="e.g. Royal Jewels (Delhi / Jaipur)"
                     value={brandName}
                     onChange={(e) => {
                       setBrandName(e.target.value);

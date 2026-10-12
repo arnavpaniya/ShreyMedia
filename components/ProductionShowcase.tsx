@@ -84,7 +84,7 @@ export const ProductionShowcase: React.FC<ProductionShowcaseProps> = ({ producti
   const eyebrow = production?.eyebrow || "In-House Creative Studio";
   const headlineMain = production?.headlineMain || "Shoot. Edit.";
   const headlineAccent = production?.headlineAccent || "Deliver. Repeat.";
-  const note = production?.handwrittenNote || "Ready to make your brand unforgettable in Jaipur? Let's roll! 🎥";
+  const note = production?.handwrittenNote || "Ready to make your brand unforgettable in Delhi & Jaipur? Let's roll! 🎥";
   const badgePills = production?.badgePills && production.badgePills.length > 0
     ? production.badgePills
     : [

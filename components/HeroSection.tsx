@@ -49,12 +49,13 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ hero }) => {
   const typewriterKeywords = hero.typewriterKeywords && hero.typewriterKeywords.length > 0 
     ? hero.typewriterKeywords 
     : [
-        "High-ROAS Meta & Google Ads",
+        "Performance Marketing (Google & Meta Ads)",
+        "GMB & Local SEO (Delhi & Jaipur #1)",
+        "Custom Website Development",
+        "Pinterest Marketing & Etsy Growth",
+        "Social Media Management & Growth",
+        "AI-Based Posts & Viral Reels",
         "Automated WhatsApp CRM Funnels",
-        "Jaipur Local SEO & Google Maps #1",
-        "Studio Photoshoots & Viral Reels",
-        "Generative AI Search Optimization (GEO)",
-        "Custom Next.js Websites & Apps",
       ];
 
   const getIcon = (iconName: string) => {
@@ -85,7 +86,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ hero }) => {
           <div className="relative w-full h-full block sm:hidden">
             <Image
               src="/images/hero-mobile.jpg"
-              alt="Shrey Media - Digital Marketing & Technology Agency in Jaipur"
+              alt="Shrey Media - Digital Marketing & Technology Agency in Delhi & Jaipur"
               fill
               priority
               quality={100}
@@ -99,7 +100,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ hero }) => {
           <div className="relative w-full h-full hidden sm:block">
             <Image
               src="/images/hero-bg.jpg"
-              alt="Shrey Media - Digital Marketing & Technology Agency in Jaipur"
+              alt="Shrey Media - Digital Marketing & Technology Agency in Delhi & Jaipur"
               fill
               priority
               quality={100}
@@ -138,10 +139,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ hero }) => {
           {/* Floating Aesthetic Stickers */}
           <div className="flex items-center justify-center gap-2 sm:gap-3 mb-4 flex-wrap select-none">
             <span className="bg-[#FFF5E4] text-black px-3 py-1 rounded-full font-hand font-bold text-[11px] sm:text-xs shadow-lg rotate-[-2deg] sm:rotate-[-3deg] border border-black/10 flex items-center gap-1.5 hover:rotate-0 transition-transform cursor-default">
-              <span>⭐</span> Top-Rated Jaipur Agency
+              <span>⭐</span> Top-Rated Delhi & Jaipur Agency
             </span>
             <span className="bg-gradient-to-r from-[#FF5E00] to-[#FFAE33] text-white px-3 py-1 rounded-full font-mono-tech font-bold text-[9px] sm:text-[10px] uppercase shadow-lg rotate-[2deg] sm:rotate-[3deg] border border-white/20 flex items-center gap-1.5 hover:rotate-0 transition-transform cursor-default">
-              <span>🔥</span> 100+ Brands Scaled
+              <span>🔥</span> 80+ Clients Scaled
             </span>
             <span className="bg-[#00F0FF]/20 text-[#00F0FF] backdrop-blur-md px-2.5 sm:px-3 py-1 rounded-full font-mono-tech text-[9px] sm:text-[10px] uppercase font-bold border border-[#00F0FF]/40 rotate-[-1deg] sm:rotate-[-2deg] hover:rotate-0 transition-transform cursor-default">
               ⚡ Ads × Production × Tech

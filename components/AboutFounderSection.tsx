@@ -27,20 +27,20 @@ export const AboutFounderSection: React.FC<AboutFounderSectionProps> = ({ config
         "🩺 Dermatologists & Skin Clinics",
         "🧠 Psychologists",
         "🥗 Dieticians & Nutritionists",
-        "🏬 Local Jaipur Businesses",
+        "🏬 Local Delhi & Jaipur Businesses",
         "🛍️ D2C & E-Commerce",
       ];
 
   const eyebrowText = about?.eyebrow || "About The Agency & Founder";
-  const headlineText = about?.headline || "Scaling Jaipur Brands Through Performance & Technology";
-  const bio1 = about?.bioParagraph1 || `Founded by ${config.founderName} in Jaipur, Shrey Media was established with a singular vision: to bridge the gap between creative storytelling, high-ROAS performance marketing, and software engineering.`;
-  const bio2 = about?.bioParagraph2 || `Over the past ${config.experienceYears || "3+ years"}, we have partnered with ${config.clientsCount || "100+ businesses"} to build custom customer acquisition funnels, studio creative content, and automated CRM systems under one unified ecosystem.`;
+  const headlineText = about?.headline || "Scaling Delhi & Jaipur Brands Through Performance & Technology";
+  const bio1 = about?.bioParagraph1 || `Founded by ${config.founderName}, Shrey Media operates actively across Delhi and Jaipur with a singular vision: to bridge the gap between creative storytelling, high-ROAS performance marketing, and software engineering.`;
+  const bio2 = about?.bioParagraph2 || `Over the past ${config.experienceYears || "3+ years"}, we have partnered with ${config.clientsCount || "80+ clients"} to build custom customer acquisition funnels, studio creative content, and automated CRM systems under one unified ecosystem.`;
   const expYears = about?.experienceYears || config.experienceYears || "3+ Years";
   const expLabel = about?.experienceLabel || "Proven Experience";
-  const busScaled = about?.businessesScaled || config.clientsCount || "100+";
-  const busLabel = about?.businessesLabel || "Businesses Scaled";
-  const locBadge = about?.locationBadge || "Jaipur HQ";
-  const locLabel = about?.locationLabel || "Film Colony Studio";
+  const busScaled = about?.businessesScaled || config.clientsCount || "80+";
+  const busLabel = about?.businessesLabel || "Clients Scaled";
+  const locBadge = about?.locationBadge || "Delhi & Jaipur";
+  const locLabel = about?.locationLabel || "Dual-City Hub";
   const indHeader = about?.industriesHeader || "Industries & Niches We Specialize In";
   const ctaBtnText = about?.ctaText || `Talk With ${config.founderName.split(" ")[0] || "Shreyansh"}`;
 

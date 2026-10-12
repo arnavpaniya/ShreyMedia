@@ -59,7 +59,7 @@ export const Navbar: React.FC<NavbarProps> = ({ config, onOpenProposal }) => {
             </span>
             <span className="text-[10px] font-mono-tech uppercase tracking-widest text-[#D4FF00] font-semibold flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              Jaipur HQ • Active
+              Delhi & Jaipur • Active
             </span>
           </div>
         </Link>

@@ -48,14 +48,14 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({ testim
           <div className="inline-flex items-center gap-2 bg-[#D4FF00]/10 border border-[#D4FF00]/30 px-3.5 py-1.5 rounded-full mb-3">
             <Sparkles className="w-3.5 h-3.5 text-[#D4FF00]" />
             <span className="text-xs font-mono-tech uppercase text-[#D4FF00] font-semibold tracking-wider">
-              Client Feedback • 100+ Brands Scaled
+              Client Feedback • 80+ Clients Scaled
             </span>
           </div>
           <h2 className="font-syne text-2xl min-[360px]:text-3xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight">
             Real Proof From Real Founders
           </h2>
           <p className="mt-2.5 sm:mt-3 text-xs sm:text-sm text-gray-300 font-sans leading-relaxed">
-            Genuine testimonials and direct client reviews across Etsy management, Google Business Profiles, and growth campaigns.
+            Genuine testimonials and direct client reviews across Etsy management, Google Business Profiles (GMB), and growth campaigns in Delhi, Jaipur &amp; beyond.
           </p>
         </div>
 

@@ -13,12 +13,12 @@ export const EcosystemSwitcher: React.FC<EcosystemSwitcherProps> = ({
   activeDivision,
 }) => {
   const steps = [
-    { title: "Strategy", desc: "Audience & Market Architecture", division: "marketing" },
-    { title: "Content", desc: "Viral Reels & Studio Shoots", division: "marketing" },
-    { title: "Ads", desc: "Google & Meta Lead Influx", division: "marketing" },
-    { title: "SEO & GEO", desc: "Search & AI Citation Visibility", division: "marketing" },
-    { title: "Automation", desc: "WhatsApp Triggers & Follow-ups", division: "tech" },
-    { title: "Technology", desc: "Custom CRM & Scalable Web", division: "tech" },
+    { title: "Performance", desc: "Meta & Google High-ROAS Ads", division: "marketing" },
+    { title: "GMB & SEO", desc: "Google Maps & Local 3-Pack #1", division: "marketing" },
+    { title: "AI Content", desc: "AI-Based Posts & Viral Reels", division: "marketing" },
+    { title: "Etsy & Pins", desc: "Pinterest SEO & Etsy Growth", division: "marketing" },
+    { title: "WhatsApp", desc: "Automated CRM & Broadcasts", division: "tech" },
+    { title: "Web Dev", desc: "Next.js High-Converting Sites", division: "tech" },
   ];
 
   return (

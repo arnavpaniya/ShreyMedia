@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-export const alt = "Shrey Media - Digital Marketing & Technology Solutions | Jaipur HQ";
+export const alt = "Shrey Media - Digital Marketing & Technology Solutions | Delhi & Jaipur";
 export const size = {
   width: 1200,
   height: 630,
@@ -124,8 +124,8 @@ export default async function Image() {
               <span style={{ fontSize: "13px", color: "#9CA3AF", fontWeight: "500" }}>Organic Reel Views</span>
             </div>
             <div style={{ display: "flex", flexDirection: "column" }}>
-              <span style={{ fontSize: "28px", fontWeight: "900", color: "#00F0FF" }}>20+</span>
-              <span style={{ fontSize: "13px", color: "#9CA3AF", fontWeight: "500" }}>Jaipur Brands Scaled</span>
+              <span style={{ fontSize: "28px", fontWeight: "900", color: "#00F0FF" }}>80+</span>
+              <span style={{ fontSize: "13px", color: "#9CA3AF", fontWeight: "500" }}>Delhi & Jaipur Clients Scaled</span>
             </div>
             <div style={{ display: "flex", flexDirection: "column" }}>
               <span style={{ fontSize: "28px", fontWeight: "900", color: "#FFAE33" }}>4K Cine</span>
