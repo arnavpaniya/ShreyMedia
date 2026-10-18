@@ -27,7 +27,6 @@ import {
   Trash2,
   Lock,
   UserCheck,
-  Film,
   MessageSquare,
   Flame,
   Zap,
@@ -40,7 +39,6 @@ type AdminTab =
   | "business" 
   | "hero" 
   | "about" 
-  | "production" 
   | "marketing" 
   | "tech" 
   | "industries" 
@@ -350,7 +348,6 @@ export default function AdminPage() {
             { id: "business", label: "🏢 Business Info & HQ", icon: Building2 },
             { id: "hero", label: "⚡ Hero & Headlines", icon: Sparkles },
             { id: "about", label: "👤 About & Founder", icon: UserCheck },
-            { id: "production", label: "🎬 In-House Production", icon: Film },
             { id: "marketing", label: "📈 Marketing Services (8)", icon: Megaphone },
             { id: "tech", label: "💻 Shrey Tech Stack (6)", icon: Terminal },
             { id: "industries", label: "🎯 Industries & Niches", icon: Gem },
@@ -675,228 +672,7 @@ export default function AdminPage() {
             </div>
           )}
 
-          {/* TAB 4: In-House Creative Production */}
-          {activeTab === "production" && (
-            <div className="space-y-6">
-              <div>
-                <h3 className="font-syne font-bold text-xl text-white">In-House Creative Studio &amp; Reels</h3>
-                <p className="text-xs text-gray-400 font-mono-tech">Edit studio copywriting and manage carousel reels.</p>
-              </div>
-
-              <div className="text-xs space-y-4">
-                <div className="grid grid-cols-3 gap-3">
-                  <div>
-                    <label className="font-mono-tech text-gray-400 block mb-1.5 uppercase">Eyebrow</label>
-                    <input
-                      type="text"
-                      value={siteData.production.eyebrow}
-                      onChange={(e) => setSiteData({ ...siteData, production: { ...siteData.production, eyebrow: e.target.value } })}
-                      className="w-full bg-black/40 border border-white/10 rounded-xl p-2.5 text-white"
-                    />
-                  </div>
-                  <div>
-                    <label className="font-mono-tech text-gray-400 block mb-1.5 uppercase">Headline Main</label>
-                    <input
-                      type="text"
-                      value={siteData.production.headlineMain}
-                      onChange={(e) => setSiteData({ ...siteData, production: { ...siteData.production, headlineMain: e.target.value } })}
-                      className="w-full bg-black/40 border border-white/10 rounded-xl p-2.5 text-white"
-                    />
-                  </div>
-                  <div>
-                    <label className="font-mono-tech text-[#FF5E00] block mb-1.5 uppercase font-bold">Accent</label>
-                    <input
-                      type="text"
-                      value={siteData.production.headlineAccent}
-                      onChange={(e) => setSiteData({ ...siteData, production: { ...siteData.production, headlineAccent: e.target.value } })}
-                      className="w-full bg-black/40 border border-[#FF5E00]/40 rounded-xl p-2.5 text-white"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="font-mono-tech text-gray-400 block mb-1.5 uppercase">Handwritten Note</label>
-                  <input
-                    type="text"
-                    value={siteData.production.handwrittenNote}
-                    onChange={(e) => setSiteData({ ...siteData, production: { ...siteData.production, handwrittenNote: e.target.value } })}
-                    className="w-full bg-black/40 border border-white/10 rounded-xl p-2.5 text-white font-hand text-base"
-                  />
-                </div>
-
-                <div className="pt-4 border-t border-white/10 space-y-3">
-                  <div className="flex items-center justify-between">
-                    <h4 className="font-mono-tech text-xs text-white font-bold uppercase">Showcase Items ({siteData.production.creativeReels.length})</h4>
-                    <button
-                      onClick={() => {
-                        const newId = Date.now();
-                        setSiteData({
-                          ...siteData,
-                          production: {
-                            ...siteData.production,
-                            creativeReels: [
-                              ...siteData.production.creativeReels,
-                              {
-                                id: newId,
-                                type: "video",
-                                title: "New Campaign Showcase",
-                                niche: "Luxury Jewellery",
-                                duration: "0:20",
-                                image: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&auto=format&fit=crop&q=80",
-                                videoUrl: "",
-                                websiteUrl: "",
-                                stats: "100K Views • 5x ROAS"
-                              }
-                            ]
-                          }
-                        });
-                      }}
-                      className="clay-btn px-3 py-1.5 rounded-lg bg-[#FF5E00] text-white text-xs flex items-center gap-1"
-                    >
-                      <Plus className="w-3.5 h-3.5" /> Add Showcase Item
-                    </button>
-                  </div>
-
-                  <div className="space-y-3">
-                    {siteData.production.creativeReels.map((reel, idx) => (
-                      <div key={reel.id} className="p-4 rounded-2xl bg-black/40 border border-white/10 space-y-3">
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-2">
-                            <span className="font-mono-tech text-[10px] text-[#FFAE33] font-bold">Item #{idx + 1}</span>
-                            <select
-                              value={reel.type || "video"}
-                              onChange={(e) => {
-                                const updated = [...siteData.production.creativeReels];
-                                updated[idx].type = e.target.value as "video" | "image" | "website";
-                                setSiteData({ ...siteData, production: { ...siteData.production, creativeReels: updated } });
-                              }}
-                              className="bg-black/80 border border-white/20 rounded px-2 py-0.5 text-[11px] text-white font-mono-tech"
-                            >
-                              <option value="video">🎥 Video / Reel Clip</option>
-                              <option value="image">📸 Image / Photoshoot</option>
-                              <option value="website">💻 Live Website / App</option>
-                            </select>
-                          </div>
-                          <button
-                            onClick={() => {
-                              const updated = siteData.production.creativeReels.filter((_, i) => i !== idx);
-                              setSiteData({ ...siteData, production: { ...siteData.production, creativeReels: updated } });
-                            }}
-                            className="text-red-400 hover:text-red-300 p-1"
-                          >
-                            <Trash2 className="w-3.5 h-3.5" />
-                          </button>
-                        </div>
-
-                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                          <input
-                            type="text"
-                            value={reel.title}
-                            placeholder="Title (e.g. Royal Polki Shoot / D2C Store)"
-                            onChange={(e) => {
-                              const updated = [...siteData.production.creativeReels];
-                              updated[idx].title = e.target.value;
-                              setSiteData({ ...siteData, production: { ...siteData.production, creativeReels: updated } });
-                            }}
-                            className="bg-black/60 border border-white/10 rounded p-2 text-xs text-white sm:col-span-2"
-                          />
-                          <input
-                            type="text"
-                            value={reel.niche}
-                            placeholder="Niche (e.g. Jewellery / Fashion)"
-                            onChange={(e) => {
-                              const updated = [...siteData.production.creativeReels];
-                              updated[idx].niche = e.target.value;
-                              setSiteData({ ...siteData, production: { ...siteData.production, creativeReels: updated } });
-                            }}
-                            className="bg-black/60 border border-white/10 rounded p-2 text-xs text-white"
-                          />
-                        </div>
-
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                          <div>
-                            <label className="text-[10px] font-mono-tech text-gray-400 block mb-1">Image / Thumbnail URL</label>
-                            <input
-                              type="text"
-                              value={reel.image}
-                              placeholder="https://... image thumbnail"
-                              onChange={(e) => {
-                                const updated = [...siteData.production.creativeReels];
-                                updated[idx].image = e.target.value;
-                                setSiteData({ ...siteData, production: { ...siteData.production, creativeReels: updated } });
-                              }}
-                              className="w-full bg-black/60 border border-white/10 rounded p-2 text-xs text-white"
-                            />
-                          </div>
-
-                          {(reel.type === "video" || !reel.type) && (
-                            <div>
-                              <label className="text-[10px] font-mono-tech text-[#FF1493] block mb-1">Video MP4 / Reel URL</label>
-                              <input
-                                type="text"
-                                value={reel.videoUrl || ""}
-                                placeholder="https://... mp4 or video link"
-                                onChange={(e) => {
-                                  const updated = [...siteData.production.creativeReels];
-                                  updated[idx].videoUrl = e.target.value;
-                                  setSiteData({ ...siteData, production: { ...siteData.production, creativeReels: updated } });
-                                }}
-                                className="w-full bg-black/60 border border-white/10 rounded p-2 text-xs text-white"
-                              />
-                            </div>
-                          )}
-
-                          {reel.type === "website" && (
-                            <div>
-                              <label className="text-[10px] font-mono-tech text-[#00F0FF] block mb-1">Live Website URL</label>
-                              <input
-                                type="text"
-                                value={reel.websiteUrl || ""}
-                                placeholder="https://example.com"
-                                onChange={(e) => {
-                                  const updated = [...siteData.production.creativeReels];
-                                  updated[idx].websiteUrl = e.target.value;
-                                  setSiteData({ ...siteData, production: { ...siteData.production, creativeReels: updated } });
-                                }}
-                                className="w-full bg-black/60 border border-white/10 rounded p-2 text-xs text-white"
-                              />
-                            </div>
-                          )}
-                        </div>
-
-                        <div className="grid grid-cols-2 gap-2">
-                          <input
-                            type="text"
-                            value={reel.stats}
-                            placeholder="Stats / Results (e.g. 500K Views • 14x ROAS)"
-                            onChange={(e) => {
-                              const updated = [...siteData.production.creativeReels];
-                              updated[idx].stats = e.target.value;
-                              setSiteData({ ...siteData, production: { ...siteData.production, creativeReels: updated } });
-                            }}
-                            className="bg-black/60 border border-white/10 rounded p-2 text-xs text-[#D4FF00]"
-                          />
-                          <input
-                            type="text"
-                            value={reel.duration || ""}
-                            placeholder="Duration or Label (e.g. 0:24 / Live Web App)"
-                            onChange={(e) => {
-                              const updated = [...siteData.production.creativeReels];
-                              updated[idx].duration = e.target.value;
-                              setSiteData({ ...siteData, production: { ...siteData.production, creativeReels: updated } });
-                            }}
-                            className="bg-black/60 border border-white/10 rounded p-2 text-xs text-gray-300"
-                          />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* TAB 5: Marketing Services */}
+          {/* TAB 4: Marketing Services */}
           {activeTab === "marketing" && (
             <div className="space-y-6">
               <div>
