@@ -27,7 +27,6 @@ export const Navbar: React.FC<NavbarProps> = ({ config, onOpenProposal }) => {
   const navLinks = [
     { label: "Home", href: "/#hero" },
     { label: "Services", href: "/#services" },
-    { label: "Production", href: "/#production" },
     { label: "About Me", href: "/#about" },
     { label: "Testimonials", href: "/#testimonials" },
     { label: "Contact", href: "/#contact" },

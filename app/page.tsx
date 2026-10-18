@@ -10,7 +10,6 @@ import { Navbar } from "@/components/Navbar";
 import { HeroSection } from "@/components/HeroSection";
 import { EcosystemSwitcher } from "@/components/EcosystemSwitcher";
 import { ServicesShowcase } from "@/components/ServicesShowcase";
-import { ProductionShowcase } from "@/components/ProductionShowcase";
 import { AboutFounderSection } from "@/components/AboutFounderSection";
 import { TestimonialsSection } from "@/components/TestimonialsSection";
 import { OutroLaserSection } from "@/components/OutroLaserSection";
@@ -74,31 +73,28 @@ export default function HomePage() {
         config={siteData.config}
       />
 
-      {/* 5. In-House Production & Creative Reels */}
-      <ProductionShowcase production={siteData.production} />
-
-      {/* 6. About Founder & Industries Served */}
+      {/* 5. About Founder & Industries Served */}
       <AboutFounderSection config={siteData.config} about={siteData.about} />
 
-      {/* 7. Client Testimonials & Social Proof */}
+      {/* 6. Client Testimonials & Social Proof */}
       <TestimonialsSection testimonials={siteData.testimonials} />
 
-      {/* 8. Animated Office Location & Radar Google Map (Lazy loaded) */}
+      {/* 7. Animated Office Location & Radar Google Map (Lazy loaded) */}
       <AnimatedOfficeMap config={siteData.config} />
 
-      {/* 9. Stylized Circuit Outro with SHREY Display Typography */}
+      {/* 8. Stylized Circuit Outro with SHREY Display Typography */}
       <OutroLaserSection config={siteData.config} outro={siteData.outro} />
 
-      {/* 10. Footer & Local SEO Hub */}
+      {/* 9. Footer & Local SEO Hub */}
       <Footer config={siteData.config} />
 
-      {/* 11. Clean Floating WhatsApp Trigger */}
+      {/* 10. Clean Floating WhatsApp Trigger */}
       <Interactive3DBot config={siteData.config} botConfig={siteData.bots} />
 
-      {/* 12. Dynamic Instagram Offer Pop-up Modal (Lazy loaded) */}
+      {/* 11. Dynamic Instagram Offer Pop-up Modal (Lazy loaded) */}
       <InstagramOfferModal config={siteData.config} offer={siteData.offer} />
 
-      {/* 13. Interactive Multi-Step Proposal Builder Modal (Lazy loaded) */}
+      {/* 12. Interactive Multi-Step Proposal Builder Modal (Lazy loaded) */}
       <ProposalBuilderModal
         isOpen={isProposalOpen}
         onClose={() => setIsProposalOpen(false)}
