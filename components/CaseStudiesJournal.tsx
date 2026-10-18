@@ -32,7 +32,7 @@ export const CaseStudiesJournal: React.FC<CaseStudiesJournalProps> = ({ caseStud
             <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 px-3.5 py-1.5 rounded-full mb-3">
               <Bookmark className="w-3.5 h-3.5 text-[#D4FF00]" />
               <span className="text-xs font-mono-tech uppercase text-gray-300">
-                Verified Client Journal • 3+ Years Record
+                Verified Client Journal • 2+ Years Record
               </span>
             </div>
             <h2 className="font-syne text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
