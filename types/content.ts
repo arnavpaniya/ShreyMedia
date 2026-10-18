@@ -72,27 +72,6 @@ export interface AboutSectionData {
   ctaText: string;
 }
 
-export interface ShowcaseReelItem {
-  id: number | string;
-  type?: 'video' | 'image' | 'website';
-  title: string;
-  niche: string;
-  duration?: string;
-  image: string;
-  videoUrl?: string;
-  websiteUrl?: string;
-  stats: string;
-}
-
-export interface ProductionSectionData {
-  eyebrow: string;
-  headlineMain: string;
-  headlineAccent: string;
-  badgePills: string[];
-  handwrittenNote: string;
-  creativeReels: ShowcaseReelItem[];
-}
-
 export interface OutroSectionData {
   topTagline: string;
   pipelineKeywords: string[];
@@ -191,7 +170,6 @@ export interface CompleteSiteData {
   config: SiteConfig;
   hero: HeroSectionData;
   about: AboutSectionData;
-  production: ProductionSectionData;
   marketingServices: ServiceItem[];
   techServices: ServiceItem[];
   industries: IndustryItem[];
