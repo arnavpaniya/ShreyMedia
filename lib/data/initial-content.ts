@@ -6,7 +6,7 @@ export const initialSiteData: CompleteSiteData = {
     tagline: "Digital Marketing & Technology Agency",
     founderName: "Shreyansh Malpani",
     businessType: "Digital Marketing & Technology Agency",
-    experienceYears: "3+ Years",
+    experienceYears: "2+ Years",
     clientsCount: "80+ Clients",
     primaryMarket: "Delhi & Jaipur, India",
     phone: "9001590181",
@@ -85,7 +85,7 @@ export const initialSiteData: CompleteSiteData = {
       {
         icon: "Trophy",
         label: "Real Results",
-        sublabel: "3+ Years Proven Track",
+        sublabel: "2+ Years Proven Track",
       },
     ],
     floatingStats: [
@@ -535,8 +535,8 @@ export const initialSiteData: CompleteSiteData = {
     eyebrow: "About The Agency & Founder",
     headline: "Scaling Delhi & Jaipur Brands Through Performance & Technology",
     bioParagraph1: "Founded by Shreyansh Malpani, Shrey Media operates actively across Delhi and Jaipur with a singular vision: to bridge the gap between creative storytelling, high-ROAS performance marketing, and software engineering.",
-    bioParagraph2: "Over the past 3+ years, we have partnered with 80+ clients to build custom customer acquisition funnels, studio creative content, and automated CRM systems under one unified ecosystem.",
-    experienceYears: "3+ Years",
+    bioParagraph2: "Over the past 2+ years, we have partnered with 80+ clients to build custom customer acquisition funnels, studio creative content, and automated CRM systems under one unified ecosystem.",
+    experienceYears: "2+ Years",
     experienceLabel: "Proven Experience",
     businessesScaled: "80+",
     businessesLabel: "Clients Scaled",
